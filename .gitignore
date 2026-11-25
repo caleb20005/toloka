@@ -1,0 +1,22 @@
+# Local credentials and environment files
+.env
+.env.*
+!.env.*.example
+
+# Installed dependencies and build/runtime output
+node_modules/
+**/node_modules/
+dist/
+build/
+coverage/
+
+# Local databases and logs
+*.db
+*.sqlite
+*.sqlite3
+*.log
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+.vscode/
