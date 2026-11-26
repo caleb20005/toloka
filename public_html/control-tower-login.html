@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Control Tower sign in · Toloka</title>
+  <link rel="stylesheet" href="site-system.css">
+  <link rel="stylesheet" href="shared-brand.css?v=20260921">
+  <style>
+    body{min-height:100vh;display:grid;place-items:center;padding:24px;background:#f5f4ef;color:#171717;font-family:Manrope,Arial,sans-serif}
+    .card{width:min(100%,440px);padding:38px;background:#fff;border:1px solid #d6d6d0;box-shadow:0 18px 50px #17171718}
+    .eyebrow{font:500 11px monospace;letter-spacing:.1em;color:#62625e}.brand{font-size:27px;font-weight:800}
+    .field{display:grid;gap:7px;margin-top:18px}.field input{padding:13px;border:1px solid #bdbdb7;background:#fff;color:#171717;font:inherit}
+    .submit{width:100%;margin-top:24px;padding:14px;border:0;background:#171717;color:#fff;font:700 14px inherit;cursor:pointer}
+    .message{min-height:20px;color:#b42318;margin:14px 0 0;font-size:13px}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <a class="brand" href="landing.html" aria-label="Toloka home"><span class="brand-mark"><i></i><i></i></span><span>toloka</span></a><p class="eyebrow">CONTROL TOWER</p>
+    <h1>Operator sign in</h1>
+    <p>Use an approved Control Tower account to view payment, registration, withdrawal, and referral reports.</p>
+    <form id="form">
+      <label class="field">Phone number<input id="phone" inputmode="numeric" autocomplete="username" required></label>
+      <label class="field">Password<input id="password" type="password" autocomplete="current-password" required></label>
+      <button class="submit">Sign in to Control Tower</button><p class="message" id="message"></p>
+    </form>
+  </main>
+  <script>
+    document.querySelector('#form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const message = document.querySelector('#message');
+      const phoneInput = document.querySelector('#phone');
+      const passwordInput = document.querySelector('#password');
+      message.textContent = '';
+      const response = await fetch('/api/control-tower/login', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: phoneInput.value.trim(), password: passwordInput.value })
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) { message.textContent = data.message || 'Unable to sign in.'; return; }
+      localStorage.setItem('token', data.token); localStorage.setItem('userId', data.userId); localStorage.setItem('userPhone', data.phone);
+      location.href = new URLSearchParams(location.search).get('returnTo') || data.redirectTo || 'collector.html';
+    });
+  </script>
+</body>
+</html>

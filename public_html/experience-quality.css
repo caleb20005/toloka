@@ -1,0 +1,207 @@
+/*
+ * Shared quality layer for the public Toloka experience and contributor pages.
+ * It is intentionally visual-only: routes, forms, payments, task state and
+ * Control Tower behaviour remain owned by their existing scripts.
+ */
+
+:root {
+  --experience-ink: #171a24;
+  --experience-muted: #50596b;
+  --experience-line: rgba(23, 26, 36, .14);
+  --experience-focus: #0808ee;
+  --experience-paper: #f7f7f5;
+  --experience-radius: 14px;
+}
+
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body:not(.control-tower-page) {
+  overflow-x: clip;
+}
+
+:where(img, picture, video, canvas, svg) {
+  display: block;
+  max-inline-size: 100%;
+}
+
+:where(img, video) {
+  image-rendering: auto;
+}
+
+:where(a, button, input, textarea, select, summary):focus-visible {
+  outline: 3px solid var(--experience-focus) !important;
+  outline-offset: 3px;
+}
+
+:where(button, [role="button"], input, select, textarea, summary) {
+  touch-action: manipulation;
+}
+
+/* Public marketing pages: retain the editorial landing treatment on every
+   destination, without the long-link underline or fragile fixed widths. */
+body.toloka-benchmark,
+body.physical-page,
+body.arena-page {
+  color: var(--experience-ink);
+}
+
+.shared-marketing-nav,
+.site-header,
+.physical-nav,
+.arena-nav {
+  isolation: isolate;
+}
+
+.shared-marketing-nav :is(a, button),
+.site-header :is(a, button),
+.physical-nav :is(a, button),
+.arena-nav :is(a, button) {
+  min-height: 40px;
+}
+
+.shared-marketing-nav .marketing-desktop > a,
+.site-header .desktop-nav > a {
+  position: relative;
+  border-bottom: 0 !important;
+  text-decoration: none !important;
+}
+
+.shared-marketing-nav .marketing-desktop > a::after,
+.site-header .desktop-nav > a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 9px;
+  left: 0;
+  height: 2px;
+  background: #0808ee;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .2s ease;
+}
+
+.shared-marketing-nav .marketing-desktop > a:hover::after,
+.shared-marketing-nav .marketing-desktop > a.active::after,
+.site-header .desktop-nav > a:hover::after,
+.site-header .desktop-nav > a.active::after {
+  transform: scaleX(1);
+}
+
+body.toloka-benchmark :is(.hero h1, .section-heading h2, .network h2, .cta h2),
+body.physical-page :is(h1, h2),
+body.arena-page :is(h1, h2) {
+  text-wrap: balance;
+}
+
+/* Contributor workspace: one quiet paper surface, readable form controls,
+   and measured elevation.  Collector pages do not load this file. */
+.link-workspace {
+  background: var(--ws-page, var(--experience-paper));
+  color: var(--ws-text, var(--experience-ink));
+}
+
+.link-workspace main {
+  min-inline-size: 0;
+}
+
+.link-workspace :where(section, article, .card, .panel, .table-container,
+  .data-section, .form-card, .payment-box, .modal-content, .task-category) {
+  min-inline-size: 0;
+}
+
+.link-workspace :where(h1, h2, h3, .title, .heading) {
+  color: var(--ws-text, var(--experience-ink)) !important;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.link-workspace :where(p, li, td, th, small, label, .subtitle, .description,
+  .helper-text, .muted, .payment-label, .proof-label, .section-kicker,
+  .eyebrow, .table-note, .empty-state) {
+  overflow-wrap: anywhere;
+}
+
+.link-workspace :where(input, textarea, select) {
+  min-height: 46px;
+  color: var(--ws-text, var(--experience-ink)) !important;
+  -webkit-text-fill-color: var(--ws-text, var(--experience-ink)) !important;
+  background-color: var(--ws-surface, #fff) !important;
+}
+
+.link-workspace textarea {
+  min-height: 112px;
+  resize: vertical;
+}
+
+.link-workspace :where(input, textarea, select)::placeholder {
+  color: var(--ws-subtle, #667085) !important;
+  -webkit-text-fill-color: var(--ws-subtle, #667085) !important;
+  opacity: 1;
+}
+
+.link-workspace :where(button, .btn, .button, .buy-btn, .work-btn,
+  .hero-action, .submit-btn, .withdraw-btn, .loan-btn, .savings-btn) {
+  min-height: 44px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link-workspace :where(.card, .balance-card, .summary-card, .stat-card,
+    .info-card, .history-card, .withdrawal-card, .loan-card, .savings-card,
+    .testimonial-card, .tier-card, .wallet-action) {
+    transition: transform .18s ease, border-color .18s ease,
+      box-shadow .18s ease !important;
+  }
+
+  .link-workspace :where(.card, .balance-card, .summary-card, .stat-card,
+    .info-card, .history-card, .withdrawal-card, .loan-card, .savings-card,
+    .testimonial-card, .tier-card, .wallet-action):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(24, 32, 54, .10) !important;
+  }
+}
+
+@media (min-width: 761px) {
+  .link-workspace :where(.card, .balance-card, .summary-card, .stat-card,
+    .info-card, .form-card, .history-card, .withdrawal-card, .loan-card,
+    .savings-card, .testimonial-card, .table-container, .data-section,
+    .user-card, .panel, .calculator, .tier-card, .payment-box) {
+    border-radius: var(--experience-radius) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .link-workspace main {
+    padding-inline: max(16px, env(safe-area-inset-left)) !important;
+    padding-right: max(16px, env(safe-area-inset-right)) !important;
+  }
+
+  .link-workspace :where(.card, .balance-card, .summary-card, .stat-card,
+    .info-card, .form-card, .history-card, .withdrawal-card, .loan-card,
+    .savings-card, .testimonial-card, .table-container, .data-section,
+    .user-card, .panel, .calculator, .tier-card, .payment-box) {
+    padding: 18px !important;
+    border-radius: 12px !important;
+  }
+
+  .link-workspace :where(table) {
+    min-inline-size: 100%;
+  }
+
+  .link-workspace :where(.nav-links, .dropdown-menu) {
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

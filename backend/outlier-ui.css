@@ -1,0 +1,3710 @@
+:root {
+  --outlier-page: #f6f1e8;
+  --outlier-paper: #fffaf1;
+  --outlier-paper-strong: #fcf7eb;
+  --outlier-ink: #101010;
+  --outlier-ink-strong: #171717;
+  --outlier-muted: #5d584f;
+  --outlier-muted-strong: #433d35;
+  --outlier-line: #ded6c8;
+  --outlier-dark: #151515;
+  --outlier-accent: #c7ff46;
+  --outlier-gold: #f0d36a;
+  --outlier-red: #b42318;
+}
+
+* {
+  letter-spacing: 0 !important;
+}
+
+body {
+  background: var(--outlier-page) !important;
+  color: var(--outlier-ink) !important;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  line-height: 1.6 !important;
+  -webkit-font-smoothing: antialiased !important;
+  text-rendering: optimizeLegibility !important;
+}
+
+body[data-theme="dark"] {
+  background: #070b14 !important;
+  color: #f8fafc !important;
+}
+
+body::selection {
+  background: var(--outlier-accent);
+  color: var(--outlier-ink);
+}
+
+body:not([data-theme="dark"]) a {
+  color: var(--outlier-ink-strong) !important;
+}
+
+body:not([data-theme="dark"]) a:hover,
+body:not([data-theme="dark"]) a:focus-visible {
+  color: var(--outlier-red) !important;
+}
+
+body:not([data-theme="dark"]) input::placeholder,
+body:not([data-theme="dark"]) textarea::placeholder,
+body:not([data-theme="dark"]) select::placeholder {
+  color: #7a7368 !important;
+  opacity: 1 !important;
+}
+
+header,
+.topbar {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 64px !important;
+  position: sticky !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 0 !important;
+  transform: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 1rem !important;
+  padding: 0.75rem var(--space-16, 16px) !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(16, 16, 16, 0.1) !important;
+  border-radius: 0 !important;
+  background: rgba(255, 250, 241, 0.95) !important;
+  box-shadow: 0 1px 3px rgba(33, 28, 20, 0.08) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  z-index: 1000 !important;
+}
+
+body[data-theme="dark"] header,
+body[data-theme="dark"] .topbar {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  background: rgba(7, 11, 20, 0.82) !important;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28) !important;
+}
+
+.topbar {
+  margin: 18px auto 0 !important;
+}
+
+.logo,
+.brand,
+.topbar h1,
+header h1 {
+  color: var(--outlier-ink) !important;
+  font-weight: 850 !important;
+}
+
+body[data-theme="dark"] .logo,
+body[data-theme="dark"] .brand,
+body[data-theme="dark"] .topbar h1,
+body[data-theme="dark"] header h1 {
+  color: #f8fafc !important;
+}
+
+.logo {
+  margin: 0 !important;
+  font-size: 1.05rem !important;
+  white-space: nowrap !important;
+}
+
+nav {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+
+.nav-left,
+.nav-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+  min-width: 0 !important;
+}
+
+.nav-right {
+  justify-content: flex-end !important;
+}
+
+.nav-links {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+  gap: 0.2rem !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.nav-links li,
+.dropdown {
+  position: relative !important;
+  flex: 0 0 auto !important;
+}
+
+.nav-links a,
+.dropdown-content a,
+.dropbtn,
+.dropdown-toggle {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 44px !important;
+  padding: 0.65rem 0.85rem !important;
+  color: var(--outlier-ink) !important;
+  border-radius: 4px !important;
+  font-weight: 750 !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+}
+
+body[data-theme="dark"] .nav-links a,
+body[data-theme="dark"] .dropdown-content a,
+body[data-theme="dark"] .dropbtn,
+body[data-theme="dark"] .dropdown-toggle {
+  color: #f8fafc !important;
+}
+
+.nav-links a.active,
+.nav-links a:hover,
+.dropbtn:hover,
+.dropdown-toggle:hover {
+  background: var(--outlier-ink) !important;
+  color: var(--outlier-paper) !important;
+}
+
+body[data-theme="dark"] .nav-links a.active,
+body[data-theme="dark"] .nav-links a:hover,
+body[data-theme="dark"] .dropbtn:hover,
+body[data-theme="dark"] .dropdown-toggle:hover {
+  background: #2df8a8 !important;
+  color: #07111f !important;
+}
+
+.dropdown-menu,
+.dropdown-content {
+  top: calc(100% + 8px) !important;
+  left: auto !important;
+  right: 0 !important;
+  min-width: 190px !important;
+  padding: 0.35rem !important;
+  border: 1px solid var(--outlier-line) !important;
+  border-radius: 4px !important;
+  background: var(--outlier-paper) !important;
+  box-shadow: 0 18px 45px rgba(33, 28, 20, 0.12) !important;
+  overflow: hidden !important;
+  z-index: 1001 !important;
+}
+
+body[data-theme="dark"] .dropdown-menu,
+body[data-theme="dark"] .dropdown-content {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  background: rgba(15, 23, 42, 0.96) !important;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35) !important;
+}
+
+.dropdown.open .dropdown-menu,
+.dropdown.open .dropdown-content,
+.dropdown.active .dropdown-menu,
+.dropdown.active .dropdown-content {
+  display: block !important;
+}
+
+.dropdown-menu a,
+.dropdown-content a {
+  width: 100% !important;
+  justify-content: flex-start !important;
+  border-radius: 4px !important;
+}
+
+.menu-toggle {
+  display: inline-flex !important;
+  color: inherit !important;
+}
+
+section,
+.container,
+.control-tower-main,
+.main-container,
+.history-container,
+.table-container,
+.referral-link-section,
+.withdrawal-section,
+.details-card,
+.admin-section,
+.users-section,
+.user-details-section,
+.data-section {
+  width: min(1180px, calc(100% - 32px)) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.control-tower-main {
+  width: min(1180px, calc(100% - 32px)) !important;
+  margin: 2rem auto 4rem !important;
+}
+
+section {
+  padding-top: 112px !important;
+  padding-bottom: 2rem !important;
+}
+
+body * {
+  box-sizing: border-box !important;
+}
+
+body form,
+body .loan-form,
+body .auth-form {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.9rem !important;
+}
+
+body label,
+body .field-label,
+body .input-group label {
+  display: block !important;
+  margin-bottom: 0.4rem !important;
+  font-weight: 700 !important;
+}
+
+body .card,
+body .tier-card,
+body .stat-card,
+body .table-container,
+body .referral-link-section,
+body .withdrawal-section,
+body .details-card,
+body .progress-container,
+body .admin-section,
+body .users-section,
+body .user-details-section,
+body .data-section,
+body .management-card,
+body .user-card,
+body .loan-card,
+body .output-container,
+body .testimonial-card,
+body .testimonial,
+body form {
+  padding: clamp(1.1rem, 2.2vw, 1.5rem) !important;
+}
+
+section>h1,
+section>h2,
+.section-header h2,
+.table-container h2,
+.details-card h3,
+.card h2,
+.withdrawal-section h3 {
+  color: var(--outlier-ink) !important;
+  font-size: clamp(2rem, 5vw, 4.8rem) !important;
+  line-height: 0.98 !important;
+  font-weight: 850 !important;
+}
+
+.hero,
+.page-header,
+.section-header,
+.loan-header,
+.savings-header,
+.referral-header,
+.withdrawal-header,
+.total-earned {
+  color: var(--outlier-ink) !important;
+}
+
+body[data-theme="dark"] .hero,
+body[data-theme="dark"] .page-header,
+body[data-theme="dark"] .section-header,
+body[data-theme="dark"] .loan-header,
+body[data-theme="dark"] .savings-header,
+body[data-theme="dark"] .referral-header,
+body[data-theme="dark"] .withdrawal-header,
+body[data-theme="dark"] .total-earned {
+  color: #f8fafc !important;
+}
+
+body:not([data-theme="dark"]) .hero p,
+body:not([data-theme="dark"]) .page-header p,
+body:not([data-theme="dark"]) .section-header p,
+body:not([data-theme="dark"]) .loan-header p,
+body:not([data-theme="dark"]) .savings-header p,
+body:not([data-theme="dark"]) .referral-header p,
+body:not([data-theme="dark"]) .withdrawal-header p {
+  color: var(--outlier-muted) !important;
+}
+
+body:not([data-theme="dark"]) .section-subtitle,
+body:not([data-theme="dark"]) .subtitle,
+body:not([data-theme="dark"]) p,
+body:not([data-theme="dark"]) label,
+body:not([data-theme="dark"]) .footer-text {
+  color: var(--outlier-muted-strong) !important;
+}
+
+body:not([data-theme="dark"]) .card,
+body:not([data-theme="dark"]) .tier-card,
+body:not([data-theme="dark"]) .stat-card,
+body:not([data-theme="dark"]) .table-container,
+body:not([data-theme="dark"]) .referral-link-section,
+body:not([data-theme="dark"]) .withdrawal-section,
+body:not([data-theme="dark"]) .details-card,
+body:not([data-theme="dark"]) .progress-container,
+body:not([data-theme="dark"]) .admin-section,
+body:not([data-theme="dark"]) .users-section,
+body:not([data-theme="dark"]) .user-details-section,
+body:not([data-theme="dark"]) .data-section,
+body:not([data-theme="dark"]) .management-card,
+body:not([data-theme="dark"]) .user-card,
+body:not([data-theme="dark"]) .loan-card,
+body:not([data-theme="dark"]) .output-container,
+body:not([data-theme="dark"]) .testimonial-card,
+body:not([data-theme="dark"]) .testimonial,
+body:not([data-theme="dark"]) form {
+  border: 1px solid var(--outlier-line) !important;
+  border-radius: 4px !important;
+  background: var(--outlier-paper) !important;
+  box-shadow: none !important;
+  color: var(--outlier-ink) !important;
+}
+
+body[data-theme="dark"] .card,
+body[data-theme="dark"] .tier-card,
+body[data-theme="dark"] .stat-card,
+body[data-theme="dark"] .table-container,
+body[data-theme="dark"] .referral-link-section,
+body[data-theme="dark"] .withdrawal-section,
+body[data-theme="dark"] .details-card,
+body[data-theme="dark"] .progress-container,
+body[data-theme="dark"] .admin-section,
+body[data-theme="dark"] .users-section,
+body[data-theme="dark"] .user-details-section,
+body[data-theme="dark"] .data-section,
+body[data-theme="dark"] .management-card,
+body[data-theme="dark"] .user-card,
+body[data-theme="dark"] .loan-card,
+body[data-theme="dark"] .output-container,
+body[data-theme="dark"] .testimonial-card,
+body[data-theme="dark"] .testimonial,
+body[data-theme="dark"] form {
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 4px !important;
+  background: rgba(15, 23, 42, 0.9) !important;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.3) !important;
+  color: #f8fafc !important;
+}
+
+.card *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+.tier-card *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+.stat-card *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+.table-container *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+.referral-link-section *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+.withdrawal-section *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+.details-card *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+.progress-container *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+.admin-section *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+.users-section *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+.user-details-section *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+.data-section *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+.management-card *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+.user-card *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+.loan-card *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+.output-container *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+.testimonial-card *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+.testimonial *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+form *:not(button):not(.btn):not(.button):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon) {
+  color: var(--outlier-ink) !important;
+}
+
+.card p,
+.tier-card p,
+.stat-card p,
+.table-container p,
+.referral-link-section p,
+.withdrawal-section p,
+.details-card p,
+.progress-container p,
+.admin-section p,
+.users-section p,
+.user-details-section p,
+.data-section p,
+.management-card p,
+.user-card p,
+.loan-card p,
+.output-container p,
+.testimonial-card p,
+.testimonial p,
+.subtitle,
+.section-subtitle,
+.helper-text,
+.meta,
+small {
+  color: var(--outlier-muted) !important;
+}
+
+.card:hover,
+.tier-card:hover,
+.user-card:hover,
+.loan-card:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 18px 45px rgba(33, 28, 20, 0.08) !important;
+}
+
+button,
+.btn,
+.apply-btn,
+.start-btn,
+.savings-btn,
+.copy-btn,
+.filter-btn,
+.clear-btn,
+.page-btn,
+.export-btn,
+.back-button,
+.back-to-users,
+.add-btn,
+.remove-btn,
+.timer-btn,
+input[type="submit"] {
+  min-height: 46px !important;
+  padding: 0.8rem 1.1rem !important;
+  border-radius: 4px !important;
+  border: 1px solid var(--outlier-ink) !important;
+  background: var(--outlier-ink) !important;
+  color: var(--outlier-paper) !important;
+  font-size: 0.95rem !important;
+  font-weight: 850 !important;
+  line-height: 1.2 !important;
+  box-shadow: none !important;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+button *,
+.btn *,
+.apply-btn *,
+.start-btn *,
+.savings-btn *,
+.copy-btn *,
+.filter-btn *,
+.clear-btn *,
+.page-btn *,
+.export-btn *,
+.back-button *,
+.back-to-users *,
+.add-btn *,
+.remove-btn *,
+.timer-btn * {
+  color: inherit !important;
+}
+
+button:hover:not(:disabled),
+.btn:hover,
+.apply-btn:hover,
+.start-btn:hover,
+.savings-btn:hover,
+.copy-btn:hover,
+.filter-btn:hover,
+.clear-btn:hover,
+.export-btn:hover,
+.back-button:hover {
+  background: #34302a !important;
+  transform: translateY(-1px) !important;
+}
+
+button:disabled,
+.page-btn:disabled {
+  border-color: #d6cec0 !important;
+  background: #d6cec0 !important;
+  color: #6b6257 !important;
+}
+
+.btn-danger,
+.clear-btn,
+.remove-btn {
+  border-color: var(--outlier-red) !important;
+  background: var(--outlier-red) !important;
+}
+
+.btn-success {
+  border-color: var(--outlier-accent) !important;
+  background: var(--outlier-accent) !important;
+  color: var(--outlier-ink) !important;
+}
+
+.btn-secondary {
+  background: transparent !important;
+  color: var(--outlier-ink) !important;
+}
+
+input,
+select,
+textarea {
+  width: 100% !important;
+  padding: 0.85rem 1rem !important;
+  border: 1px solid var(--outlier-line) !important;
+  border-radius: 4px !important;
+  background: #fffdf7 !important;
+  color: var(--outlier-ink) !important;
+  box-shadow: none !important;
+  font-size: 0.95rem !important;
+}
+
+body[data-theme="dark"] input,
+body[data-theme="dark"] select,
+body[data-theme="dark"] textarea {
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  background: rgba(15, 23, 42, 0.92) !important;
+  color: #f8fafc !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid var(--outlier-accent) !important;
+  outline-offset: 2px !important;
+  border-color: var(--outlier-accent) !important;
+}
+
+table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  color: var(--outlier-ink) !important;
+}
+
+th {
+  background: var(--outlier-dark) !important;
+  color: var(--outlier-paper) !important;
+  padding: 0.9rem 1rem !important;
+}
+
+td {
+  padding: 0.9rem 1rem !important;
+}
+
+th * {
+  color: var(--outlier-paper) !important;
+}
+
+td {
+  border-bottom: 1px solid var(--outlier-line) !important;
+}
+
+body:not([data-theme="dark"]) .stats-badge,
+body:not([data-theme="dark"]) .badge,
+body:not([data-theme="dark"]) .status-badge,
+body:not([data-theme="dark"]) .referral-code,
+body:not([data-theme="dark"]) .current-balance,
+body:not([data-theme="dark"]) .balance-display,
+body:not([data-theme="dark"]) .selected-tier,
+body:not([data-theme="dark"]) .payment-box,
+body:not([data-theme="dark"]) .info-box,
+body:not([data-theme="dark"]) .warning-box,
+body:not([data-theme="dark"]) .success-message,
+body:not([data-theme="dark"]) .error-message {
+  border: 1px solid var(--outlier-line) !important;
+  border-radius: 4px !important;
+  background: var(--outlier-paper-strong) !important;
+  color: var(--outlier-ink) !important;
+}
+
+.stats-badge *,
+.badge *,
+.status-badge *,
+.referral-code *,
+.current-balance *,
+.balance-display *,
+.selected-tier *,
+.payment-box *,
+.info-box *,
+.warning-box *,
+.success-message *,
+.error-message * {
+  color: var(--outlier-ink) !important;
+}
+
+.section-icon,
+.card-icon,
+.icon {
+  border-radius: 50% !important;
+  background: var(--outlier-dark) !important;
+  color: var(--outlier-accent) !important;
+}
+
+.metric-tile.dark,
+.expert-tile,
+.total-earned,
+.toast.is-dark,
+[style*="background: #101010"],
+[style*="background:#101010"],
+[style*="background: #151515"],
+[style*="background:#151515"],
+[style*="background: #1f2937"],
+[style*="background:#1f2937"],
+[style*="background: var(--dark)"],
+[style*="background:var(--dark)"],
+[style*="background: var(--outlier-dark)"],
+[style*="background:var(--outlier-dark)"] {
+  color: var(--outlier-paper) !important;
+}
+
+.metric-tile.dark *,
+.expert-tile *,
+.total-earned *,
+.toast.is-dark *,
+[style*="background: #101010"] *,
+[style*="background:#101010"] *,
+[style*="background: #151515"] *,
+[style*="background:#151515"] *,
+[style*="background: #1f2937"] *,
+[style*="background:#1f2937"] *,
+[style*="background: var(--dark)"] *,
+[style*="background:var(--dark)"] *,
+[style*="background: var(--outlier-dark)"] *,
+[style*="background:var(--outlier-dark)"] * {
+  color: inherit !important;
+}
+
+.metric-tile.dark,
+.metric-tile.dark .metric-number,
+.metric-tile.dark .metric-label {
+  color: var(--outlier-paper) !important;
+}
+
+html:not([data-theme="light"]) .metric-tile.dark {
+  background: #0b1020 !important;
+}
+
+.total-earned,
+.total-earned span:first-child {
+  color: rgba(255, 250, 241, 0.78) !important;
+}
+
+.total-earned #totalAmount {
+  color: var(--outlier-accent) !important;
+}
+
+.section-icon *,
+.card-icon *,
+.icon *,
+.modal-icon * {
+  color: inherit !important;
+}
+
+footer {
+  width: min(1180px, calc(100% - 32px)) !important;
+  margin: 3rem auto 1rem !important;
+  padding: 1.25rem 1.3rem !important;
+  border-radius: 4px !important;
+  background: var(--outlier-dark) !important;
+  color: var(--outlier-paper) !important;
+}
+
+:where(button,
+  [type="button"],
+  [type="submit"],
+  .btn,
+  .buy-btn,
+  .work-btn,
+  .hero-action,
+  .copy-btn,
+  .filter-btn,
+  .clear-btn,
+  .page-btn,
+  .export-btn,
+  .start-btn,
+  .savings-btn,
+  .back-button,
+  .back-to-users,
+  .add-btn,
+  .remove-btn,
+  .timer-btn,
+  .menu-toggle,
+  .btn-primary,
+  .btn-secondary,
+  .btn-danger,
+  .btn-success,
+  .btn-stop) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.45rem !important;
+  min-height: 46px !important;
+  padding: 0.8rem 1.1rem !important;
+  border-radius: 4px !important;
+  border: 1px solid transparent !important;
+  background: linear-gradient(135deg, #4338ca 0%, #4f46e5 50%, #6366f1 100%) !important;
+  color: #ffffff !important;
+  font-size: 0.95rem !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  text-decoration: none !important;
+  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.24) !important;
+  cursor: pointer !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease !important;
+}
+
+body[data-theme="dark"] :where(button,
+  [type="button"],
+  [type="submit"],
+  .btn,
+  .buy-btn,
+  .work-btn,
+  .hero-action,
+  .copy-btn,
+  .filter-btn,
+  .clear-btn,
+  .page-btn,
+  .export-btn,
+  .start-btn,
+  .savings-btn,
+  .back-button,
+  .back-to-users,
+  .add-btn,
+  .remove-btn,
+  .timer-btn,
+  .menu-toggle,
+  .btn-primary,
+  .btn-secondary,
+  .btn-danger,
+  .btn-success,
+  .btn-stop) {
+  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 55%, #2563eb 100%) !important;
+  color: #f8fafc !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.24) !important;
+}
+
+:where(.btn-secondary, .hero-action:not(.primary), .filter-btn, .back-button, .back-to-users, .clear-btn, .page-btn, .copy-btn, .menu-toggle) {
+  background: #f8fafc !important;
+  color: #111827 !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08) !important;
+}
+
+body[data-theme="dark"] :where(.btn-secondary, .hero-action:not(.primary), .filter-btn, .back-button, .back-to-users, .clear-btn, .page-btn, .copy-btn, .menu-toggle) {
+  background: rgba(15, 23, 42, 0.92) !important;
+  color: #f8fafc !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  box-shadow: 0 8px 20px rgba(2, 6, 23, 0.3) !important;
+}
+
+:where(.btn-danger, .remove-btn) {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+}
+
+:where(.btn-success, .work-btn:not(.locked):not(:disabled), .buy-btn, .btn-primary, .start-btn, .savings-btn, .export-btn, .add-btn) {
+  background: linear-gradient(135deg, #4338ca 0%, #4f46e5 50%, #6366f1 100%) !important;
+  color: #ffffff !important;
+}
+
+:where(button:disabled, .work-btn.locked, .work-btn:disabled, .page-btn:disabled) {
+  background: #94a3b8 !important;
+  color: #f8fafc !important;
+  border-color: #94a3b8 !important;
+  box-shadow: none !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+:where(button:hover:not(:disabled), .btn:hover:not(:disabled), .buy-btn:hover:not(:disabled), .work-btn:hover:not(:disabled), .hero-action:hover, .copy-btn:hover:not(:disabled), .filter-btn:hover:not(:disabled), .clear-btn:hover:not(:disabled), .page-btn:hover:not(:disabled), .export-btn:hover:not(:disabled), .start-btn:hover:not(:disabled), .savings-btn:hover:not(:disabled), .back-button:hover, .back-to-users:hover:not(:disabled), .add-btn:hover:not(:disabled), .remove-btn:hover:not(:disabled), .timer-btn:hover:not(:disabled), .btn-primary:hover:not(:disabled), .btn-secondary:hover:not(:disabled), .btn-danger:hover:not(:disabled), .btn-success:hover:not(:disabled), .btn-stop:hover:not(:disabled)) {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 14px 28px rgba(79, 70, 229, 0.26) !important;
+}
+
+@media (max-width: 768px) {
+  section {
+    padding-top: 96px !important;
+    padding-bottom: 1.25rem !important;
+  }
+
+  header,
+  .topbar {
+    width: min(100% - 24px, 1180px) !important;
+    padding: 0.75rem 1rem !important;
+  border-radius: 4px !important;
+  }
+
+  button,
+  .btn,
+  .apply-btn,
+  .start-btn,
+  .savings-btn,
+  .copy-btn,
+  .filter-btn,
+  .clear-btn,
+  .page-btn,
+  .export-btn,
+  .back-button,
+  .back-to-users,
+  .add-btn,
+  .remove-btn,
+  .timer-btn,
+  input[type="submit"] {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+
+footer h4,
+footer a:hover {
+  color: var(--outlier-paper) !important;
+}
+
+footer *,
+footer p {
+  color: rgba(255, 250, 241, 0.72) !important;
+}
+
+footer a,
+footer span,
+.footer-bottom {
+  color: rgba(255, 250, 241, 0.62) !important;
+}
+
+.footer-bottom {
+  border-top-color: rgba(255, 250, 241, 0.12) !important;
+}
+
+.toast,
+.modal-content {
+  border: 1px solid var(--outlier-line) !important;
+  border-radius: 4px !important;
+  background: var(--outlier-paper) !important;
+  color: var(--outlier-ink) !important;
+  box-shadow: 0 28px 80px rgba(16, 16, 16, 0.18) !important;
+}
+
+.toast *:not(button):not(.btn):not([class*="btn"]),
+.modal-content *:not(button):not(.btn):not([class*="btn"]) {
+  color: var(--outlier-ink) !important;
+}
+
+.toast.is-dark,
+.toast.is-dark * {
+  color: var(--outlier-paper) !important;
+}
+
+.modal {
+  background: rgba(16, 16, 16, 0.56) !important;
+  backdrop-filter: blur(6px);
+}
+
+@media (max-width: 768px) {
+
+  header,
+  header:not(.topbar),
+  .topbar {
+    top: 12px !important;
+    width: min(100% - 24px, 1180px) !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    border-radius: 26px !important;
+    padding: 0.75rem 1rem !important;
+  }
+
+  header:not(.topbar) nav {
+    flex: 0 0 auto !important;
+  }
+
+  .menu-toggle {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    margin-left: auto !important;
+    border: 1px solid var(--outlier-ink) !important;
+  border-radius: 4px !important;
+    background: transparent !important;
+    color: var(--outlier-ink) !important;
+  }
+
+  .nav-links {
+    display: none !important;
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    padding: 0.5rem !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    border: 1px solid var(--outlier-line) !important;
+  border-radius: 4px !important;
+    background: var(--outlier-paper) !important;
+    box-shadow: 0 18px 45px rgba(33, 28, 20, 0.12) !important;
+  }
+
+  .nav-links.show {
+    display: flex !important;
+  }
+
+  .nav-links li,
+  .nav-links a,
+  .dropdown-toggle {
+    width: 100% !important;
+  }
+
+  .nav-links a,
+  .dropdown-toggle {
+    justify-content: flex-start !important;
+  }
+
+  .dropdown-menu {
+    position: static !important;
+    width: 100% !important;
+    margin-top: 0.35rem !important;
+    box-shadow: none !important;
+  }
+
+  section {
+    padding-top: 104px !important;
+  }
+}
+
+/* Dark enterprise landing theme */
+:root {
+  --outlier-page: #070b14;
+  --outlier-paper: #ffffff;
+  --outlier-ink: #f8fafc;
+  --outlier-muted: #a6b0c3;
+  --outlier-line: rgba(255, 255, 255, 0.12);
+  --outlier-dark: #0b1020;
+  --outlier-accent: #2df8a8;
+  --outlier-gold: #38bdf8;
+}
+
+body {
+  background: #070b14 !important;
+  color: var(--outlier-ink) !important;
+}
+
+header,
+.topbar {
+  border-color: var(--outlier-line) !important;
+  background: rgba(7, 11, 20, 0.84) !important;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28) !important;
+}
+
+.logo,
+.brand,
+.nav-links a,
+.dropbtn,
+.dropdown-toggle,
+.menu-toggle {
+  color: var(--outlier-ink) !important;
+}
+
+.nav-links a.active,
+.nav-links a:hover,
+.dropbtn:hover,
+.dropdown-toggle:hover,
+button,
+.btn,
+.apply-btn,
+.start-btn,
+.savings-btn,
+.copy-btn,
+.filter-btn,
+.clear-btn,
+.page-btn,
+.export-btn,
+.back-button,
+.back-to-users,
+.add-btn,
+.remove-btn,
+.timer-btn,
+input[type="submit"] {
+  border-color: var(--outlier-accent) !important;
+  background: var(--outlier-accent) !important;
+  color: #07111f !important;
+}
+
+.dropdown-menu,
+.dropdown-content,
+.modal-content,
+form {
+  border-color: var(--outlier-line) !important;
+  background: #0f172a !important;
+  color: var(--outlier-ink) !important;
+}
+
+.card,
+.tier-card,
+.stat-card,
+.table-container,
+.referral-link-section,
+.withdrawal-section,
+.details-card,
+.progress-container,
+.admin-section,
+.users-section,
+.user-details-section,
+.data-section,
+.management-card,
+.user-card,
+.loan-card,
+.output-container,
+.testimonial-card,
+.testimonial {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(17, 24, 39, 0.86) !important;
+  color: var(--outlier-ink) !important;
+}
+
+section>h1,
+section>h2,
+.section-header h2,
+.table-container h2,
+.details-card h3,
+.card h2,
+.withdrawal-section h3,
+.hero h1,
+.section-heading h2,
+.card h3,
+.card-price {
+  color: var(--outlier-ink) !important;
+}
+
+.hero p,
+.page-header p,
+.section-header p,
+.loan-header p,
+.savings-header p,
+.referral-header p,
+.withdrawal-header p,
+.section-subtitle,
+.subtitle,
+p,
+label,
+.footer-text,
+.card p,
+.tier-card p,
+.stat-card p,
+.testimonial-card p,
+.testimonial p,
+small {
+  color: var(--outlier-muted) !important;
+}
+
+.section-icon,
+.card-icon,
+.icon,
+.modal-icon {
+  background: rgba(45, 248, 168, 0.1) !important;
+  color: var(--outlier-accent) !important;
+}
+
+.stats-badge,
+.badge,
+.status-badge,
+.referral-code,
+.current-balance,
+.balance-display,
+.selected-tier,
+.payment-box,
+.info-box,
+.warning-box,
+.success-message,
+.error-message,
+.task-timer,
+.instruction {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: var(--outlier-ink) !important;
+}
+
+.total-earned,
+footer {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: #0b1020 !important;
+  color: var(--outlier-paper) !important;
+}
+
+/* Final contrast guardrails for the dark theme */
+body,
+main,
+section,
+.hero,
+.landing-section,
+#tasks {
+  color: #f8fafc !important;
+}
+
+.hero h1,
+.section-heading h2,
+#tasks::before,
+.card h3,
+.card-price,
+.demo-card h3,
+.feature-card h3,
+.testimonial-card h3,
+.step-card h3,
+.faq-list summary,
+.modal-content h3,
+.payment-value,
+.current-deposit-number,
+.captcha-question,
+.captcha-progress,
+.timer,
+.work-type-option,
+.captcha-choice {
+  color: #f8fafc !important;
+}
+
+.hero p,
+.section-heading p,
+.proof-label,
+.card-return,
+.card-price span,
+.demo-card p,
+.feature-card p,
+.testimonial-card p,
+.step-card p,
+.faq-list p,
+.modal-content p,
+.payment-label,
+.deposit-note,
+.form-group label,
+.instruction,
+.instruction strong {
+  color: #cbd5e1 !important;
+}
+
+.metric-tile,
+.metric-tile *,
+.hero .metric-tile,
+.hero .metric-tile * {
+  color: #07111f !important;
+}
+
+.metric-tile.dark,
+.metric-tile.dark *,
+.hero .metric-tile.dark,
+.hero .metric-tile.dark * {
+  color: #ffffff !important;
+}
+
+.hero-action,
+.hero .hero-action {
+  color: #f8fafc !important;
+}
+
+.hero-action.primary,
+.hero .hero-action.primary,
+.buy-btn,
+.btn-primary,
+.work-btn:not(.locked):not(:disabled),
+input[type="submit"] {
+  color: #07111f !important;
+}
+
+.work-btn.locked,
+.work-btn:disabled,
+button:disabled,
+.page-btn:disabled {
+  background: #334155 !important;
+  border-color: #475569 !important;
+  color: #cbd5e1 !important;
+}
+
+input,
+select,
+textarea,
+.form-group input,
+.form-group textarea,
+.form-group select {
+  background: #f8fafc !important;
+  border-color: #94a3b8 !important;
+  color: #0f172a !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #64748b !important;
+}
+
+.work-type-menu,
+.dropdown-menu,
+.dropdown-content,
+.nav-links.show {
+  background: #0f172a !important;
+}
+
+.dropdown-menu a,
+.dropdown-content a,
+.work-type-option,
+.nav-links.show a {
+  color: #f8fafc !important;
+}
+
+.dropdown-menu a:hover,
+.dropdown-content a:hover,
+.work-type-option:hover {
+  background: rgba(45, 248, 168, 0.12) !important;
+  color: #ffffff !important;
+}
+
+.payment-box,
+.captcha-question,
+.task-timer,
+.instruction,
+.captcha-choice {
+  background: rgba(15, 23, 42, 0.96) !important;
+  border-color: rgba(148, 163, 184, 0.28) !important;
+}
+
+.captcha-choice.selected {
+  background: #2df8a8 !important;
+  border-color: #2df8a8 !important;
+  color: #07111f !important;
+}
+
+.proof-item,
+.demo-card,
+.feature-card,
+.testimonial-card,
+.step-card,
+.faq-list details,
+.card {
+  background: #111827 !important;
+}
+
+html:not([data-theme="light"]) .savings-balance,
+html:not([data-theme="light"]) .calculator,
+html:not([data-theme="light"]) .deposit-options,
+html:not([data-theme="light"]) .earning-box,
+html:not([data-theme="light"]) .time-indicator,
+html:not([data-theme="light"]) .rules,
+html:not([data-theme="light"]) .limits,
+html:not([data-theme="light"]) .requirements,
+html:not([data-theme="light"]) .eligibility-check,
+html:not([data-theme="light"]) .note,
+html:not([data-theme="light"]) .stat-box,
+html:not([data-theme="light"]) .referral-link-container,
+html:not([data-theme="light"]) .filters,
+html:not([data-theme="light"]) .history-container,
+html:not([data-theme="light"]) .table-header,
+html:not([data-theme="light"]) .calc-result {
+  background: #111827 !important;
+  border-color: rgba(148, 163, 184, 0.24) !important;
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) .savings-balance *,
+html:not([data-theme="light"]) .calculator *,
+html:not([data-theme="light"]) .deposit-options *,
+html:not([data-theme="light"]) .earning-box *,
+html:not([data-theme="light"]) .time-indicator *,
+html:not([data-theme="light"]) .rules *,
+html:not([data-theme="light"]) .limits *,
+html:not([data-theme="light"]) .requirements *,
+html:not([data-theme="light"]) .eligibility-check *,
+html:not([data-theme="light"]) .note *,
+html:not([data-theme="light"]) .stat-box *,
+html:not([data-theme="light"]) .referral-link-container *,
+html:not([data-theme="light"]) .filters *,
+html:not([data-theme="light"]) .history-container *,
+html:not([data-theme="light"]) .table-header *,
+html:not([data-theme="light"]) .calc-result * {
+  color: inherit !important;
+}
+
+html:not([data-theme="light"]) .tier-badge.basic,
+html:not([data-theme="light"]) .step-icon.completed {
+  background: #22c55e !important;
+  color: #07111f !important;
+}
+
+html:not([data-theme="light"]) .tier-badge.elite {
+  background: #fbbf24 !important;
+  color: #07111f !important;
+}
+
+footer h4 {
+  color: #f8fafc !important;
+}
+
+footer a,
+footer span,
+footer p,
+.footer-bottom {
+  color: #cbd5e1 !important;
+}
+
+footer a:hover {
+  color: #2df8a8 !important;
+}
+
+.toast {
+  background: #0f172a !important;
+  border-color: rgba(45, 248, 168, 0.28) !important;
+  color: #f8fafc !important;
+}
+
+.toast *,
+.modal-content *,
+.payment-box *,
+.captcha-question * {
+  color: inherit;
+}
+
+.toast.error {
+  background: #991b1b !important;
+  color: #ffffff !important;
+}
+
+.toast.warning {
+  background: #92400e !important;
+  color: #ffffff !important;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    background: #0f172a !important;
+    border-color: rgba(148, 163, 184, 0.24) !important;
+  }
+
+  .nav-links a,
+  .dropdown-toggle {
+    color: #f8fafc !important;
+  }
+}
+
+/* Login page contrast lock */
+body.login-page {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(56, 189, 248, 0.18), transparent 34%),
+    radial-gradient(circle at 82% 78%, rgba(139, 92, 246, 0.18), transparent 32%),
+    #070b14 !important;
+  color: #f8fafc !important;
+}
+
+body.login-page::before {
+  color: rgba(248, 250, 252, 0.92) !important;
+  text-shadow: 0 24px 80px rgba(0, 0, 0, 0.34) !important;
+}
+
+body.login-page::after {
+  background: rgba(17, 24, 39, 0.94) !important;
+  border-color: rgba(45, 248, 168, 0.24) !important;
+  color: #f8fafc !important;
+}
+
+body.login-page .login-container {
+  background: rgba(17, 24, 39, 0.94) !important;
+  border: 1px solid rgba(148, 163, 184, 0.22) !important;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.42) !important;
+  color: #f8fafc !important;
+}
+
+body.login-page .login-container::before {
+  background: rgba(45, 248, 168, 0.1) !important;
+  border-color: rgba(45, 248, 168, 0.28) !important;
+  color: #2df8a8 !important;
+}
+
+body.login-page .login-container h2,
+body.login-page .login-container h1,
+body.login-page .toast-title,
+body.login-page .referral-notice p,
+body.login-page .referral-code {
+  color: #f8fafc !important;
+}
+
+body.login-page .input-group label,
+body.login-page .footer-text,
+body.login-page .toast-message {
+  color: #cbd5e1 !important;
+}
+
+body.login-page .input-group input {
+  background: #f8fafc !important;
+  border-color: #94a3b8 !important;
+  color: #0f172a !important;
+}
+
+body.login-page .input-group input::placeholder {
+  color: #64748b !important;
+}
+
+body.login-page .input-group input:focus {
+  border-color: #2df8a8 !important;
+  box-shadow: 0 0 0 3px rgba(45, 248, 168, 0.18) !important;
+}
+
+body.login-page .btn-login {
+  background: #2df8a8 !important;
+  border-color: #2df8a8 !important;
+  color: #07111f !important;
+}
+
+body.login-page .btn-login:hover:not(:disabled) {
+  background: #86efac !important;
+  border-color: #86efac !important;
+  color: #07111f !important;
+}
+
+body.login-page .btn-register {
+  background: transparent !important;
+  border: 1px solid rgba(248, 250, 252, 0.36) !important;
+  color: #f8fafc !important;
+}
+
+body.login-page .btn-register:hover:not(:disabled) {
+  background: rgba(248, 250, 252, 0.1) !important;
+  color: #ffffff !important;
+}
+
+body.login-page button:disabled {
+  background: #334155 !important;
+  border-color: #475569 !important;
+  color: #cbd5e1 !important;
+  opacity: 1 !important;
+}
+
+body.login-page .spinner {
+  border-color: rgba(7, 17, 31, 0.24) !important;
+  border-top-color: #07111f !important;
+}
+
+body.login-page .referral-notice {
+  background: rgba(56, 189, 248, 0.12) !important;
+  border-color: rgba(56, 189, 248, 0.38) !important;
+  color: #f8fafc !important;
+}
+
+body.login-page .referral-code {
+  background: rgba(45, 248, 168, 0.18) !important;
+  border: 1px solid rgba(45, 248, 168, 0.28) !important;
+}
+
+body.login-page .toast {
+  background: #111827 !important;
+  border-color: rgba(148, 163, 184, 0.24) !important;
+  color: #f8fafc !important;
+}
+
+body.login-page .toast-success .toast-icon {
+  background: rgba(45, 248, 168, 0.14) !important;
+  color: #2df8a8 !important;
+}
+
+body.login-page .toast-error .toast-icon {
+  background: rgba(248, 113, 113, 0.16) !important;
+  color: #fca5a5 !important;
+}
+
+body.login-page .toast-warning .toast-icon {
+  background: rgba(251, 191, 36, 0.16) !important;
+  color: #fde68a !important;
+}
+
+body.login-page .toast-close {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: #cbd5e1 !important;
+}
+
+body.login-page .toast-close:hover {
+  color: #ffffff !important;
+}
+
+/* Shared navbar consistency guardrails */
+header,
+header:not(.topbar),
+.topbar {
+  overflow: visible !important;
+}
+
+.nav-links li,
+.dropdown {
+  position: relative !important;
+}
+
+.dropdown-menu,
+.dropdown-content {
+  display: none !important;
+  position: absolute !important;
+  top: calc(100% + 8px) !important;
+  left: auto !important;
+  right: 0 !important;
+}
+
+.dropdown.open .dropdown-menu,
+.dropdown.open .dropdown-content,
+.dropdown.active .dropdown-menu,
+.dropdown.active .dropdown-content,
+.dropdown:hover .dropdown-menu,
+.dropdown:hover .dropdown-content {
+  display: block !important;
+}
+
+.dropdown-toggle.active,
+.dropdown.open>.dropdown-toggle,
+.dropdown.active>.dropdown-toggle {
+  border-color: var(--outlier-accent) !important;
+  background: var(--outlier-accent) !important;
+  color: #07111f !important;
+}
+
+@media (max-width: 768px) {
+
+  .dropdown:hover .dropdown-menu,
+  .dropdown:hover .dropdown-content {
+    display: none !important;
+  }
+
+  .dropdown.open .dropdown-menu,
+  .dropdown.open .dropdown-content,
+  .dropdown.active .dropdown-menu,
+  .dropdown.active .dropdown-content {
+    display: block !important;
+  }
+
+  .dropdown-menu,
+  .dropdown-content {
+    position: static !important;
+    width: 100% !important;
+  }
+}
+
+.theme-toggle {
+  position: fixed !important;
+  top: 18px !important;
+  right: 18px !important;
+  z-index: 5000 !important;
+  width: 58px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  padding: 0 !important;
+  border-radius: 4px !important;
+  border: 1px solid var(--outlier-line) !important;
+  background: var(--outlier-paper) !important;
+  color: var(--outlier-ink) !important;
+  font-size: 0.78rem !important;
+  font-weight: 850 !important;
+  line-height: 1 !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18) !important;
+  cursor: pointer !important;
+}
+
+/* Add responsive table overflow and mobile fixes */
+@media (max-width: 768px) {
+
+  .table-container,
+  .history-container {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .table-container table,
+  .history-table,
+  .referral-table {
+    min-width: max-content !important;
+  }
+
+  .theme-toggle {
+    display: none !important;
+  }
+
+  .modal-content {
+    max-width: calc(100% - 2rem) !important;
+    max-height: 88vh !important;
+    padding: 1.25rem !important;
+  }
+
+  .hero {
+    margin-top: 96px !important;
+  }
+
+  .hero-content {
+    padding: 0 !important;
+  }
+
+  .payment-row {
+    flex-direction: row !important;
+  }
+
+  .modal-buttons {
+    flex-wrap: wrap !important;
+  }
+
+  .modal-buttons button {
+    flex: 1 1 100% !important;
+  }
+
+  section,
+  .container,
+  .main-container,
+  .history-container,
+  .table-container,
+  .referral-link-section,
+  .withdrawal-section,
+  .details-card,
+  .admin-section,
+  .users-section,
+  .user-details-section,
+  .data-section {
+    width: min(100% - 20px, 1180px) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px) !important;
+  background: var(--outlier-accent) !important;
+  border-color: var(--outlier-accent) !important;
+  color: #07111f !important;
+}
+
+html:not([data-theme="light"]) .theme-toggle {
+  background: #0f172a !important;
+  border-color: rgba(148, 163, 184, 0.28) !important;
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) .dropbtn {
+  background: #2df8a8 !important;
+  border-color: #2df8a8 !important;
+  color: #07111f !important;
+}
+
+html:not([data-theme="light"]) .dropbtn:hover,
+html:not([data-theme="light"]) .dropdown.open>.dropbtn,
+html:not([data-theme="light"]) .dropdown.active>.dropbtn {
+  background: #86efac !important;
+  border-color: #86efac !important;
+  color: #07111f !important;
+}
+
+html[data-theme="light"] {
+  --outlier-page: #f6f1e8;
+  --outlier-paper: #fffaf1;
+  --outlier-ink: #101010;
+  --outlier-muted: #65615a;
+  --outlier-line: #ded6c8;
+  --outlier-dark: #151515;
+  --outlier-accent: #c7ff46;
+  --outlier-gold: #f0d36a;
+}
+
+html[data-theme="light"] body,
+html[data-theme="light"] main,
+html[data-theme="light"] section,
+html[data-theme="light"] .hero,
+html[data-theme="light"] .landing-section,
+html[data-theme="light"] #tasks {
+  background: var(--outlier-page) !important;
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] body::before,
+html[data-theme="light"] body.login-page::before,
+html[data-theme="light"] body.login-page::after {
+  background: transparent !important;
+  color: var(--outlier-ink) !important;
+  text-shadow: none !important;
+}
+
+html[data-theme="light"] header,
+html[data-theme="light"] header:not(.topbar),
+html[data-theme="light"] .topbar {
+  border-color: rgba(16, 16, 16, 0.1) !important;
+  background: rgba(255, 250, 241, 0.92) !important;
+  box-shadow: 0 18px 45px rgba(33, 28, 20, 0.08) !important;
+}
+
+html[data-theme="light"] .logo,
+html[data-theme="light"] .brand,
+html[data-theme="light"] .nav-links a,
+html[data-theme="light"] .dropbtn,
+html[data-theme="light"] .dropdown-toggle,
+html[data-theme="light"] .menu-toggle,
+html[data-theme="light"] .hero h1,
+html[data-theme="light"] .section-heading h2,
+html[data-theme="light"] #tasks::before,
+html[data-theme="light"] .card h3,
+html[data-theme="light"] .card-price,
+html[data-theme="light"] .demo-card h3,
+html[data-theme="light"] .feature-card h3,
+html[data-theme="light"] .testimonial-card h3,
+html[data-theme="light"] .step-card h3,
+html[data-theme="light"] .faq-list summary,
+html[data-theme="light"] .modal-content h3,
+html[data-theme="light"] .payment-value,
+html[data-theme="light"] .current-deposit-number,
+html[data-theme="light"] .captcha-question,
+html[data-theme="light"] .captcha-progress,
+html[data-theme="light"] .timer,
+html[data-theme="light"] .work-type-option,
+html[data-theme="light"] .captcha-choice,
+html[data-theme="light"] section>h1,
+html[data-theme="light"] section>h2,
+html[data-theme="light"] .section-header h2,
+html[data-theme="light"] .table-container h2,
+html[data-theme="light"] .details-card h3,
+html[data-theme="light"] .card h2,
+html[data-theme="light"] .withdrawal-section h3 {
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] .hero-action,
+html[data-theme="light"] .hero .hero-action {
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] .hero-action.primary,
+html[data-theme="light"] .hero .hero-action.primary {
+  color: var(--outlier-paper) !important;
+}
+
+html[data-theme="light"] .hero p,
+html[data-theme="light"] .section-heading p,
+html[data-theme="light"] .proof-label,
+html[data-theme="light"] .card-return,
+html[data-theme="light"] .card-price span,
+html[data-theme="light"] .demo-card p,
+html[data-theme="light"] .feature-card p,
+html[data-theme="light"] .testimonial-card p,
+html[data-theme="light"] .step-card p,
+html[data-theme="light"] .faq-list p,
+html[data-theme="light"] .modal-content p,
+html[data-theme="light"] .payment-label,
+html[data-theme="light"] .deposit-note,
+html[data-theme="light"] .form-group label,
+html[data-theme="light"] .instruction,
+html[data-theme="light"] .instruction strong,
+html[data-theme="light"] p,
+html[data-theme="light"] label,
+html[data-theme="light"] small {
+  color: var(--outlier-muted) !important;
+}
+
+html[data-theme="light"] .dropdown-menu,
+html[data-theme="light"] .dropdown-content,
+html[data-theme="light"] .nav-links.show,
+html[data-theme="light"] .work-type-menu,
+html[data-theme="light"] .modal-content,
+html[data-theme="light"] form,
+html[data-theme="light"] .card,
+html[data-theme="light"] .tier-card,
+html[data-theme="light"] .stat-card,
+html[data-theme="light"] .table-container,
+html[data-theme="light"] .referral-link-section,
+html[data-theme="light"] .withdrawal-section,
+html[data-theme="light"] .details-card,
+html[data-theme="light"] .progress-container,
+html[data-theme="light"] .admin-section,
+html[data-theme="light"] .users-section,
+html[data-theme="light"] .user-details-section,
+html[data-theme="light"] .data-section,
+html[data-theme="light"] .management-card,
+html[data-theme="light"] .user-card,
+html[data-theme="light"] .loan-card,
+html[data-theme="light"] .output-container,
+html[data-theme="light"] .testimonial-card,
+html[data-theme="light"] .testimonial,
+html[data-theme="light"] .proof-item,
+html[data-theme="light"] .demo-card,
+html[data-theme="light"] .feature-card,
+html[data-theme="light"] .step-card,
+html[data-theme="light"] .faq-list details {
+  border-color: var(--outlier-line) !important;
+  background: var(--outlier-paper) !important;
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] .stats-badge,
+html[data-theme="light"] .badge,
+html[data-theme="light"] .status-badge,
+html[data-theme="light"] .referral-code,
+html[data-theme="light"] .current-balance,
+html[data-theme="light"] .balance-display,
+html[data-theme="light"] .selected-tier,
+html[data-theme="light"] .payment-box,
+html[data-theme="light"] .info-box,
+html[data-theme="light"] .warning-box,
+html[data-theme="light"] .success-message,
+html[data-theme="light"] .error-message,
+html[data-theme="light"] .task-timer,
+html[data-theme="light"] .instruction,
+html[data-theme="light"] .captcha-question,
+html[data-theme="light"] .captcha-choice {
+  border-color: var(--outlier-line) !important;
+  background: #f1eadf !important;
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] button,
+html[data-theme="light"] .btn,
+html[data-theme="light"] .apply-btn,
+html[data-theme="light"] .start-btn,
+html[data-theme="light"] .savings-btn,
+html[data-theme="light"] .copy-btn,
+html[data-theme="light"] .filter-btn,
+html[data-theme="light"] .clear-btn,
+html[data-theme="light"] .page-btn,
+html[data-theme="light"] .export-btn,
+html[data-theme="light"] .back-button,
+html[data-theme="light"] .back-to-users,
+html[data-theme="light"] .add-btn,
+html[data-theme="light"] .remove-btn,
+html[data-theme="light"] .timer-btn,
+html[data-theme="light"] input[type="submit"] {
+  border-color: var(--outlier-ink) !important;
+  background: var(--outlier-ink) !important;
+  color: var(--outlier-paper) !important;
+}
+
+html[data-theme="light"] th,
+html[data-theme="light"] th * {
+  color: var(--outlier-paper) !important;
+}
+
+html[data-theme="light"] .status-box,
+html[data-theme="light"] .status-box *,
+html[data-theme="light"] .step-title,
+html[data-theme="light"] .step-time {
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] .status-box {
+  background: var(--outlier-paper) !important;
+  border: 1px solid var(--outlier-line) !important;
+}
+
+html[data-theme="light"] .step-icon.completed {
+  background: #22c55e !important;
+  color: #07111f !important;
+}
+
+html[data-theme="light"] .theme-toggle {
+  border-color: rgba(16, 16, 16, 0.14) !important;
+  background: var(--outlier-paper) !important;
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] .theme-toggle:hover {
+  background: var(--outlier-ink) !important;
+  border-color: var(--outlier-ink) !important;
+  color: var(--outlier-paper) !important;
+}
+
+html[data-theme="light"] .dropbtn {
+  background: var(--outlier-ink) !important;
+  border-color: var(--outlier-ink) !important;
+  color: var(--outlier-paper) !important;
+}
+
+html[data-theme="light"] .dropbtn:hover,
+html[data-theme="light"] .dropdown.open>.dropbtn,
+html[data-theme="light"] .dropdown.active>.dropbtn {
+  background: #34302a !important;
+  border-color: #34302a !important;
+  color: var(--outlier-paper) !important;
+}
+
+html[data-theme="light"] input,
+html[data-theme="light"] select,
+html[data-theme="light"] textarea,
+html[data-theme="light"] .form-group input,
+html[data-theme="light"] .form-group textarea,
+html[data-theme="light"] .form-group select {
+  background: #fffdf7 !important;
+  border-color: var(--outlier-line) !important;
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] input::placeholder,
+html[data-theme="light"] textarea::placeholder {
+  color: #8a8378 !important;
+}
+
+html[data-theme="light"] .total-earned,
+html[data-theme="light"] footer {
+  border: 1px solid rgba(16, 16, 16, 0.1) !important;
+  background: var(--outlier-dark) !important;
+  color: var(--outlier-paper) !important;
+}
+
+html[data-theme="light"] footer h4,
+html[data-theme="light"] footer a:hover {
+  color: var(--outlier-paper) !important;
+}
+
+html[data-theme="light"] footer a,
+html[data-theme="light"] footer span,
+html[data-theme="light"] footer p,
+html[data-theme="light"] .footer-bottom {
+  color: rgba(255, 250, 241, 0.72) !important;
+}
+
+html[data-theme="light"] .toast {
+  background: var(--outlier-paper) !important;
+  border-color: var(--outlier-line) !important;
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] .toast *,
+html[data-theme="light"] .toast-title,
+html[data-theme="light"] .toast-message,
+html[data-theme="light"] .toast-content {
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] .empty-state,
+html[data-theme="light"] .empty-state p {
+  background: var(--outlier-paper) !important;
+  border-color: var(--outlier-line) !important;
+  color: var(--outlier-ink) !important;
+}
+
+/* Final page-specific contrast fixes */
+html:not([data-theme="light"]) .savings-btn,
+html:not([data-theme="light"]) .copy-btn,
+html:not([data-theme="light"]) .filter-btn,
+html:not([data-theme="light"]) .clear-btn,
+html:not([data-theme="light"]) .start-btn,
+html:not([data-theme="light"]) .apply-btn,
+html:not([data-theme="light"]) .btn-primary {
+  background: #2df8a8 !important;
+  border-color: #2df8a8 !important;
+  color: #07111f !important;
+}
+
+html:not([data-theme="light"]) .message.error,
+html:not([data-theme="light"]) .eligibility-status.not-eligible {
+  background: #7f1d1d !important;
+  border-color: rgba(248, 113, 113, 0.42) !important;
+  color: #ffffff !important;
+}
+
+html:not([data-theme="light"]) .instructions {
+  background: #111827 !important;
+  border-color: rgba(148, 163, 184, 0.24) !important;
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) .instructions * {
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) thead,
+html:not([data-theme="light"]) thead tr,
+html:not([data-theme="light"]) th {
+  background: #0b1020 !important;
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) .filters select,
+html:not([data-theme="light"]) .filter-select {
+  background: #f8fafc !important;
+  border-color: #94a3b8 !important;
+  color: #0f172a !important;
+}
+
+html[data-theme="light"] th,
+html[data-theme="light"] th * {
+  background: #151515 !important;
+  color: #fffaf1 !important;
+}
+
+html[data-theme="light"] body .table-container th,
+html[data-theme="light"] body .history-container th,
+html[data-theme="light"] body .history-table th,
+html[data-theme="light"] body .referral-table th,
+html[data-theme="light"] body .referral-link-section table th,
+html[data-theme="light"] body .card table th,
+html[data-theme="light"] body table th {
+  background: #151515 !important;
+  color: #fffaf1 !important;
+}
+
+html[data-theme="light"] main>h1,
+html[data-theme="light"] .status-page h1 {
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] .hero-action.primary,
+html[data-theme="light"] .hero .hero-action.primary {
+  color: #07111f !important;
+}
+
+html[data-theme="light"] .hero .metric-tile.dark,
+html[data-theme="light"] .metric-tile.dark {
+  background: #0b1020 !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="light"] .proof-number,
+html[data-theme="light"] .section-kicker {
+  color: #047857 !important;
+}
+
+/* ============================================================
+   LOANS PAGE READABILITY LOCK
+   Fixes text blending on the Loans page in both themes.
+   ============================================================ */
+/* Hero always readable */
+html[data-theme="light"] .hero h1,
+html:not([data-theme="light"]) .hero h1 {
+  color: #f8fafc !important;
+}
+
+html[data-theme="light"] .hero p,
+html:not([data-theme="light"]) .hero p {
+  color: #e5e7eb !important;
+}
+
+/* Section headings readable */
+html[data-theme="light"] .card h2,
+html[data-theme="light"] .loan-box h2,
+html[data-theme="light"] .eligibility-check p {
+  color: #101010 !important;
+}
+
+html:not([data-theme="light"]) .card h2,
+html:not([data-theme="light"]) .loan-box h2,
+html:not([data-theme="light"]) .eligibility-check p {
+  color: #f8fafc !important;
+}
+
+/* Requirements box readable */
+html[data-theme="light"] .requirements,
+html[data-theme="light"] .requirements * {
+  color: #1f2937 !important;
+}
+
+html:not([data-theme="light"]) .requirements,
+html:not([data-theme="light"]) .requirements * {
+  color: #e2e8f0 !important;
+}
+
+/* Note box readable */
+html[data-theme="light"] .note,
+html[data-theme="light"] .note * {
+  color: #1f2937 !important;
+}
+
+html:not([data-theme="light"]) .note,
+html:not([data-theme="light"]) .note * {
+  color: #e2e8f0 !important;
+}
+
+/* Form labels & loan amount readable */
+html[data-theme="light"] .form-group label,
+html[data-theme="light"] .loan-amount,
+html[data-theme="light"] .loan-box span {
+  color: #101010 !important;
+}
+
+html:not([data-theme="light"]) .form-group label,
+html:not([data-theme="light"]) .loan-box span {
+  color: #e2e8f0 !important;
+}
+
+html:not([data-theme="light"]) .loan-amount {
+  color: #f8fafc !important;
+}
+
+/* File preview labels readable */
+html[data-theme="light"] .preview-item p {
+  color: #374151 !important;
+}
+
+html:not([data-theme="light"]) .preview-item p {
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="light"] .demo-tag,
+html[data-theme="light"] .domain-badge {
+  background: rgba(15, 118, 110, 0.14) !important;
+  color: #115e59 !important;
+}
+
+html[data-theme="light"] .feature-card:nth-child(2n) .domain-badge,
+html[data-theme="light"] .feature-card:nth-child(3n) .domain-badge {
+  background: rgba(15, 118, 110, 0.14) !important;
+  color: #115e59 !important;
+}
+
+html[data-theme="light"] .card-icon {
+  background: rgba(15, 118, 110, 0.14) !important;
+  color: #115e59 !important;
+}
+
+html[data-theme="light"] .amount {
+  color: #047857 !important;
+}
+
+html[data-theme="light"] .tier-badge.basic,
+html[data-theme="light"] .tier-badge.elite {
+  color: #07111f !important;
+}
+
+html[data-theme="light"] .stat-value {
+  color: #075985 !important;
+}
+
+html[data-theme="light"] .stat-box.success .stat-value {
+  color: #047857 !important;
+}
+
+html[data-theme="light"] .stat-box.warning .stat-value {
+  color: #92400e !important;
+}
+
+.expert-tile {
+  background-color: #151515 !important;
+}
+
+/* ============================================================
+   FINAL READABILITY & CONTRAST FIXES
+   Ensures text never blends into its background in either theme
+   ============================================================ */
+
+/* --- LIGHT MODE: dropdown + mobile nav readable (dark text on cream bg) --- */
+html[data-theme="light"] .dropdown-menu,
+html[data-theme="light"] .dropdown-content,
+html[data-theme="light"] .nav-links.show,
+html[data-theme="light"] .work-type-menu {
+  background: var(--outlier-paper) !important;
+  border-color: var(--outlier-line) !important;
+}
+
+html[data-theme="light"] .dropdown-menu a,
+html[data-theme="light"] .dropdown-content a,
+html[data-theme="light"] .nav-links.show a,
+html[data-theme="light"] .work-type-option {
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] .dropdown-menu a:hover,
+html[data-theme="light"] .dropdown-content a:hover,
+html[data-theme="light"] .nav-links.show a:hover,
+html[data-theme="light"] .work-type-option:hover {
+  background: #f1eadf !important;
+  color: var(--outlier-ink) !important;
+}
+
+/* --- DARK MODE: dropdown + mobile nav readable (light text on dark bg) --- */
+html:not([data-theme="light"]) .dropdown-menu,
+html:not([data-theme="light"]) .dropdown-content,
+html:not([data-theme="light"]) .nav-links.show,
+html:not([data-theme="light"]) .work-type-menu {
+  background: #0f172a !important;
+  border-color: rgba(148, 163, 184, 0.24) !important;
+}
+
+html:not([data-theme="light"]) .dropdown-menu a,
+html:not([data-theme="light"]) .dropdown-content a,
+html:not([data-theme="light"]) .nav-links.show a,
+html:not([data-theme="light"]) .work-type-option {
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) .dropdown-menu a:hover,
+html:not([data-theme="light"]) .dropdown-content a:hover,
+html:not([data-theme="light"]) .work-type-option:hover {
+  background: rgba(45, 248, 168, 0.12) !important;
+  color: #ffffff !important;
+}
+
+/* --- PRIMARY ACTION BUTTONS: always white text so they never blend --- */
+/* Dark mode: indigo bg + white text */
+html:not([data-theme="light"]) .hero-action.primary,
+html:not([data-theme="light"]) .hero .hero-action.primary,
+html:not([data-theme="light"]) .btn-primary,
+html:not([data-theme="light"]) input[type="submit"] {
+  background: linear-gradient(135deg, #4338ca 0%, #4f46e5 50%, #6366f1 100%) !important;
+  border-color: #4f46e5 !important;
+  color: #ffffff !important;
+}
+
+/* Light mode: dark bg + light text */
+html[data-theme="light"] .hero-action.primary,
+html[data-theme="light"] .hero .hero-action.primary,
+html[data-theme="light"] .btn-primary,
+html[data-theme="light"] input[type="submit"] {
+  background: var(--outlier-ink) !important;
+  border-color: var(--outlier-ink) !important;
+  color: var(--outlier-paper) !important;
+}
+
+/* --- Non-primary hero action readable in both modes --- */
+html[data-theme="light"] .hero-action {
+  background: var(--outlier-paper) !important;
+  border-color: var(--outlier-ink) !important;
+  color: var(--outlier-ink) !important;
+}
+
+html:not([data-theme="light"]) .hero-action {
+  background: rgba(15, 23, 42, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) .hero-action:hover {
+  background: rgba(45, 248, 168, 0.12) !important;
+  color: #ffffff !important;
+}
+
+/* --- NEUTRAL / SECONDARY BUTTONS: readable in both modes --- */
+/* Light mode: white bg + dark text */
+html[data-theme="light"] .btn-secondary,
+html[data-theme="light"] .filter-btn,
+html[data-theme="light"] .back-button,
+html[data-theme="light"] .back-to-users,
+html[data-theme="light"] .clear-btn,
+html[data-theme="light"] .page-btn,
+html[data-theme="light"] .copy-btn,
+html[data-theme="light"] .menu-toggle {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #111827 !important;
+}
+
+html[data-theme="light"] .btn-secondary:hover,
+html[data-theme="light"] .filter-btn:hover,
+html[data-theme="light"] .back-button:hover,
+html[data-theme="light"] .back-to-users:hover,
+html[data-theme="light"] .clear-btn:hover,
+html[data-theme="light"] .page-btn:hover,
+html[data-theme="light"] .copy-btn:hover {
+  background: #f1f5f9 !important;
+  color: #111827 !important;
+}
+
+/* Dark mode: dark bg + light text */
+html:not([data-theme="light"]) .btn-secondary,
+html:not([data-theme="light"]) .filter-btn,
+html:not([data-theme="light"]) .back-button,
+html:not([data-theme="light"]) .back-to-users,
+html:not([data-theme="light"]) .clear-btn,
+html:not([data-theme="light"]) .page-btn,
+html:not([data-theme="light"]) .copy-btn,
+html:not([data-theme="light"]) .menu-toggle {
+  background: rgba(15, 23, 42, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) .btn-secondary:hover,
+html:not([data-theme="light"]) .filter-btn:hover,
+html:not([data-theme="light"]) .back-button:hover,
+html:not([data-theme="light"]) .back-to-users:hover,
+html:not([data-theme="light"]) .clear-btn:hover,
+html:not([data-theme="light"]) .page-btn:hover,
+html:not([data-theme="light"]) .copy-btn:hover {
+  background: rgba(45, 248, 168, 0.12) !important;
+  color: #ffffff !important;
+}
+
+/* --- DANGER BUTTONS: always readable --- */
+html[data-theme="light"] .btn-danger,
+html[data-theme="light"] .remove-btn {
+  background: #dc2626 !important;
+  border-color: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+html:not([data-theme="light"]) .btn-danger,
+html:not([data-theme="light"]) .remove-btn {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+  border-color: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+/* --- SUCCESS / POSITIVE ACTION BUTTONS: always readable --- */
+html[data-theme="light"] .btn-success,
+html[data-theme="light"] .buy-btn,
+html[data-theme="light"] .start-btn,
+html[data-theme="light"] .savings-btn,
+html[data-theme="light"] .export-btn,
+html[data-theme="light"] .add-btn,
+html[data-theme="light"] .apply-btn {
+  background: #4f46e5 !important;
+  border-color: #4f46e5 !important;
+  color: #ffffff !important;
+}
+
+html:not([data-theme="light"]) .btn-success,
+html:not([data-theme="light"]) .buy-btn,
+html:not([data-theme="light"]) .start-btn,
+html:not([data-theme="light"]) .savings-btn,
+html:not([data-theme="light"]) .export-btn,
+html:not([data-theme="light"]) .add-btn,
+html:not([data-theme="light"]) .apply-btn {
+  background: linear-gradient(135deg, #4338ca 0%, #4f46e5 50%, #6366f1 100%) !important;
+  border-color: #4f46e5 !important;
+  color: #ffffff !important;
+}
+
+/* --- LIGHT MODE: body + content text always dark enough --- */
+html[data-theme="light"] body,
+html[data-theme="light"] main,
+html[data-theme="light"] section,
+html[data-theme="light"] .hero,
+html[data-theme="light"] .landing-section,
+html[data-theme="light"] #tasks {
+  color: var(--outlier-ink) !important;
+}
+
+/* --- DARK MODE: ensure card/container boxes are dark with light text --- */
+html:not([data-theme="light"]) .card,
+html:not([data-theme="light"]) .tier-card,
+html:not([data-theme="light"]) .stat-card,
+html:not([data-theme="light"]) .testimonial,
+html:not([data-theme="light"]) .testimonial-card,
+html:not([data-theme="light"]) .table-container,
+html:not([data-theme="light"]) .details-card,
+html:not([data-theme="light"]) .history-container,
+html:not([data-theme="light"]) .admin-section,
+html:not([data-theme="light"]) .users-section,
+html:not([data-theme="light"]) .user-details-section,
+html:not([data-theme="light"]) .data-section,
+html:not([data-theme="light"]) .management-card,
+html:not([data-theme="light"]) .user-card,
+html:not([data-theme="light"]) .loan-card,
+html:not([data-theme="light"]) .output-container,
+html:not([data-theme="light"]) .savings-balance,
+html:not([data-theme="light"]) .calculator,
+html:not([data-theme="light"]) .deposit-options,
+html:not([data-theme="light"]) .earning-box,
+html:not([data-theme="light"]) .time-indicator,
+html:not([data-theme="light"]) .rules,
+html:not([data-theme="light"]) .limits,
+html:not([data-theme="light"]) .requirements,
+html:not([data-theme="light"]) .eligibility-check,
+html:not([data-theme="light"]) .note,
+html:not([data-theme="light"]) .stat-box,
+html:not([data-theme="light"]) .referral-link-container,
+html:not([data-theme="light"]) .filters,
+html:not([data-theme="light"]) .table-header,
+html:not([data-theme="light"]) .calc-result {
+  background: #111827 !important;
+  border-color: rgba(148, 163, 184, 0.24) !important;
+  color: #f8fafc !important;
+}
+
+/* --- LIGHT MODE: cards light bg with dark text --- */
+html[data-theme="light"] .card,
+html[data-theme="light"] .tier-card,
+html[data-theme="light"] .stat-card,
+html[data-theme="light"] .testimonial,
+html[data-theme="light"] .testimonial-card,
+html[data-theme="light"] .table-container,
+html[data-theme="light"] .details-card,
+html[data-theme="light"] .history-container,
+html[data-theme="light"] .admin-section,
+html[data-theme="light"] .users-section,
+html[data-theme="light"] .user-details-section,
+html[data-theme="light"] .data-section,
+html[data-theme="light"] .management-card,
+html[data-theme="light"] .user-card,
+html[data-theme="light"] .loan-card,
+html[data-theme="light"] .output-container,
+html[data-theme="light"] .savings-balance,
+html[data-theme="light"] .calculator,
+html[data-theme="light"] .deposit-options,
+html[data-theme="light"] .earning-box,
+html[data-theme="light"] .time-indicator,
+html[data-theme="light"] .rules,
+html[data-theme="light"] .limits,
+html[data-theme="light"] .requirements,
+html[data-theme="light"] .eligibility-check,
+html[data-theme="light"] .note,
+html[data-theme="light"] .stat-box,
+html[data-theme="light"] .referral-link-container,
+html[data-theme="light"] .filters,
+html[data-theme="light"] .table-header,
+html[data-theme="light"] .calc-result {
+  background: var(--outlier-paper) !important;
+  border-color: var(--outlier-line) !important;
+  color: var(--outlier-ink) !important;
+}
+
+/* --- Card/container inner text (excluding buttons/badges/icons) readable --- */
+html[data-theme="light"] .card *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .tier-card *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .stat-card *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .testimonial *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .testimonial-card *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .table-container *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .details-card *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .history-container *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .admin-section *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .users-section *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .user-details-section *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .data-section *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .management-card *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .user-card *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .loan-card *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .output-container *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .savings-balance *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .calculator *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .earning-box *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon),
+html[data-theme="light"] .time-indicator *:not(button):not(.btn):not([class*="btn"]):not([class*="badge"]):not(.section-icon):not(.card-icon):not(.icon) {
+  color: var(--outlier-ink) !important;
+}
+
+/* --- Paragraphs and labels: readable muted text in both themes --- */
+html[data-theme="light"] .card p,
+html[data-theme="light"] .tier-card p,
+html[data-theme="light"] .stat-card p,
+html[data-theme="light"] .details-card p,
+html[data-theme="light"] .testimonial p,
+html[data-theme="light"] .testimonial-card p,
+html[data-theme="light"] .table-container p,
+html[data-theme="light"] .history-container p,
+html[data-theme="light"] .section-subtitle,
+html[data-theme="light"] .subtitle,
+html[data-theme="light"] .helper-text,
+html[data-theme="light"] .meta,
+html[data-theme="light"] small {
+  color: var(--outlier-muted-strong) !important;
+}
+
+html:not([data-theme="light"]) .card p,
+html:not([data-theme="light"]) .tier-card p,
+html:not([data-theme="light"]) .stat-card p,
+html:not([data-theme="light"]) .details-card p,
+html:not([data-theme="light"]) .testimonial p,
+html:not([data-theme="light"]) .testimonial-card p,
+html:not([data-theme="light"]) .table-container p,
+html:not([data-theme="light"]) .history-container p,
+html:not([data-theme="light"]) .section-subtitle,
+html:not([data-theme="light"]) .subtitle,
+html:not([data-theme="light"]) .helper-text,
+html:not([data-theme="light"]) .meta,
+html:not([data-theme="light"]) small {
+  color: #cbd5e1 !important;
+}
+
+/* --- Table headers: readable in both themes --- */
+html[data-theme="light"] th,
+html[data-theme="light"] th * {
+  background: #151515 !important;
+  color: #fffaf1 !important;
+}
+
+html:not([data-theme="light"]) th,
+html:not([data-theme="light"]) th * {
+  background: #0b1020 !important;
+  color: #f8fafc !important;
+}
+
+/* --- Table body text readable in both themes --- */
+html[data-theme="light"] td {
+  color: var(--outlier-ink) !important;
+}
+
+html:not([data-theme="light"]) td {
+  color: #f8fafc !important;
+}
+
+/* --- Inputs: readable in both themes --- */
+html[data-theme="light"] input,
+html[data-theme="light"] select,
+html[data-theme="light"] textarea,
+html[data-theme="light"] .form-group input,
+html[data-theme="light"] .form-group textarea,
+html[data-theme="light"] .form-group select,
+html[data-theme="light"] .filter-select {
+  background: #fffdf7 !important;
+  border-color: var(--outlier-line) !important;
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] input::placeholder,
+html[data-theme="light"] textarea::placeholder,
+html[data-theme="light"] .form-group input::placeholder {
+  color: #8a8378 !important;
+  opacity: 1 !important;
+}
+
+html:not([data-theme="light"]) input,
+html:not([data-theme="light"]) select,
+html:not([data-theme="light"]) textarea,
+html:not([data-theme="light"]) .form-group input,
+html:not([data-theme="light"]) .form-group textarea,
+html:not([data-theme="light"]) .form-group select,
+html:not([data-theme="light"]) .filter-select {
+  background: #f8fafc !important;
+  border-color: #94a3b8 !important;
+  color: #0f172a !important;
+}
+
+html:not([data-theme="light"]) input::placeholder,
+html:not([data-theme="light"]) textarea::placeholder,
+html:not([data-theme="light"]) .form-group input::placeholder {
+  color: #64748b !important;
+  opacity: 1 !important;
+}
+
+/* --- Dropdown select options: readable --- */
+html[data-theme="light"] select option {
+  background: #ffffff !important;
+  color: #101010 !important;
+}
+
+html:not([data-theme="light"]) select option {
+  background: #0f172a !important;
+  color: #f8fafc !important;
+}
+
+/* --- Login page: force readable container in both themes --- */
+html[data-theme="light"] body.login-page .login-container {
+  background: rgba(255, 250, 241, 0.97) !important;
+  border-color: var(--outlier-line) !important;
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] body.login-page .login-container h2,
+html[data-theme="light"] body.login-page .input-group label,
+html[data-theme="light"] body.login-page .footer-text {
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] body.login-page .input-group input {
+  background: #fffdf7 !important;
+  border-color: var(--outlier-line) !important;
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] body.login-page .btn-login {
+  background: var(--outlier-ink) !important;
+  border-color: var(--outlier-ink) !important;
+  color: var(--outlier-paper) !important;
+}
+
+html[data-theme="light"] body.login-page .btn-register {
+  background: transparent !important;
+  border-color: var(--outlier-ink) !important;
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] body.login-page .referral-notice,
+html[data-theme="light"] body.login-page .referral-code {
+  color: var(--outlier-ink) !important;
+}
+
+/* --- Collector / Control Tower pages: dark theme always readable --- */
+html:not([data-theme="light"]) .dropbtn,
+html:not([data-theme="light"]) .dropdown-toggle {
+  background: rgba(99, 102, 241, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) .dropbtn:hover,
+html:not([data-theme="light"]) .dropdown-toggle:hover {
+  background: rgba(99, 102, 241, 0.3) !important;
+  color: #ffffff !important;
+}
+
+html:not([data-theme="light"]) .brand,
+html:not([data-theme="light"]) .management-title,
+html:not([data-theme="light"]) .item-name,
+html:not([data-theme="light"]) .user-phone,
+html:not([data-theme="light"]) .management-count,
+html:not([data-theme="light"]) .loan-number {
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) .subtitle,
+html:not([data-theme="light"]) .user-balance,
+html:not([data-theme="light"]) .info-row,
+html:not([data-theme="light"]) .loan-date,
+html:not([data-theme="light"]) .id-image-container p {
+  color: #94a3b8 !important;
+}
+
+html:not([data-theme="light"]) .brand {
+  background: linear-gradient(135deg, #6366f1, #ec4899, #06b6d4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html:not([data-theme="light"]) .user-balance {
+  color: #94a3b8 !important;
+}
+
+html:not([data-theme="light"]) .back-to-users {
+  background: rgba(99, 102, 241, 0.1) !important;
+  border-color: rgba(99, 102, 241, 0.3) !important;
+  color: #a5b4fc !important;
+}
+
+/* --- Status page: force readable in both themes --- */
+html[data-theme="light"] body .status-box,
+html[data-theme="light"] body .timer,
+html[data-theme="light"] body .progress-container,
+html[data-theme="light"] body .timeline-step .step-title,
+html[data-theme="light"] body .timeline-step .step-time,
+html[data-theme="light"] body .progress-label {
+  color: #101010 !important;
+}
+
+html[data-theme="light"] body .status-box {
+  text-shadow: none !important;
+}
+
+html[data-theme="light"] body .details-card h3,
+html[data-theme="light"] body .detail-value {
+  color: #101010 !important;
+}
+
+html[data-theme="light"] body .detail-label {
+  color: #6b7280 !important;
+}
+
+html:not([data-theme="light"]) body .status-box,
+html:not([data-theme="light"]) body .timer,
+html:not([data-theme="light"]) body .progress-label,
+html:not([data-theme="light"]) body .step-title {
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) body .step-time {
+  color: #cbd5e1 !important;
+}
+
+html:not([data-theme="light"]) body .details-card h3,
+html:not([data-theme="light"]) body .detail-value {
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) body .detail-label {
+  color: #cbd5e1 !important;
+}
+
+/* --- Toast / notification text always readable --- */
+html[data-theme="light"] .toast,
+html[data-theme="light"] .modal-content {
+  background: var(--outlier-paper) !important;
+  border-color: var(--outlier-line) !important;
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] .toast *:not(button):not(.btn):not([class*="btn"]),
+html[data-theme="light"] .modal-content *:not(button):not(.btn):not([class*="btn"]) {
+  color: var(--outlier-ink) !important;
+}
+
+html:not([data-theme="light"]) .toast,
+html:not([data-theme="light"]) .modal-content {
+  background: #0f172a !important;
+  border-color: rgba(148, 163, 184, 0.24) !important;
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) .toast *:not(button):not(.btn):not([class*="btn"]),
+html:not([data-theme="light"]) .modal-content *:not(button):not(.btn):not([class*="btn"]) {
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) .toast-message,
+html:not([data-theme="light"]) .modal-content p {
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="light"] .toast-message,
+html[data-theme="light"] .modal-content p {
+  color: var(--outlier-muted-strong) !important;
+}
+
+/* --- Badges / status pills readable in both themes --- */
+html[data-theme="light"] .status-badge.status-completed,
+html[data-theme="light"] .eligible {
+  background: #d1fae5 !important;
+  color: #065f46 !important;
+}
+
+html[data-theme="light"] .status-badge.status-processing,
+html[data-theme="light"] .not-eligible {
+  background: #fef3c7 !important;
+  color: #92400e !important;
+}
+
+html[data-theme="light"] .status-badge.status-pending {
+  background: #dbeafe !important;
+  color: #1e40af !important;
+}
+
+html[data-theme="light"] .status-badge.status-failed {
+  background: #fee2e2 !important;
+  color: #991b1b !important;
+}
+
+html:not([data-theme="light"]) .status-badge.status-completed,
+html:not([data-theme="light"]) .eligible {
+  background: #14532d !important;
+  color: #86efac !important;
+}
+
+html:not([data-theme="light"]) .status-badge.status-processing,
+html:not([data-theme="light"]) .not-eligible {
+  background: #78350f !important;
+  color: #fde68a !important;
+}
+
+html:not([data-theme="light"]) .status-badge.status-pending {
+  background: #1e3a8a !important;
+  color: #bfdbfe !important;
+}
+
+html:not([data-theme="light"]) .status-badge.status-failed {
+  background: #7f1d1d !important;
+  color: #fecaca !important;
+}
+
+/* --- Link text readable --- */
+html[data-theme="light"] a:not([class*="btn"]):not(.hero-action):not(.dropdown-toggle):not(.nav-links a) {
+  color: #1d4ed8 !important;
+}
+
+html[data-theme="light"] a:not([class*="btn"]):not(.hero-action):not(.dropdown-toggle):not(.nav-links a):hover {
+  color: #1e40af !important;
+}
+
+html:not([data-theme="light"]) a:not([class*="btn"]):not(.hero-action):not(.dropdown-toggle) {
+  color: #93c5fd !important;
+}
+
+html:not([data-theme="light"]) a:not([class*="btn"]):not(.hero-action):not(.dropdown-toggle):hover {
+  color: #bfdbfe !important;
+}
+
+/* --- Home.html / Homepage.html hero visual tiles readable --- */
+html:not([data-theme="light"]) .metric-tile,
+html:not([data-theme="light"]) .hero .metric-tile {
+  background: #2df8a8 !important;
+  color: #07111f !important;
+}
+
+html:not([data-theme="light"]) .metric-tile.dark,
+html:not([data-theme="light"]) .hero .metric-tile.dark {
+  background: #0b1020 !important;
+  color: #ffffff !important;
+}
+
+html:not([data-theme="light"]) .expert-tile {
+  background: linear-gradient(145deg, #111827, #312e81) !important;
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) .expert-name {
+  color: #ffffff !important;
+}
+
+html:not([data-theme="light"]) .expert-role {
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="light"] .metric-tile {
+  background: #c7ff46 !important;
+  color: #101010 !important;
+}
+
+html[data-theme="light"] .metric-tile.dark {
+  background: #151515 !important;
+  color: #fffaf1 !important;
+}
+
+html[data-theme="light"] .expert-tile {
+  background: linear-gradient(145deg, #1c1c1c, #5c5547) !important;
+  color: #fffaf1 !important;
+}
+
+html[data-theme="light"] .expert-name {
+  color: #ffffff !important;
+}
+
+html[data-theme="light"] .expert-role {
+  color: rgba(255, 250, 241, 0.78) !important;
+}
+
+/* --- Proof strip / landing cards readable in dark mode --- */
+html:not([data-theme="light"]) .proof-item,
+html:not([data-theme="light"]) .demo-card,
+html:not([data-theme="light"]) .feature-card,
+html:not([data-theme="light"]) .step-card,
+html:not([data-theme="light"]) .faq-list details {
+  background: #111827 !important;
+  border-color: rgba(148, 163, 184, 0.24) !important;
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) .proof-number,
+html:not([data-theme="light"]) .section-kicker,
+html:not([data-theme="light"]) .step-number {
+  color: #2df8a8 !important;
+}
+
+html:not([data-theme="light"]) .proof-label,
+html:not([data-theme="light"]) .demo-card p,
+html:not([data-theme="light"]) .feature-card p,
+html:not([data-theme="light"]) .testimonial-card p,
+html:not([data-theme="light"]) .step-card p,
+html:not([data-theme="light"]) .faq-list p {
+  color: #cbd5e1 !important;
+}
+
+html:not([data-theme="light"]) .demo-card h3,
+html:not([data-theme="light"]) .feature-card h3,
+html:not([data-theme="light"]) .testimonial-card h3,
+html:not([data-theme="light"]) .step-card h3,
+html:not([data-theme="light"]) .faq-list summary,
+html:not([data-theme="light"]) .cta-band h2 {
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) .demo-tag,
+html:not([data-theme="light"]) .domain-badge {
+  color: #67e8f9 !important;
+}
+
+html:not([data-theme="light"]) .avatar-dot {
+  color: #ffffff !important;
+}
+
+/* --- Savings tier badges readable --- */
+html[data-theme="light"] .tier-badge {
+  color: #ffffff !important;
+}
+
+html:not([data-theme="light"]) .tier-badge {
+  color: #07111f !important;
+}
+
+html:not([data-theme="light"]) .tier-badge.basic {
+  background: #22c55e !important;
+}
+
+html:not([data-theme="light"]) .tier-badge.premium {
+  background: #8b5cf6 !important;
+  color: #ffffff !important;
+}
+
+html:not([data-theme="light"]) .tier-badge.elite {
+  background: #fbbf24 !important;
+}
+
+html[data-theme="light"] .tier-badge.basic {
+  background: #10b981 !important;
+}
+
+html[data-theme="light"] .tier-badge.premium {
+  background: #4f46e5 !important;
+}
+
+html[data-theme="light"] .tier-badge.elite {
+  background: #f59e0b !important;
+}
+
+/* --- Empty states readable --- */
+html[data-theme="light"] .empty-state,
+html[data-theme="light"] .empty-state p,
+html[data-theme="light"] .empty-state h3 {
+  color: var(--outlier-muted-strong) !important;
+}
+
+html:not([data-theme="light"]) .empty-state,
+html:not([data-theme="light"]) .empty-state p,
+html:not([data-theme="light"]) .empty-state h3 {
+  color: #cbd5e1 !important;
+}
+
+/* --- Pagination / page info readable --- */
+html[data-theme="light"] .page-info {
+  color: var(--outlier-muted-strong) !important;
+}
+
+html:not([data-theme="light"]) .page-info {
+  color: #cbd5e1 !important;
+}
+
+/* --- Footer text always readable (footer is dark in both themes) --- */
+footer h4,
+footer a:hover {
+  color: #fffaf1 !important;
+}
+
+footer p,
+footer a,
+footer span,
+.footer-bottom {
+  color: rgba(255, 250, 241, 0.72) !important;
+}
+
+footer a:hover {
+  color: #2df8a8 !important;
+}
+
+/* ============================================================
+   LOANS PAGE READABILITY LOCK
+   Guarantees text never blends into its background in either theme
+   ============================================================ */
+
+/* -- Hero: always readable against the page background -- */
+html[data-theme="light"] .hero h1,
+html[data-theme="light"] .hero p {
+  color: var(--outlier-ink) !important;
+}
+
+html[data-theme="light"] .hero p {
+  color: var(--outlier-muted-strong) !important;
+}
+
+html:not([data-theme="light"]) .hero h1,
+html:not([data-theme="light"]) .hero p {
+  color: #f8fafc !important;
+}
+
+/* -- Card headings -- */
+html[data-theme="light"] .card h2 {
+  color: var(--outlier-ink) !important;
+}
+
+html:not([data-theme="light"]) .card h2 {
+  color: #f8fafc !important;
+}
+
+/* -- Requirements box -- */
+html[data-theme="light"] .requirements {
+  background: #f9fafb !important;
+  border-color: var(--outlier-line) !important;
+  color: #1f2937 !important;
+}
+
+html[data-theme="light"] .requirements strong {
+  color: #b91c1c !important;
+}
+
+html:not([data-theme="light"]) .requirements {
+  background: #111827 !important;
+  border-color: rgba(148, 163, 184, 0.24) !important;
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) .requirements strong {
+  color: #f87171 !important;
+}
+
+/* -- Note box -- */
+html[data-theme="light"] .note {
+  background: #f0f9ff !important;
+  border-color: #bae6fd !important;
+  color: #1e3a8a !important;
+}
+
+html[data-theme="light"] .note strong {
+  color: #1e3a8a !important;
+}
+
+html:not([data-theme="light"]) .note {
+  background: #111827 !important;
+  border-color: rgba(56, 189, 248, 0.28) !important;
+  color: #dbeafe !important;
+}
+
+html:not([data-theme="light"]) .note strong {
+  color: #93c5fd !important;
+}
+
+/* -- Loan amount -- */
+html[data-theme="light"] .loan-box .loan-amount {
+  color: #047857 !important;
+}
+
+html:not([data-theme="light"]) .loan-box .loan-amount {
+  color: #34d399 !important;
+}
+
+/* -- Eligibility box & status bubbles -- */
+html[data-theme="light"] .eligibility-check {
+  background: #fffbeb !important;
+  border-color: var(--outlier-line) !important;
+  color: #1f2937 !important;
+}
+
+html[data-theme="light"] .eligibility-check p {
+  color: #1f2937 !important;
+}
+
+html[data-theme="light"] .eligibility-status.eligible {
+  background: #d1fae5 !important;
+  color: #065f46 !important;
+}
+
+html[data-theme="light"] .eligibility-status.not-eligible {
+  background: #fee2e2 !important;
+  color: #991b1b !important;
+}
+
+html:not([data-theme="light"]) .eligibility-check {
+  background: #111827 !important;
+  border-color: rgba(148, 163, 184, 0.24) !important;
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) .eligibility-check p {
+  color: #cbd5e1 !important;
+}
+
+html:not([data-theme="light"]) .eligibility-status.eligible {
+  background: #14532d !important;
+  color: #86efac !important;
+}
+
+html:not([data-theme="light"]) .eligibility-status.not-eligible {
+  background: #7f1d1d !important;
+  color: #fecaca !important;
+}
+
+/* -- Form labels -- */
+html[data-theme="light"] .form-group label {
+  color: #374151 !important;
+}
+
+html:not([data-theme="light"]) .form-group label {
+  color: #cbd5e1 !important;
+}
+
+/* -- Message box -- */
+html[data-theme="light"] .message.success {
+  background: #d1fae5 !important;
+  color: #065f46 !important;
+  border-color: #a7f3d0 !important;
+}
+
+html[data-theme="light"] .message.error {
+  background: #fee2e2 !important;
+  color: #991b1b !important;
+  border-color: #fecaca !important;
+}
+
+html:not([data-theme="light"]) .message.success {
+  background: #14532d !important;
+  color: #86efac !important;
+  border-color: rgba(134, 239, 172, 0.3) !important;
+}
+
+html:not([data-theme="light"]) .message.error {
+  background: #7f1d1d !important;
+  color: #fecaca !important;
+  border-color: rgba(254, 202, 202, 0.3) !important;
+}
+
+/* -- Apply button always readable (white text on indigo/dark) -- */
+html[data-theme="light"] .apply-btn {
+  background: #4f46e5 !important;
+  border-color: #4f46e5 !important;
+  color: #ffffff !important;
+}
+
+html:not([data-theme="light"]) .apply-btn {
+  background: linear-gradient(135deg, #4338ca 0%, #4f46e5 50%, #6366f1 100%) !important;
+  border-color: #4f46e5 !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="light"] .apply-btn:disabled {
+  background: #9ca3af !important;
+  border-color: #9ca3af !important;
+  color: #f3f4f6 !important;
+}
+
+html:not([data-theme="light"]) .apply-btn:disabled {
+  background: #334155 !important;
+  border-color: #475569 !important;
+  color: #cbd5e1 !important;
+}
+
+/* ============================================================
+   LOANS PAGE READABILITY LOCK
+   Guarantees hero, headings, labels, requirements and note text
+   never blends into its background in either theme.
+   ============================================================ */
+
+/* Hero heading/paragraphs in LIGHT theme (on cream background) */
+html[data-theme="light"] body .hero h1,
+html[data-theme="light"] body .hero p {
+  color: var(--outlier-ink) !important;
+}
+
+/* Hero heading/paragraphs in DARK theme (on dark background) */
+html:not([data-theme="light"]) body .hero h1 {
+  color: #f8fafc !important;
+}
+
+html:not([data-theme="light"]) body .hero p {
+  color: #cbd5e1 !important;
+}
+
+/* Card headings always readable */
+html[data-theme="light"] body .card h2,
+html[data-theme="light"] body .card h3,
+html[data-theme="light"] body .table-container h2 {
+  color: var(--outlier-ink) !important;
+}
+
+html:not([data-theme="light"]) body .card h2,
+html:not([data-theme="light"]) body .card h3,
+html:not([data-theme="light"]) body .table-container h2 {
+  color: #f8fafc !important;
+}
+
+/* Loan amount text always readable (green offset against card bg) */
+html[data-theme="light"] body .loan-amount {
+  color: #047857 !important;
+}
+
+html:not([data-theme="light"]) body .loan-amount {
+  color: #34d399 !important;
+}
+
+html[data-theme="light"] body .loan-box>div span,
+html[data-theme="light"] body [style*="color: #6b7280"] {
+  color: var(--outlier-muted-strong) !important;
+}
+
+html:not([data-theme="light"]) body .loan-box>div span,
+html:not([data-theme="light"]) body [style*="color: #6b7280"] {
+  color: #cbd5e1 !important;
+}
+
+/* Requirements box text readable */
+html[data-theme="light"] body .requirements,
+html[data-theme="light"] body .requirements strong,
+html[data-theme="light"] body .note,
+html[data-theme="light"] body .note strong,
+html[data-theme="light"] body .eligibility-message {
+  color: var(--outlier-ink-strong) !important;
+}
+
+html:not([data-theme="light"]) body .requirements,
+html:not([data-theme="light"]) body .requirements strong,
+html:not([data-theme="light"]) body .note,
+html:not([data-theme="light"]) body .note strong,
+html:not([data-theme="light"]) body .eligibility-message {
+  color: #f8fafc !important;
+}
+
+/* Form labels readable */
+html[data-theme="light"] body .form-group label,
+html[data-theme="light"] body .preview-item p {
+  color: var(--outlier-ink-strong) !important;
+}
+
+html:not([data-theme="light"]) body .form-group label,
+html:not([data-theme="light"]) body .preview-item p {
+  color: #f8fafc !important;
+}
+
+/* Eligibility status pill keeps its colored, readable treatment in both themes */
+html[data-theme="light"] body .eligibility-status.eligible {
+  background: #d1fae5 !important;
+  color: #065f46 !important;
+}
+
+html[data-theme="light"] body .eligibility-status.not-eligible {
+  background: #fee2e2 !important;
+  color: #991b1b !important;
+}
+
+html:not([data-theme="light"]) body .eligibility-status.eligible {
+  background: #14532d !important;
+  color: #86efac !important;
+}
+
+html:not([data-theme="light"]) body .eligibility-status.not-eligible {
+  background: #7f1d1d !important;
+  color: #fecaca !important;
+}
+
+/* Table cell and reward text readable */
+html[data-theme="light"] body td {
+  color: var(--outlier-ink) !important;
+}
+
+html:not([data-theme="light"]) body td {
+  color: #f8fafc !important;
+}
+
+html[data-theme="light"] body .reward {
+  color: #047857 !important;
+}
+
+html:not([data-theme="light"]) body .reward {
+  color: #34d399 !important;
+}
+
+/* ============================================================
+   UNIVERSAL THEME READABILITY LOCK
+   Catches every remaining hardcoded color in <style> blocks,
+   inline styles, and dynamic JS content so nothing blends
+   into its background when toggling between light and dark.
+   ============================================================ */
+
+/* --- Light mode: force all text to dark on light backgrounds --- */
+html[data-theme="light"] body,
+html[data-theme="light"] body * {
+  color: var(--outlier-ink) !important;
+}
+
+/* Light mode: restore intentional light-on-dark elements (buttons, icons, dark tiles, footer, th) */
+html[data-theme="light"] body button,
+html[data-theme="light"] body [type="button"],
+html[data-theme="light"] body [type="submit"],
+html[data-theme="light"] body .btn,
+html[data-theme="light"] body .btn *,
+html[data-theme="light"] body .btn-primary,
+html[data-theme="light"] body .btn-primary *,
+html[data-theme="light"] body .btn-secondary,
+html[data-theme="light"] body .btn-success,
+html[data-theme="light"] body .btn-success *,
+html[data-theme="light"] body .btn-danger,
+html[data-theme="light"] body .btn-danger *,
+html[data-theme="light"] body .btn-stop,
+html[data-theme="light"] body .btn-stop *,
+html[data-theme="light"] body .btn-login,
+html[data-theme="light"] body .btn-register,
+html[data-theme="light"] body .copy-btn,
+html[data-theme="light"] body .copy-btn *,
+html[data-theme="light"] body .filter-btn,
+html[data-theme="light"] body .page-btn,
+html[data-theme="light"] body .export-btn,
+html[data-theme="light"] body .start-btn,
+html[data-theme="light"] body .savings-btn,
+html[data-theme="light"] body .apply-btn,
+html[data-theme="light"] body .add-btn,
+html[data-theme="light"] body .remove-btn,
+html[data-theme="light"] body .back-button,
+html[data-theme="light"] body .back-to-users,
+html[data-theme="light"] body .timer-btn,
+html[data-theme="light"] body .menu-toggle,
+html[data-theme="light"] body .hero-action,
+html[data-theme="light"] body .hero-action *,
+html[data-theme="light"] body .hero-action.primary,
+html[data-theme="light"] body .buy-btn,
+html[data-theme="light"] body .work-btn,
+html[data-theme="light"] body input[type="submit"],
+html[data-theme="light"] body .clear-btn {
+  color: var(--outlier-paper) !important;
+}
+
+/* Light mode: footer is dark — force light text */
+html[data-theme="light"] body footer,
+html[data-theme="light"] body footer *,
+html[data-theme="light"] body .footer-bottom,
+html[data-theme="light"] body .footer-bottom * {
+  color: rgba(255, 250, 241, 0.82) !important;
+}
+html[data-theme="light"] body footer h4 {
+  color: #fffaf1 !important;
+}
+
+/* Light mode: dark tiles / dark-bg containers keep light text */
+html[data-theme="light"] body .metric-tile.dark,
+html[data-theme="light"] body .metric-tile.dark *,
+html[data-theme="light"] body .expert-tile,
+html[data-theme="light"] body .expert-tile *,
+html[data-theme="light"] body .total-earned,
+html[data-theme="light"] body .total-earned *,
+html[data-theme="light"] body .toast.is-dark,
+html[data-theme="light"] body .toast.is-dark * {
+  color: #fffaf1 !important;
+}
+
+/* Light mode: table headers are dark — keep light text */
+html[data-theme="light"] body th,
+html[data-theme="light"] body th * {
+  color: #fffaf1 !important;
+}
+
+/* Light mode: section/card icons keep their accent color */
+html[data-theme="light"] body .section-icon,
+html[data-theme="light"] body .card-icon,
+html[data-theme="light"] body .icon,
+html[data-theme="light"] body .modal-icon,
+html[data-theme="light"] body .section-icon *,
+html[data-theme="light"] body .card-icon *,
+html[data-theme="light"] body .icon * {
+  color: #115e59 !important;
+}
+
+/* Light mode: muted/descriptive text (paragraphs, subtitles, helper text) */
+html[data-theme="light"] body p,
+html[data-theme="light"] body .subtitle,
+html[data-theme="light"] body .section-subtitle,
+html[data-theme="light"] body .helper-text,
+html[data-theme="light"] body .meta,
+html[data-theme="light"] body small,
+html[data-theme="light"] body .footer-text,
+html[data-theme="light"] body .page-info,
+html[data-theme="light"] body .detail-label,
+html[data-theme="light"] body .step-time,
+html[data-theme="light"] body .deposit-note,
+html[data-theme="light"] body .proof-label,
+html[data-theme="light"] body .card-return,
+html[data-theme="light"] body .card-price span,
+html[data-theme="light"] body .demo-card p,
+html[data-theme="light"] body .feature-card p,
+html[data-theme="light"] body .testimonial-card p,
+html[data-theme="light"] body .step-card p,
+html[data-theme="light"] body .faq-list p,
+html[data-theme="light"] body .modal-content p,
+html[data-theme="light"] body .payment-label,
+html[data-theme="light"] body .form-group label,
+html[data-theme="light"] body .instruction,
+html[data-theme="light"] body .instruction strong,
+html[data-theme="light"] body .toast-message,
+html[data-theme="light"] body .modal-content p,
+html[data-theme="light"] body .user-balance,
+html[data-theme="light"] body .loan-date,
+html[data-theme="light"] body .info-row {
+  color: var(--outlier-muted-strong) !important;
+}
+
+/* Light mode: badges / status pills */
+html[data-theme="light"] body .status-badge,
+html[data-theme="light"] body .badge,
+html[data-theme="light"] body .tier-badge,
+html[data-theme="light"] body .stats-badge,
+html[data-theme="light"] body .status-badge *,
+html[data-theme="light"] body .badge *,
+html[data-theme="light"] body .tier-badge *,
+html[data-theme="light"] body .stats-badge * {
+  color: #ffffff !important;
+}
+
+/* Light mode: amount / monetary values */
+html[data-theme="light"] body .amount,
+html[data-theme="light"] body .loan-amount,
+html[data-theme="light"] body .reward,
+html[data-theme="light"] body .stat-value,
+html[data-theme="light"] body .current-deposit-number,
+html[data-theme="light"] body .payment-value,
+html[data-theme="light"] body .proof-number,
+html[data-theme="light"] body .section-kicker,
+html[data-theme="light"] body .step-number {
+  color: #047857 !important;
+}
+
+/* Light mode: colored amounts (green = income, red = outflow) */
+html[data-theme="light"] body .income strong,
+html[data-theme="light"] body td[style*="#2df8a8"],
+html[data-theme="light"] body td[style*="#10b981"],
+html[data-theme="light"] body [style*="color: #10b981"] {
+  color: #047857 !important;
+}
+html[data-theme="light"] body .outflow strong,
+html[data-theme="light"] body td[style*="#ef4444"],
+html[data-theme="light"] body [style*="color: #ef4444"] {
+  color: #991b1b !important;
+}
+
+/* Light mode: brand gradient text */
+html[data-theme="light"] body .brand {
+  -webkit-text-fill-color: var(--outlier-ink) !important;
+  color: var(--outlier-ink) !important;
+}
+
+/* Light mode: date/time helper text */
+html[data-theme="light"] body [style*="color: #94a3b8"],
+html[data-theme="light"] body [style*="color:#94a3b8"],
+html[data-theme="light"] body .stat span,
+html[data-theme="light"] body .chart-title div div {
+  color: var(--outlier-muted-strong) !important;
+}
+
+/* Light mode: colored section icons override inline styles */
+html[data-theme="light"] body [style*="color: #2df8a8"],
+html[data-theme="light"] body [style*="color:#2df8a8"] {
+  color: #047857 !important;
+}
+html[data-theme="light"] body [style*="color: #f59e0b"],
+html[data-theme="light"] body [style*="color:#f59e0b"] {
+  color: #92400e !important;
+}
+html[data-theme="light"] body [style*="color: #06b6d4"],
+html[data-theme="light"] body [style*="color:#06b6d4"] {
+  color: #0e7490 !important;
+}
+
+/* --- Dark mode: force all text to light on dark backgrounds --- */
+html:not([data-theme="light"]) body,
+html:not([data-theme="light"]) body * {
+  color: #f8fafc !important;
+}
+
+/* Dark mode: buttons and controls keep their intended colors */
+html:not([data-theme="light"]) body button,
+html:not([data-theme="light"]) body [type="button"],
+html:not([data-theme="light"]) body [type="submit"],
+html:not([data-theme="light"]) body .btn,
+html:not([data-theme="light"]) body .btn *,
+html:not([data-theme="light"]) body .btn-primary,
+html:not([data-theme="light"]) body .btn-primary *,
+html:not([data-theme="light"]) body .btn-secondary,
+html:not([data-theme="light"]) body .btn-success,
+html:not([data-theme="light"]) body .btn-success *,
+html:not([data-theme="light"]) body .btn-danger,
+html:not([data-theme="light"]) body .btn-danger *,
+html:not([data-theme="light"]) body .btn-stop,
+html:not([data-theme="light"]) body .btn-stop *,
+html:not([data-theme="light"]) body .btn-login,
+html:not([data-theme="light"]) body .btn-register,
+html:not([data-theme="light"]) body .copy-btn,
+html:not([data-theme="light"]) body .copy-btn *,
+html:not([data-theme="light"]) body .filter-btn,
+html:not([data-theme="light"]) body .page-btn,
+html:not([data-theme="light"]) body .export-btn,
+html:not([data-theme="light"]) body .start-btn,
+html:not([data-theme="light"]) body .savings-btn,
+html:not([data-theme="light"]) body .apply-btn,
+html:not([data-theme="light"]) body .add-btn,
+html:not([data-theme="light"]) body .remove-btn,
+html:not([data-theme="light"]) body .back-button,
+html:not([data-theme="light"]) body .back-to-users,
+html:not([data-theme="light"]) body .timer-btn,
+html:not([data-theme="light"]) body .menu-toggle,
+html:not([data-theme="light"]) body .hero-action,
+html:not([data-theme="light"]) body .hero-action *,
+html:not([data-theme="light"]) body .hero-action.primary,
+html:not([data-theme="light"]) body .buy-btn,
+html:not([data-theme="light"]) body .work-btn,
+html:not([data-theme="light"]) body input[type="submit"],
+html:not([data-theme="light"]) body .clear-btn {
+  color: #f8fafc !important;
+}
+
+/* Dark mode: accent-colored buttons keep dark text */
+html:not([data-theme="light"]) body .btn-success,
+html:not([data-theme="light"]) body .btn-success *,
+html:not([data-theme="light"]) body .buy-btn,
+html:not([data-theme="light"]) body .buy-btn *,
+html:not([data-theme="light"]) body .start-btn,
+html:not([data-theme="light"]) body .savings-btn,
+html:not([data-theme="light"]) body .export-btn,
+html:not([data-theme="light"]) body .add-btn,
+html:not([data-theme="light"]) body .apply-btn,
+html:not([data-theme="light"]) body .hero-action.primary,
+html:not([data-theme="light"]) body .hero-action.primary *,
+html:not([data-theme="light"]) body input[type="submit"],
+html:not([data-theme="light"]) body .copy-btn,
+html:not([data-theme="light"]) body .copy-btn *,
+html:not([data-theme="light"]) body .filter-btn,
+html:not([data-theme="light"]) body .back-button,
+html:not([data-theme="light"]) body .back-to-users,
+html:not([data-theme="light"]) body .clear-btn,
+html:not([data-theme="light"]) body .page-btn,
+html:not([data-theme="light"]) body .menu-toggle {
+  color: #07111f !important;
+}
+
+/* Dark mode: metric tiles with bright bg keep dark text */
+html:not([data-theme="light"]) body .metric-tile,
+html:not([data-theme="light"]) body .metric-tile *,
+html:not([data-theme="light"]) body .hero .metric-tile,
+html:not([data-theme="light"]) body .hero .metric-tile * {
+  color: #07111f !important;
+}
+html:not([data-theme="light"]) body .metric-tile.dark,
+html:not([data-theme="light"]) body .metric-tile.dark * {
+  color: #ffffff !important;
+}
+
+/* Dark mode: muted descriptive text */
+html:not([data-theme="light"]) body p,
+html:not([data-theme="light"]) body .subtitle,
+html:not([data-theme="light"]) body .section-subtitle,
+html:not([data-theme="light"]) body .helper-text,
+html:not([data-theme="light"]) body .meta,
+html:not([data-theme="light"]) body small,
+html:not([data-theme="light"]) body .footer-text,
+html:not([data-theme="light"]) body .page-info,
+html:not([data-theme="light"]) body .detail-label,
+html:not([data-theme="light"]) body .step-time,
+html:not([data-theme="light"]) body .deposit-note,
+html:not([data-theme="light"]) body .proof-label,
+html:not([data-theme="light"]) body .card-return,
+html:not([data-theme="light"]) body .card-price span,
+html:not([data-theme="light"]) body .demo-card p,
+html:not([data-theme="light"]) body .feature-card p,
+html:not([data-theme="light"]) body .testimonial-card p,
+html:not([data-theme="light"]) body .step-card p,
+html:not([data-theme="light"]) body .faq-list p,
+html:not([data-theme="light"]) body .modal-content p,
+html:not([data-theme="light"]) body .payment-label,
+html:not([data-theme="light"]) body .form-group label,
+html:not([data-theme="light"]) body .instruction,
+html:not([data-theme="light"]) body .instruction strong,
+html:not([data-theme="light"]) body .toast-message,
+html:not([data-theme="light"]) body .user-balance,
+html:not([data-theme="light"]) body .loan-date,
+html:not([data-theme="light"]) body .info-row,
+html:not([data-theme="light"]) body .user-phone {
+  color: #cbd5e1 !important;
+}
+
+/* Dark mode: badges / status pills */
+html:not([data-theme="light"]) body .status-badge,
+html:not([data-theme="light"]) body .badge,
+html:not([data-theme="light"]) body .tier-badge,
+html:not([data-theme="light"]) body .stats-badge,
+html:not([data-theme="light"]) body .status-badge *,
+html:not([data-theme="light"]) body .badge *,
+html:not([data-theme="light"]) body .tier-badge *,
+html:not([data-theme="light"]) body .stats-badge * {
+  color: #07111f !important;
+}
+html:not([data-theme="light"]) body .tier-badge.premium,
+html:not([data-theme="light"]) body .tier-badge.premium * {
+  color: #ffffff !important;
+}
+
+/* Dark mode: amount / monetary values */
+html:not([data-theme="light"]) body .amount,
+html:not([data-theme="light"]) body .loan-amount,
+html:not([data-theme="light"]) body .reward,
+html:not([data-theme="light"]) body .stat-value,
+html:not([data-theme="light"]) body .current-deposit-number,
+html:not([data-theme="light"]) body .payment-value,
+html:not([data-theme="light"]) body .proof-number,
+html:not([data-theme="light"]) body .section-kicker,
+html:not([data-theme="light"]) body .step-number {
+  color: #34d399 !important;
+}
+
+/* Dark mode: colored amounts */
+html:not([data-theme="light"]) body .income strong,
+html:not([data-theme="light"]) body td[style*="#2df8a8"],
+html:not([data-theme="light"]) body td[style*="#10b981"],
+html:not([data-theme="light"]) body [style*="color: #10b981"] {
+  color: #34d399 !important;
+}
+html:not([data-theme="light"]) body .outflow strong,
+html:not([data-theme="light"]) body td[style*="#ef4444"],
+html:not([data-theme="light"]) body [style*="color: #ef4444"] {
+  color: #f87171 !important;
+}
+
+/* Dark mode: brand gradient text */
+html:not([data-theme="light"]) body .brand {
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Dark mode: section icons keep accent color */
+html:not([data-theme="light"]) body .section-icon,
+html:not([data-theme="light"]) body .card-icon,
+html:not([data-theme="light"]) body .icon,
+html:not([data-theme="light"]) body .modal-icon,
+html:not([data-theme="light"]) body .section-icon *,
+html:not([data-theme="light"]) body .card-icon *,
+html:not([data-theme="light"]) body .icon * {
+  color: #2df8a8 !important;
+}
+
+/* Dark mode: date/time helper text */
+html:not([data-theme="light"]) body [style*="color: #94a3b8"],
+html:not([data-theme="light"]) body [style*="color:#94a3b8"],
+html:not([data-theme="light"]) body .stat span,
+html:not([data-theme="light"]) body .chart-title div div {
+  color: #94a3b8 !important;
+}
+
+/* Dark mode: inline colored overrides for specific elements */
+html:not([data-theme="light"]) body [style*="color: #f59e0b"],
+html:not([data-theme="light"]) body [style*="color:#f59e0b"] {
+  color: #fbbf24 !important;
+}
+html:not([data-theme="light"]) body [style*="color: #06b6d4"],
+html:not([data-theme="light"]) body [style*="color:#06b6d4"] {
+  color: #22d3ee !important;
+}
+
+/* --- Inputs: force readable in both themes --- */
+html[data-theme="light"] body input,
+html[data-theme="light"] body select,
+html[data-theme="light"] body textarea,
+html[data-theme="light"] body input *,
+html[data-theme="light"] body select *,
+html[data-theme="light"] body textarea * {
+  color: var(--outlier-ink) !important;
+}
+html:not([data-theme="light"]) body input,
+html:not([data-theme="light"]) body select,
+html:not([data-theme="light"]) body textarea,
+html:not([data-theme="light"]) body input *,
+html:not([data-theme="light"]) body select *,
+html:not([data-theme="light"]) body textarea * {
+  color: #0f172a !important;
+}
+
+/* --- Links --- */
+html[data-theme="light"] body a {
+  color: #1d4ed8 !important;
+}
+html:not([data-theme="light"]) body a {
+  color: #93c5fd !important;
+}
+
+/* --- SVG text inside the page --- */
+html[data-theme="light"] body svg text,
+html[data-theme="light"] body svg tspan {
+  fill: var(--outlier-ink) !important;
+}
+html:not([data-theme="light"]) body svg text,
+html:not([data-theme="light"]) body svg tspan {
+  fill: #f8fafc !important;
+}
+
+/* Shared viewport and overlay safeguards. */
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.theme-toggle {
+  top: 94px !important;
+}
+
+.modal {
+  padding: 1rem !important;
+  overflow-y: auto !important;
+}
+
+.modal-content {
+  max-width: min(640px, calc(100vw - 2rem)) !important;
+  max-height: calc(100dvh - 2rem) !important;
+  overflow-y: auto !important;
+}

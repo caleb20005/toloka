@@ -1,0 +1,151 @@
+/* Final contributor-space polish. Loaded after every legacy stylesheet. */
+.link-workspace main {
+  padding-inline: clamp(20px, 3.5vw, 56px) !important
+}
+
+.link-workspace :where(.container, .content, .page-content, .section-content, .dashboard-content) {
+  width: min(1280px, 100%) !important;
+  margin-inline: auto !important;
+  padding-inline: clamp(8px, 2vw, 26px) !important
+}
+
+.link-workspace :where(.card, .balance-card, .summary-card, .stat-card, .info-card, .form-card, .history-card, .withdrawal-card, .loan-card, .savings-card, .testimonial-card, .modal-content, .table-container, .data-section, .user-card, .panel, .calculator, .tier-card, .payment-box) {
+  padding: clamp(22px, 3vw, 38px) !important;
+  border-color: color-mix(in srgb, var(--ws-border) 45%, transparent) !important;
+  border-radius: 22px !important;
+  box-shadow: 0 14px 34px rgba(25, 37, 65, .1) !important
+}
+
+.link-workspace :where(.page-header, .section-header, .loan-header, .savings-header, .referral-header, .withdrawal-header, .hero, .landing-section-header, .tracks-heading) {
+  padding: clamp(30px, 4.5vw, 62px) !important;
+  border-color: color-mix(in srgb, var(--ws-border) 45%, transparent) !important;
+  border-radius: 26px !important
+}
+
+.link-workspace :where(th, td) {
+  padding: 16px 18px !important
+}
+
+.link-workspace :where(table) {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  border-radius: 16px !important;
+  overflow: hidden
+}
+
+.link-workspace .dropdown-menu {
+  padding: 8px !important;
+  border-color: color-mix(in srgb, var(--ws-border) 48%, transparent) !important
+}
+
+.link-workspace .dropdown-menu a {
+  padding: 11px 12px !important;
+  border-radius: 9px !important
+}
+
+.link-workspace .wallet-shell {
+  width: min(1280px, calc(100% - 72px)) !important
+}
+
+.link-workspace .wallet-hero,
+.link-workspace .wallet-action-grid {
+  border-color: color-mix(in srgb, var(--ws-border) 45%, transparent) !important
+}
+
+.link-workspace .wallet-action {
+  padding: clamp(28px, 3vw, 40px) !important;
+  border-color: color-mix(in srgb, var(--ws-border) 42%, transparent) !important
+}
+
+@media(max-width:760px) {
+  .link-workspace main {
+    padding-inline: 0 !important
+  }
+
+  .link-workspace .wallet-shell {
+    width: min(100% - 32px, 1280px) !important
+  }
+
+  .link-workspace :where(.card, .balance-card, .summary-card, .stat-card, .info-card, .form-card, .history-card, .withdrawal-card, .loan-card, .savings-card, .testimonial-card, .modal-content, .table-container, .data-section, .user-card, .panel, .calculator, .tier-card, .payment-box) {
+    padding: 22px !important
+  }
+}
+
+/* Fluid page architecture: semantic sections use the viewport as the canvas. */
+.link-workspace main {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: clamp(24px, 4vw, 64px) clamp(16px, 4vw, 64px) clamp(56px, 7vw, 104px) !important
+}
+
+.link-workspace :where(.container, .content, .page-content, .section-content, .dashboard-content) {
+  width: 100% !important;
+  max-width: 1440px !important;
+  margin-inline: auto !important;
+  padding-inline: 0 !important
+}
+
+.link-workspace :where(.page-header, .section-header, .loan-header, .savings-header, .referral-header, .withdrawal-header, .hero, .landing-section-header, .tracks-heading) {
+  width: 100% !important;
+  max-width: 1440px !important;
+  margin-inline: auto !important;
+  padding: clamp(24px, 4vw, 56px) 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important
+}
+
+.link-workspace :where(.page-header, .section-header, .loan-header, .savings-header, .referral-header, .withdrawal-header, .hero, .landing-section-header, .tracks-heading)>:first-child {
+  max-width: 880px
+}
+
+.link-workspace :where(.card, .balance-card, .summary-card, .stat-card, .info-card, .form-card, .history-card, .withdrawal-card, .loan-card, .savings-card, .testimonial-card, .table-container, .data-section, .user-card, .panel, .calculator, .tier-card, .payment-box) {
+  border-radius: 12px !important;
+  box-shadow: none !important
+}
+
+.link-workspace :where(.hero, .page-header, .section-header, .loan-header, .savings-header, .referral-header, .withdrawal-header) :where(.card, .balance-card, .summary-card, .stat-card, .info-card, .form-card, .history-card, .withdrawal-card, .loan-card, .savings-card, .testimonial-card, .panel, .calculator, .tier-card, .payment-box) {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important
+}
+
+.link-workspace :where(.section-header, .page-header, .loan-header, .savings-header, .referral-header, .withdrawal-header) {
+  align-items: end;
+  gap: clamp(16px, 3vw, 40px)
+}
+
+.link-workspace :where(.section-header, .page-header, .loan-header, .savings-header, .referral-header, .withdrawal-header) :where(h1, h2, h3) {
+  font-size: clamp(2rem, 4.5vw, 4.8rem) !important;
+  line-height: .98 !important;
+  letter-spacing: -.055em !important
+}
+
+.link-workspace :where(.card, .balance-card, .summary-card, .stat-card, .info-card, .form-card, .history-card, .withdrawal-card, .loan-card, .savings-card, .testimonial-card, .data-section, .user-card, .panel, .calculator, .tier-card) {
+  padding: clamp(18px, 2.3vw, 30px) !important
+}
+
+@media(max-width:760px) {
+  .link-workspace main {
+    padding: 18px 16px 56px !important
+  }
+
+  .link-workspace :where(.page-header, .section-header, .loan-header, .savings-header, .referral-header, .withdrawal-header, .hero, .landing-section-header, .tracks-heading) {
+    padding-block: 24px !important
+  }
+
+  .link-workspace :where(.section-header, .page-header, .loan-header, .savings-header, .referral-header, .withdrawal-header) {
+    align-items: start
+  }
+
+  .link-workspace :where(.section-header, .page-header, .loan-header, .savings-header, .referral-header, .withdrawal-header) :where(h1, h2, h3) {
+    font-size: clamp(2rem, 10vw, 3.25rem) !important
+  }
+
+  .link-workspace :where(.card, .balance-card, .summary-card, .stat-card, .info-card, .form-card, .history-card, .withdrawal-card, .loan-card, .savings-card, .testimonial-card, .data-section, .user-card, .panel, .calculator, .tier-card) {
+    padding: 18px !important
+  }
+}

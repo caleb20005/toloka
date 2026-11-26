@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Control Tower | Cash Flow</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="outlier-ui.css?v=20260816">
+  <link rel="stylesheet" href="control-tower-nav.css?v=20260816">
+  <style>
+    body { margin:0; min-height:100vh; font-family:Segoe UI,system-ui,sans-serif; }
+    .nav-left > .dropdown > .dropdown-content { left:0 !important; right:auto !important; }
+    .dropdown.open > .dropdown-content { display:block!important; }
+    .page { width:min(1180px,calc(100% - 32px)); margin:34px auto 60px; }
+    .page-header { margin:34px 0 22px; display:flex; justify-content:space-between; gap:16px; align-items:end; }
+    .page-header h1 { margin:0; font-size:clamp(1.6rem,4vw,2.5rem); }.page-header p{margin:7px 0 0;color:#94a3b8}
+    .summary { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:18px; }
+    .stat,.chart-card { background:#0f1b2d; border:1px solid rgba(148,163,184,.22); border-radius:4px; box-shadow:0 14px 34px rgba(0,0,0,.2); }
+    .stat { padding:18px; }.stat span{display:block;color:#94a3b8;font-size:.86rem}.stat strong{display:block;margin-top:7px;font-size:1.5rem}.income strong{color:#2df8a8}.outflow strong{color:#ff5b63}
+    .chart-card { padding:20px; }.chart-title{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.legend{display:flex;gap:14px;color:#cbd5e1;font-size:.86rem}.legend i{font-size:.7rem}.legend .in{color:#2df8a8}.legend .out{color:#ff4d57}
+    #chart { width:100%; height:auto; min-height:300px; display:block; }.gridline{stroke:rgba(148,163,184,.18);stroke-width:1}.axis-label{fill:#94a3b8;font-size:11px}.income-line{stroke:#2df8a8;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}.outflow-line{stroke:#ff4d57;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}.empty{padding:72px 18px;text-align:center;color:#94a3b8}.error{color:#fecaca;background:rgba(127,29,29,.3);padding:12px;border-radius:4px}
+    @media(max-width:680px){.page{width:min(100% - 24px,1180px);margin-top:22px}.page-header{align-items:start;flex-direction:column}.summary{grid-template-columns:1fr}.chart-card{padding:13px}.chart-title{align-items:start;flex-direction:column}}
+  </style>
+  <link rel="stylesheet" href="site-system.css?v=20260901d">
+  <link rel="stylesheet" href="edge-to-edge.css?v=20260909">
+</head>
+<body class='link-workspace'>
+  <div class="control-menu-shell">
+    <div class="dropdown">
+      <button id="controlMenuToggle" type="button" class="dropbtn tower-menu-toggle" aria-expanded="false" aria-label="Open Control Tower menu"><span></span><span></span><span class="sr-only">Open menu</span></button>
+      <div class="dropdown-content" aria-label="Control Tower navigation">
+        <a href="Home.html"><i class="fas fa-house"></i> Home</a>
+        <a href="collector.html"><i class="fas fa-inbox"></i> Collector</a>
+        <a href="cashflow.html" aria-current="page"><i class="fas fa-chart-line"></i> Cash flow</a>
+        <a href="collector.html#deposit-numbers"><i class="fas fa-phone"></i> Change deposit numbers</a>
+      </div>
+    </div>
+  </div>
+  <header class="topbar">
+    <div class="nav-right"><a class="brand brand-light" href="Homepage.html" aria-label="Toloka home"><span class="brand-mark"><i></i><i></i></span><span>toloka</span></a></div>
+  </header>
+  <main class="page">
+    <div class="page-header"><div><h1>Cash flow</h1><p>Platform money in versus money leaving the platform. Loans are excluded.</p></div><button class="dropbtn" type="button" onclick="loadCashFlow()"><i class="fas fa-rotate"></i> Refresh</button></div>
+    <section class="summary" aria-live="polite">
+      <div class="stat income"><span>Total money in</span><strong id="totalIn">KES 0</strong></div>
+      <div class="stat outflow"><span>Total money out</span><strong id="totalOut">KES 0</strong></div>
+      <div class="stat"><span>Net platform flow</span><strong id="netFlow">KES 0</strong></div>
+    </section>
+    <section class="chart-card">
+      <div class="chart-title"><div><strong>Daily cash movement</strong><div style="color:#94a3b8;font-size:.86rem;margin-top:4px">Red: withdrawals and referral bonuses · Green: AI purchases and savings deposits</div></div><div class="legend"><span><i class="fas fa-circle in"></i> Inflow</span><span><i class="fas fa-circle out"></i> Outflow</span></div></div>
+      <div id="chartArea"><div class="empty">Loading cash-flow data…</div></div>
+    </section>
+  </main>
+  <script src="auth-fetch.js"></script>
+  <script>
+    const money = value => `KES ${Number(value || 0).toLocaleString('en-KE',{maximumFractionDigits:2})}`;
+    function linePath(values, x, y) { return values.map((value,index) => `${index ? 'L' : 'M'}${x(index)} ${y(value)}`).join(' '); }
+    function drawChart(series) {
+      const area = document.getElementById('chartArea');
+      if (!series.length) { area.innerHTML = '<div class="empty">No platform cash movement has been recorded yet.</div>'; return; }
+      const width=1000, height=370, left=62, right=26, top=22, bottom=58;
+      const max=Math.max(1,...series.flatMap(item=>[item.inflow,item.outflow]));
+      const x=index=>left+(index*(width-left-right)/Math.max(1,series.length-1));
+      const y=value=>top+(height-top-bottom)*(1-value/max);
+      const grid=[0,.25,.5,.75,1].map(r=>`<line class="gridline" x1="${left}" x2="${width-right}" y1="${y(max*r)}" y2="${y(max*r)}"/><text class="axis-label" x="4" y="${y(max*r)+4}">${money(max*r)}</text>`).join('');
+      const labels=series.map((item,index)=> index===0 || index===series.length-1 || index%Math.ceil(series.length/6)===0 ? `<text class="axis-label" text-anchor="middle" x="${x(index)}" y="${height-18}">${String(item.date).slice(5)}</text>` : '').join('');
+      area.innerHTML=`<svg id="chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Cash flow line chart">${grid}<path class="income-line" d="${linePath(series.map(item=>item.inflow),x,y)}"/><path class="outflow-line" d="${linePath(series.map(item=>item.outflow),x,y)}"/>${labels}</svg>`;
+    }
+    async function loadCashFlow() {
+      const area=document.getElementById('chartArea'); area.innerHTML='<div class="empty">Loading cash-flow data…</div>';
+      try {
+        const response=await fetch('/api/control-tower/cash-flow');
+        const data=await response.json();
+        if (!response.ok) throw new Error(data.message || 'Could not load the report.');
+        document.getElementById('totalIn').textContent=money(data.totals.inflow);
+        document.getElementById('totalOut').textContent=money(data.totals.outflow);
+        document.getElementById('netFlow').textContent=money(data.totals.inflow-data.totals.outflow);
+        drawChart(data.series);
+      } catch(error) { area.innerHTML=`<div class="error">${error.message} Open this report from localhost on the Control Tower computer.</div>`; }
+    }
+    document.addEventListener('DOMContentLoaded',loadCashFlow);
+  </script>
+  <script src="nav-behavior.js?v=20260816"></script>
+  <script src="usd-display.js?v=20260901"></script>
+  <script src="scroll-to-top.js"></script>
+</body>
+</html>

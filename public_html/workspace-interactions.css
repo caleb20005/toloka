@@ -1,0 +1,720 @@
+/*
+ * Workspace interaction layer
+ * Loaded after the legacy styles. It deliberately scopes every rule to the
+ * contributor workspace, so the marketing site and Control Tower retain their
+ * existing navigation and layout.
+ */
+
+.link-workspace .site-header,
+.link-workspace header:not(.topbar) {
+  box-sizing: border-box;
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  min-height: 56px;
+  height: 56px;
+  overflow: visible !important;
+}
+
+/*
+ * Training workspace: unlike the short payment and track dialogs, this can
+ * contain a video, a task prompt, and a form. Keep it as one scrollable
+ * surface on phones so counters and actions never cover task content.
+ */
+.link-workspace #captchaModal {
+  z-index: 4200;
+  padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+  overflow-y: auto;
+  align-items: center;
+}
+
+.link-workspace #captchaModal.active { display: flex !important; }
+
+.link-workspace #captchaModal .modal-content {
+  box-sizing: border-box;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-content: start;
+  gap: 12px;
+  width: min(760px, calc(100vw - 16px)) !important;
+  max-width: 760px !important;
+  max-height: calc(100dvh - 16px) !important;
+  margin: auto !important;
+  padding: clamp(16px, 4vw, 28px) !important;
+  overflow: auto !important;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.link-workspace #captchaModal .modal-content > :not(.captcha-counter) {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.link-workspace #captchaModal .captcha-counter {
+  position: static !important;
+  align-self: start;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 !important;
+  padding: 4px 9px !important;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.link-workspace #captchaModal .captcha-counter-right { justify-self: end; }
+.link-workspace #captchaModal .modal-icon { margin: 0 auto !important; }
+
+.link-workspace #captchaModal h3,
+.link-workspace #captchaModal .modal-content > p {
+  margin: 0 !important;
+  text-align: center !important;
+}
+
+.link-workspace #captchaModal .captcha-question,
+.link-workspace #captchaModal #videoTaskContainer,
+.link-workspace #captchaModal .choice-statistics {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.link-workspace #captchaModal .modal-buttons {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 !important;
+  padding-top: 12px;
+  border-top: 1px solid var(--ws-border);
+  background: var(--ws-surface);
+}
+
+.link-workspace #captchaModal .modal-buttons .btn { width: 100%; min-width: 0; }
+
+.link-workspace #captchaModal .action-task,
+.link-workspace #captchaModal .action-video-stage,
+.link-workspace #captchaModal .action-task-video {
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 640px) {
+  .link-workspace #captchaModal { align-items: flex-start; }
+  .link-workspace #captchaModal .modal-content { max-height: calc(100dvh - 16px) !important; gap: 10px; }
+  .link-workspace #captchaModal .captcha-question { padding: 14px !important; font-size: .94rem; }
+  .link-workspace #captchaModal .action-task-video { max-height: min(34dvh, 260px) !important; }
+}
+
+.link-workspace header:not(.topbar) nav {
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+}
+
+.link-workspace header:not(.topbar) :is(.brand, .logo) {
+  min-width: 0;
+  margin: 0 !important;
+}
+
+.link-workspace .menu-toggle {
+  box-sizing: border-box;
+  flex: 0 0 32px;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px;
+  min-height: 32px;
+  margin-left: auto;
+  padding: 7px !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  order: 2;
+  gap: 5px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, #0f172a 16%, transparent) !important;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .72) !important;
+  color: #172033 !important;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, .08) !important;
+}
+
+.link-workspace .menu-toggle::before,
+.link-workspace .menu-toggle::after {
+  display: none !important;
+}
+
+.link-workspace .menu-toggle span {
+  display: block !important;
+  width: 17px !important;
+  height: 2px !important;
+  min-height: 2px;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 999px;
+  background: currentColor !important;
+  box-shadow: none !important;
+}
+
+/* Contributor headers use a light surface: the two bars must remain black. */
+.link-workspace header:not(.topbar) .menu-toggle {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+.link-workspace header:not(.topbar) .menu-toggle span { background-color: #111827 !important; }
+
+.link-workspace .nav-links {
+  box-sizing: border-box;
+  display: none !important;
+  position: fixed !important;
+  z-index: 3000 !important;
+  top: 64px !important;
+  right: max(12px, env(safe-area-inset-right)) !important;
+  left: auto !important;
+  width: min(340px, calc(100vw - 24px)) !important;
+  max-height: min(560px, calc(100dvh - 80px)) !important;
+  margin: 0 !important;
+  padding: 10px !important;
+  overflow: auto;
+  list-style: none !important;
+  border: 1px solid rgba(255, 255, 255, .42);
+  border-radius: 16px;
+  background: rgba(15, 23, 42, .88) !important;
+  color: #f8fafc !important;
+  box-shadow: 0 20px 46px rgba(15, 23, 42, .24) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(135%);
+  backdrop-filter: blur(20px) saturate(135%);
+}
+
+.link-workspace .nav-links.show {
+  display: flex !important;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+}
+
+.link-workspace .nav-links > li,
+.link-workspace .nav-links .dropdown,
+.link-workspace .nav-links a,
+.link-workspace .nav-links .dropdown-toggle {
+  width: 100%;
+  min-width: 0;
+}
+
+.link-workspace .nav-links a,
+.link-workspace .nav-links .dropdown-toggle {
+  box-sizing: border-box;
+  display: flex !important;
+  align-items: center;
+  min-height: 42px;
+  padding: 10px 12px !important;
+  border: 0;
+  border-radius: 10px;
+  background: transparent !important;
+  color: #f8fafc !important;
+  font-size: .95rem !important;
+  font-weight: 700 !important;
+  line-height: 1.25;
+  text-align: left;
+  text-decoration: none !important;
+}
+
+.link-workspace .nav-links a:hover,
+.link-workspace .nav-links a:focus-visible,
+.link-workspace .nav-links .dropdown-toggle:hover,
+.link-workspace .nav-links .dropdown-toggle:focus-visible,
+.link-workspace .nav-links a.active {
+  outline: none;
+  background: rgba(255, 255, 255, .14) !important;
+  color: #fff !important;
+}
+
+.link-workspace .nav-links .dropdown-menu {
+  display: none !important;
+  position: static !important;
+  width: auto !important;
+  margin: 2px 0 4px 10px !important;
+  padding: 4px !important;
+  border: 1px solid rgba(255, 255, 255, .14) !important;
+  border-radius: 11px !important;
+  background: rgba(255, 255, 255, .08) !important;
+  box-shadow: none !important;
+}
+
+.link-workspace .nav-links .dropdown.open .dropdown-menu,
+.link-workspace .nav-links .dropdown.active .dropdown-menu {
+  display: block !important;
+}
+
+.link-workspace .nav-links .dropdown-menu a {
+  min-height: 38px;
+  padding: 9px 10px !important;
+  font-size: .94rem;
+}
+
+.link-workspace #backToTopBtn {
+  display: none !important;
+}
+
+/* Keep the M-PESA form independent from the track-detail dialog. */
+.link-workspace #buyModal { z-index: 4100; padding: clamp(12px, 3vw, 28px); align-items: center; justify-content: center; }
+.link-workspace #buyModal.active { display: flex !important; }
+.link-workspace #buyModal .modal-content {
+  box-sizing: border-box; width: min(620px, calc(100vw - 24px)) !important; max-width: 620px !important;
+  max-height: min(780px, calc(100dvh - 24px)) !important; margin: 0 !important; padding: clamp(20px, 3vw, 28px) !important;
+  overflow: auto !important; transform: none !important; zoom: 1 !important; border: 1px solid #dfe5ef !important;
+  border-radius: 18px !important; background: #fff !important; color: #1d293d !important;
+  box-shadow: 0 26px 68px rgba(15, 23, 42, .28) !important;
+}
+.link-workspace #buyModal .modal-icon, .link-workspace #buyModal h3 { color: #1d293d !important; -webkit-text-fill-color: #1d293d !important; }
+.link-workspace #buyModal h3 { margin: 0 0 6px !important; font-size: clamp(1.18rem, 2.5vw, 1.45rem) !important; line-height: 1.25 !important; text-align: left !important; }
+.link-workspace #buyModal > .modal-content > p, .link-workspace #buyModal .payment-region-note {
+  margin: 0 0 16px !important; color: #56657b !important; -webkit-text-fill-color: #56657b !important; line-height: 1.5 !important; text-align: left !important;
+}
+.link-workspace #buyModal .payment-methods { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 16px 0 12px; }
+.link-workspace #buyModal .payment-method {
+  display: grid !important; grid-template-columns: auto minmax(0, 1fr) !important; gap: 8px; min-width: 0; min-height: 72px;
+  padding: 10px !important; border: 1px solid #d8dfeb !important; border-radius: 12px !important; background: #fff !important;
+  color: #233047 !important; text-align: left; box-shadow: none !important;
+}
+.link-workspace #buyModal .payment-method.active { border-color: #6254d7 !important; background: #f5f3ff !important; }
+.link-workspace #buyModal .payment-method :is(b, small, em, span) { color: inherit !important; -webkit-text-fill-color: currentColor !important; }
+.link-workspace #buyModal .payment-method small, .link-workspace #buyModal .payment-method em { font-size: .72rem; line-height: 1.2; }
+.link-workspace #buyModal .payment-method em { grid-column: 2; color: #66758a !important; font-style: normal; }
+.link-workspace #buyModal .payment-box { margin: 14px 0 !important; padding: 14px 16px !important; border: 1px solid #e0e6ef !important; border-radius: 12px !important; background: #f8fafc !important; color: #243249 !important; }
+.link-workspace #buyModal .form-group { display: block !important; margin: 16px 0 !important; overflow: visible !important; }
+.link-workspace #buyModal .form-group[hidden] { display: none !important; }
+.link-workspace #buyModal label[for="mpesaMessage"] { display: block !important; margin-bottom: 8px !important; color: #273449 !important; -webkit-text-fill-color: #273449 !important; font-weight: 750 !important; }
+.link-workspace #buyModal #mpesaMessage {
+  box-sizing: border-box !important; display: block !important; visibility: visible !important; width: 100% !important;
+  min-height: 126px !important; height: 126px !important; padding: 12px !important; resize: vertical !important;
+  opacity: 1 !important; overflow: auto !important; border: 1px solid #bfc9d9 !important; border-radius: 10px !important;
+  background: #fff !important; color: #172033 !important; -webkit-text-fill-color: #172033 !important; caret-color: #172033 !important;
+  font: 400 .95rem/1.5 Inter, Manrope, Arial, sans-serif !important; pointer-events: auto !important;
+}
+.link-workspace #buyModal #mpesaMessage::placeholder { color: #6c7a90 !important; -webkit-text-fill-color: #6c7a90 !important; opacity: 1 !important; }
+.link-workspace #buyModal .modal-buttons { display: flex !important; justify-content: flex-end; gap: 10px; margin-top: 18px; }
+@media (max-width: 640px) {
+  .link-workspace #buyModal { padding: 10px; }
+  .link-workspace #buyModal .modal-content { width: calc(100vw - 20px) !important; max-height: calc(100dvh - 20px) !important; padding: 18px !important; border-radius: 15px !important; }
+  .link-workspace #buyModal .payment-methods { grid-template-columns: 1fr; }
+  .link-workspace #buyModal .payment-method { min-height: 58px; }
+  .link-workspace #buyModal .modal-buttons { display: grid !important; grid-template-columns: 1fr 1fr; }
+}
+
+/* The decorative circles belong to the visual tile only, never the copy. */
+.link-workspace #trackModal {
+  z-index: 4000;
+  padding: clamp(12px, 3vw, 32px);
+  align-items: center;
+  justify-content: center;
+}
+
+.link-workspace #trackModal.active {
+  display: flex !important;
+}
+
+.link-workspace #trackModal .track-modal-content {
+  box-sizing: border-box;
+  display: grid !important;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  width: min(860px, calc(100vw - 24px)) !important;
+  max-width: 860px !important;
+  max-height: min(760px, calc(100dvh - 24px)) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(98, 82, 220, .18) !important;
+  border-radius: 18px !important;
+  background: #fff !important;
+  color: #172033 !important;
+  box-shadow: 0 26px 68px rgba(15, 23, 42, .28) !important;
+}
+
+.link-workspace #trackModal .track-modal-header {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 64px;
+  margin: 0 !important;
+  padding: 14px 20px !important;
+  border: 0;
+  background: linear-gradient(110deg, #5b4bd7, #7667e8) !important;
+  color: #fff !important;
+}
+
+.link-workspace #trackModal .track-modal-header h3 {
+  display: block !important;
+  margin: 0 !important;
+  color: #fff !important;
+  font-size: clamp(1.12rem, 2.5vw, 1.38rem) !important;
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+.link-workspace #trackModal .track-close {
+  box-sizing: border-box;
+  flex: 0 0 34px;
+  width: 34px !important;
+  height: 34px !important;
+  min-height: 34px;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1px solid rgba(255, 255, 255, .54) !important;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, .14) !important;
+  color: #fff !important;
+  font-size: 1.55rem !important;
+  line-height: 1;
+}
+
+.link-workspace #trackModal .track-modal-body {
+  min-height: 0;
+  padding: clamp(18px, 3vw, 28px) !important;
+  overflow: auto;
+  background: #fff;
+  color: #273449;
+}
+
+.link-workspace #trackModal .track-detail-visual {
+  position: relative !important;
+  isolation: isolate;
+  height: 118px !important;
+  min-height: 118px;
+  margin: 0 0 18px !important;
+  overflow: hidden !important;
+  border: 1px solid #e1e6ef !important;
+  border-radius: 14px !important;
+  background: linear-gradient(132deg, #f0efff, #f8faff 56%, #eef8ff) !important;
+}
+
+.link-workspace #trackModal .track-detail-visual::before,
+.link-workspace #trackModal .track-detail-visual::after {
+  position: absolute !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+.link-workspace #trackModal .track-detail-visual::before {
+  width: 176px !important;
+  height: 176px !important;
+  right: 48px !important;
+  bottom: -88px !important;
+  margin: 0 !important;
+}
+
+.link-workspace #trackModal .track-detail-visual::after {
+  width: 94px !important;
+  height: 94px !important;
+  right: 94px !important;
+  bottom: -26px !important;
+  margin: 0 !important;
+}
+
+.link-workspace #trackModal .track-detail-visual span {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  margin: 16px;
+  color: #4034a6 !important;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.link-workspace #trackModal .track-detail-kicker,
+.link-workspace #trackModal .track-detail-intro,
+.link-workspace #trackModal .track-detail-grid p,
+.link-workspace #trackModal .track-detail-grid li {
+  color: #40506a !important;
+}
+
+.link-workspace #trackModal .track-detail-kicker {
+  margin: 0 0 7px !important;
+  color: #6355cd !important;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .075em;
+  text-transform: uppercase;
+}
+
+.link-workspace #trackModal .track-detail-intro {
+  margin: 0 0 22px !important;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.link-workspace #trackModal .track-detail-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.link-workspace #trackModal .track-detail-grid section {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid #e8ecf3 !important;
+  border-radius: 12px !important;
+  background: #fafbfe !important;
+}
+
+.link-workspace #trackModal .track-detail-grid h3 {
+  margin: 0 0 9px !important;
+  color: #1d293d !important;
+  font-size: .93rem !important;
+}
+
+.link-workspace #trackModal .track-detail-grid ul {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.link-workspace #trackModal .track-detail-grid li + li {
+  margin-top: 7px;
+}
+
+.link-workspace #trackModal .track-detail-footer {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px !important;
+  border-top: 1px solid #e6eaf1 !important;
+  background: #fcfdff !important;
+  color: #3d4b61;
+}
+
+.link-workspace #trackModal .track-detail-footer span {
+  display: block;
+  margin-bottom: 4px;
+  color: #68758a !important;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+}
+
+.link-workspace #trackModal .track-detail-footer strong {
+  display: block;
+  color: #202c40 !important;
+  font-size: .88rem;
+  line-height: 1.35;
+}
+
+.link-workspace #trackModal #trackApplyButton {
+  min-height: 44px;
+  padding: 11px 16px !important;
+  white-space: nowrap;
+  border-radius: 10px !important;
+  background: #5c4ed6 !important;
+  color: #fff !important;
+  box-shadow: 0 7px 16px rgba(92, 78, 214, .22);
+}
+
+@media (max-width: 640px) {
+  .link-workspace #trackModal {
+    padding: 10px;
+  }
+
+  .link-workspace #trackModal .track-modal-content {
+    width: calc(100vw - 20px) !important;
+    max-height: calc(100dvh - 20px) !important;
+    border-radius: 15px !important;
+  }
+
+  .link-workspace #trackModal .track-modal-header,
+  .link-workspace #trackModal .track-detail-footer {
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+  }
+
+  .link-workspace #trackModal .track-modal-body {
+    padding: 16px !important;
+  }
+
+  .link-workspace #trackModal .track-detail-visual {
+    height: 96px !important;
+    min-height: 96px;
+  }
+
+  .link-workspace #trackModal .track-detail-visual::before {
+    width: 130px !important;
+    height: 130px !important;
+    right: 26px !important;
+    bottom: -64px !important;
+  }
+
+  .link-workspace #trackModal .track-detail-visual::after {
+    width: 70px !important;
+    height: 70px !important;
+    right: 62px !important;
+    bottom: -20px !important;
+  }
+
+  .link-workspace #trackModal .track-detail-grid,
+  .link-workspace #trackModal .track-detail-footer {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .link-workspace #trackModal #trackApplyButton {
+    width: 100%;
+  }
+
+  .link-workspace .history-container,
+  .link-workspace .table-container {
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow: visible !important;
+  }
+
+  .link-workspace .history-table,
+  .link-workspace .history-table tbody,
+  .link-workspace .history-table tr,
+  .link-workspace .history-table td {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .link-workspace .history-table tbody {
+    display: flex !important;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .link-workspace .history-table tr {
+    display: block !important;
+    overflow: hidden;
+    border: 1px solid #e1e6ef !important;
+    border-radius: 13px;
+    background: #fff;
+    box-shadow: 0 5px 16px rgba(15, 23, 42, .06);
+  }
+
+  .link-workspace .history-table td {
+    display: grid !important;
+    grid-template-columns: minmax(88px, .72fr) minmax(0, 1.28fr);
+    gap: 10px;
+    align-items: start;
+    padding: 11px 13px !important;
+    overflow-wrap: anywhere;
+    border-bottom: 1px solid #edf0f5 !important;
+    color: #253247 !important;
+    text-align: right;
+  }
+
+  .link-workspace .history-table td::before {
+    content: attr(data-label) !important;
+    min-width: 0;
+    color: #637188 !important;
+    font-size: .72rem;
+    font-weight: 800 !important;
+    letter-spacing: .04em;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  .link-workspace .history-table td > * {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    text-align: right;
+  }
+
+  .link-workspace .history-table td code {
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 380px) {
+  .link-workspace .nav-links {
+    right: 8px;
+    width: calc(100vw - 16px);
+  }
+
+  .link-workspace .history-table td {
+    grid-template-columns: minmax(76px, .72fr) minmax(0, 1.28fr);
+    padding: 10px !important;
+  }
+}
+
+/* Keep task actions in normal document flow on phones.  They must never
+   float over answer options, video controls, or other training buttons. */
+@media (max-width: 640px) {
+  .link-workspace #captchaModal .modal-content {
+    display: block !important;
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px) !important;
+    max-height: calc(100dvh - 16px) !important;
+    padding: 16px !important;
+    overflow-y: auto !important;
+  }
+
+  .link-workspace #captchaModal .captcha-counter {
+    position: static !important;
+    display: inline-block !important;
+    margin: 0 6px 10px 0 !important;
+    inset: auto !important;
+  }
+
+  .link-workspace #captchaModal .modal-buttons,
+  .link-workspace #captchaModal .modal-buttons button {
+    position: static !important;
+    inset: auto !important;
+    z-index: auto !important;
+  }
+
+  .link-workspace #captchaModal .modal-buttons {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin: 18px 0 0 !important;
+    padding: 14px 0 0 !important;
+    border-top: 1px solid var(--ws-border) !important;
+    background: transparent !important;
+    transform: none !important;
+  }
+
+  .link-workspace #captchaModal .modal-buttons button {
+    display: block !important;
+    width: 100% !important;
+    min-height: 48px !important;
+    margin: 0 !important;
+    transform: none !important;
+  }
+}
+
+/* The black two-bar contributor menu is shared verbatim by every workspace
+   page that loads this interaction layer. */
+.link-workspace header:not(.topbar) .menu-toggle,
+.link-workspace header:not(.topbar) #menuToggle {
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  flex: 0 0 32px !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  margin-left: auto !important;
+  padding: 7px !important;
+  gap: 5px !important;
+  border: 1px solid rgba(15, 23, 42, .16) !important;
+  border-radius: 10px !important;
+  background: rgba(255, 255, 255, .92) !important;
+  color: #111827 !important;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, .08) !important;
+}
+
+.link-workspace header:not(.topbar) .menu-toggle span,
+.link-workspace header:not(.topbar) #menuToggle span {
+  display: block !important;
+  width: 17px !important;
+  height: 2px !important;
+  min-height: 2px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #111827 !important;
+}

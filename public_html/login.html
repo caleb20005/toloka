@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Join Toloka</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site-system.css?v=20260902a">
+  <link rel="stylesheet" href="login-onboarding.css?v=20260902a">
+  <link rel="stylesheet" href="registration-feedback.css?v=20260921">
+  <link rel="stylesheet" href="edge-to-edge.css?v=20260909">
+</head>
+<body class="auth-page">
+  <header class="auth-header">
+    <a class="brand" href="landing.html" aria-label="Toloka home"><span class="brand-mark" aria-hidden="true"><i></i><i></i></span><span>toloka</span></a>
+    <a class="back" href="landing.html"><span aria-hidden="true">←</span> Back to site</a>
+  </header>
+
+  <main class="auth-wrap">
+    <section id="roleChooser" class="role-chooser">
+      <p class="eyebrow">JOIN Toloka</p>
+      <h1>Help shape the next generation of AI.</h1>
+      <p class="intro">Create your contributor profile, tell us where your expertise is strongest, and find work that fits your skills.</p>
+      <div class="role-grid">
+        <article class="role-card new-member"><span class="card-number">NEW CONTRIBUTOR</span><div class="role-art"></div><h2>Build your<br>profile.</h2><p>Complete a thoughtful six-step application so Toloka can recommend the right opportunities.</p><button type="button" data-open-auth="register">Start registration <span>↗</span></button></article>
+        <article class="role-card existing-member"><span class="card-number">EXISTING MEMBER</span><div class="role-art"></div><h2>Welcome<br>back.</h2><p>Sign in to continue your tasks, wallet activity, and contributor pathway.</p><button type="button" data-open-auth="login">Log in <span>↗</span></button></article>
+      </div>
+      <p class="notice">You must be at least 18 years old, provide accurate account information, and enter a valid referral code to join Toloka.</p>
+    </section>
+
+    <section id="authPanel" class="auth-panel" aria-live="polite">
+      <div class="panel-topline"><button type="button" class="text-back" id="backToChoice">← All options</button><p class="eyebrow">Toloka CONTRIBUTORS</p></div>
+      <div class="mode-tabs" role="tablist"><button class="active" data-mode="login" type="button" role="tab">Log in</button><button data-mode="register" type="button" role="tab">Register</button></div>
+
+      <section id="loginScreen">
+        <h1>Welcome back.</h1><p class="form-lead">Sign in to continue to your contributor workspace.</p>
+        <form id="loginForm" novalidate>
+          <label class="field-label" for="loginPhone">Phone number</label>
+          <div class="phone-field"><select id="loginCountry" aria-label="Country calling code"><option value="1">🇺🇸 +1</option><option value="254">🇰🇪 +254</option></select><input id="loginPhone" type="tel" autocomplete="tel" inputmode="numeric" placeholder="(555) 123-4567" required></div>
+          <label class="field-label" for="loginPassword">Password</label><input id="loginPassword" class="text-input" type="password" autocomplete="current-password" minlength="8" required>
+          <button class="primary-button" type="submit">Log in <span>↗</span></button>
+          <p class="form-message" id="loginMessage"></p>
+        </form>
+      </section>
+
+      <section id="registerScreen" hidden>
+        <div class="wizard-heading"><div><p class="eyebrow">CONTRIBUTOR APPLICATION</p><h1>Build your profile.</h1></div><span id="stepCounter">Step 1 of 6</span></div>
+        <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+        <form id="registerForm" novalidate>
+          <section class="wizard-step active" data-step="1">
+            <h2>Your account</h2><p>Use a real email and a secure password. We use this information to protect your account and contact you about your application.</p>
+            <div class="two-columns"><div><label class="field-label" for="firstName">First name</label><input class="text-input" id="firstName" autocomplete="given-name" required></div><div><label class="field-label" for="lastName">Last name</label><input class="text-input" id="lastName" autocomplete="family-name" required></div></div>
+            <label class="field-label" for="email">Email address</label><input class="text-input" id="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+            <label class="field-label" for="referralCode">Referral code</label><input class="text-input" id="referralCode" autocomplete="off" placeholder="Paste the referral code from your inviter" required><small>Your code is validated before an account is created.</small>
+            <label class="field-label" for="phone">Mobile number</label><div class="phone-field"><select id="countryCode" aria-label="Country calling code"><option value="1">🇺🇸 +1</option><option value="254">🇰🇪 +254</option></select><input id="phone" type="tel" autocomplete="tel" inputmode="numeric" placeholder="(555) 123-4567" required></div><small id="phoneHelp">Use a 10-digit US mobile number.</small>
+            <div class="two-columns"><div><label class="field-label" for="password">Password</label><input class="text-input" id="password" type="password" autocomplete="new-password" minlength="8" required><small>At least 8 characters.</small></div><div><label class="field-label" for="confirmPassword">Confirm password</label><input class="text-input" id="confirmPassword" type="password" autocomplete="new-password" minlength="8" required></div></div>
+          </section>
+          <section class="wizard-step" data-step="2" hidden>
+            <h2>Where you work</h2><p>Your location helps us identify work that is available and appropriate for your region. Use your residential address.</p>
+            <label class="field-label" for="addressLine1">Address line 1</label><input class="text-input" id="addressLine1" autocomplete="address-line1" required>
+            <label class="field-label" for="addressLine2">Address line 2 <span>(Apartment, suite, or N/A)</span></label><input class="text-input" id="addressLine2" autocomplete="address-line2" required>
+            <div class="two-columns"><div><label class="field-label" for="city">City</label><input class="text-input" id="city" autocomplete="address-level2" required></div><div><label class="field-label" for="region">State / region</label><input class="text-input" id="region" autocomplete="address-level1" required></div></div>
+            <div class="two-columns"><div><label class="field-label" for="country">Country</label><select class="text-input" id="country" autocomplete="country-name" required><option value="United States">United States</option><option value="Kenya">Kenya</option><option value="Canada">Canada</option><option value="United Kingdom">United Kingdom</option><option value="Other">Other</option></select></div><div><label class="field-label" for="postalCode">Postal / ZIP code</label><input class="text-input" id="postalCode" autocomplete="postal-code" required></div></div>
+          </section>
+          <section class="wizard-step" data-step="3" hidden>
+            <h2>Eligibility</h2><p>We use this information to make sure you can take part in the contributor network.</p>
+            <label class="field-label" for="birthDate">Date of birth</label><input class="text-input" id="birthDate" type="date" autocomplete="bday" required>
+            <fieldset class="choice-field"><legend>Are you legally allowed to work as an independent contractor where you live?</legend><label><input type="radio" name="workEligibility" value="yes" required> Yes</label><label><input type="radio" name="workEligibility" value="no"> No</label></fieldset>
+            <fieldset class="choice-field"><legend>Will you use Toloka only for yourself, without sharing your account?</legend><label><input type="radio" name="accountUse" value="yes" required> Yes</label><label><input type="radio" name="accountUse" value="no"> No</label></fieldset>
+          </section>
+          <section class="wizard-step" data-step="4" hidden>
+            <h2>Your expertise</h2><p>Choose the areas where you can provide careful, independent judgement. This does not lock you into a task category.</p>
+            <div class="check-grid" id="expertiseFields"><label><input type="checkbox" value="Writing and editing">Writing & editing</label><label><input type="checkbox" value="Research and fact checking">Research & fact checking</label><label><input type="checkbox" value="Coding and technical review">Coding & technical review</label><label><input type="checkbox" value="Visual analysis and design">Visual analysis & design</label><label><input type="checkbox" value="Math and data analysis">Math & data analysis</label><label><input type="checkbox" value="Languages and translation">Languages & translation</label><label><input type="checkbox" value="Safety and policy evaluation">Safety & policy evaluation</label><label><input type="checkbox" value="Business or domain expertise">Business / domain expertise</label></div>
+            <label class="field-label" for="primaryRole">Current or most recent role</label><input class="text-input" id="primaryRole" placeholder="For example: analyst, student, engineer" required>
+            <label class="field-label" for="experienceLevel">Relevant experience</label><select class="text-input" id="experienceLevel" required><option value="">Select one</option><option>New to professional work</option><option>1–2 years</option><option>3–5 years</option><option>6–10 years</option><option>10+ years</option></select>
+          </section>
+          <section class="wizard-step" data-step="5" hidden>
+            <h2>Your working style</h2><p>This helps us recommend tasks with a realistic level of commitment.</p>
+            <fieldset class="choice-field"><legend>How many hours could you usually contribute each week?</legend><label><input type="radio" name="availability" value="1-4" required> 1–4 hours</label><label><input type="radio" name="availability" value="5-10"> 5–10 hours</label><label><input type="radio" name="availability" value="11-20"> 11–20 hours</label><label><input type="radio" name="availability" value="20+"> 20+ hours</label></fieldset>
+            <label class="field-label" for="languages">Languages you can work in</label><input class="text-input" id="languages" placeholder="For example: English, Swahili" required>
+            <fieldset class="choice-field"><legend>Would you like to receive occasional email updates about relevant opportunities?</legend><label><input type="radio" name="updates" value="yes" required> Yes</label><label><input type="radio" name="updates" value="no"> No</label></fieldset>
+          </section>
+          <section class="wizard-step" data-step="6" hidden>
+            <h2>Review & agree</h2><p>Review the terms before creating your account. By continuing, you confirm that your information is accurate.</p>
+            <article class="terms-copy" tabindex="0"><h3>Toloka Contributor Terms and Conditions</h3><p><strong>Effective date: 2 September 2026.</strong> These Contributor Terms govern your use of Toloka’s contributor workspace, task marketplace, evaluation tools, communications, and related services. They form an agreement between you and Toloka. Read them carefully before accepting.</p><h4>1. Eligibility and account integrity</h4><p>You represent that you are at least eighteen years old, can enter this agreement in your jurisdiction, and will provide complete, current, and accurate registration details. You may maintain only one personal contributor account. Your account, credentials, invitations, task access, and payment details are personal to you and may not be sold, assigned, shared, rented, automated, or used on behalf of another person.</p><h4>2. Independent contributor relationship</h4><p>Toloka makes opportunities available to independent contributors. Nothing in these Terms creates employment, agency, partnership, exclusivity, or a guarantee of assignments, income, minimum hours, benefits, or continued platform access. You control when you work, but you must meet the stated quality, confidentiality, timing, and eligibility requirements for any work you choose to submit.</p><h4>3. Task standards and truthful work</h4><p>You will complete tasks yourself, follow task-specific instructions, and submit work that is honest, original, and based on your genuine judgement. You will not use undisclosed automation, copied answers, answer-sharing groups, misleading location tools, fabricated evidence, prohibited third-party data, or any method intended to manipulate quality checks, timing controls, assessments, or compensation. Toloka may review, reject, re-score, or remove work that does not meet these standards.</p><h4>4. Confidential information and data handling</h4><p>Tasks may include non-public prompts, media, model outputs, research materials, personal information, or customer content. You must keep all such material confidential, use it only to perform the applicable task, and not download, reproduce, publish, discuss, train other systems on, or disclose it unless Toloka expressly permits this in writing. You must use a reasonably secure device and network, promptly report a suspected compromise, and delete task material when instructed.</p><h4>5. Acceptable use and safety</h4><p>You may not use the service to break the law, infringe intellectual-property rights, violate privacy, harass others, evade sanctions or export restrictions, introduce malware, probe security controls, scrape the service, create false identities, or interfere with platform operation. Toloka may restrict access where it reasonably believes continued access could create a safety, legal, integrity, or security risk.</p><h4>6. Compensation, reviews, and taxes</h4><p>Compensation is described per approved opportunity and may depend on successful review, quality thresholds, eligibility, and available program capacity. Displayed estimates are not promises. Toloka may withhold, adjust, reverse, or decline payment for duplicated, invalid, fraudulent, incomplete, non-compliant, or rejected work, subject to applicable law. You are responsible for your own taxes, reporting obligations, equipment, connectivity, insurance, and other costs associated with independent work.</p><h4>7. Intellectual property</h4><p>To the extent permitted by law, you assign to Toloka all rights, title, and interest in work product, annotations, feedback, outputs, and related materials you create for a task upon creation. Where assignment is not available, you grant Toloka a perpetual, worldwide, transferable, sublicensable, irrevocable, royalty-free licence to use, reproduce, modify, distribute, and create derivative works from that material for any lawful purpose connected to its services.</p><h4>8. Privacy and communications</h4><p>Toloka uses registration, profile, device, task, quality, and payment information to operate the platform, prevent fraud, match opportunities, process requests, communicate with you, and meet legal obligations. You may opt out of non-essential opportunity updates through account communications controls. Operational, security, and legal notices may still be sent where permitted. Do not submit unnecessary sensitive personal information in task responses.</p><h4>9. Suspension and termination</h4><p>You may stop using the service at any time. Toloka may suspend or terminate access, remove assignments, or investigate activity where it detects a breach of these Terms, a quality or security concern, legal risk, misuse, or an inaccurate profile. Clauses concerning confidentiality, intellectual property, payments, dispute resolution, and limitations that should survive termination will continue to apply.</p><h4>10. Disclaimers, liability, and changes</h4><p>The service is provided on an “as available” basis to the extent permitted by law. Toloka does not guarantee uninterrupted availability, error-free tasks, specific outcomes, or the availability of particular opportunities. To the maximum extent permitted by law, Toloka’s aggregate liability relating to the service is limited to amounts paid to you for approved work in the twelve months before the event giving rise to the claim. Toloka may update these Terms for operational, legal, or security reasons; material changes will be presented through the service or another reasonable notice channel. Continued use after an effective update means you accept the revised Terms where lawful.</p><h4>11. Contact and governing requirements</h4><p>If you have a question, concern, or request about these Terms, contact Toloka through the support channel made available in the service. Local consumer, employment, privacy, tax, and mandatory legal rights may apply and are not limited where they cannot lawfully be limited. This template should be reviewed by qualified counsel before production use in every target jurisdiction.</p></article>
+            <label class="terms-check"><input type="checkbox" id="termsAccepted" required> <span>I have read and agree to the Toloka Contributor Terms and Conditions, Privacy Notice, and the independent contributor relationship.</span></label>
+            <label class="terms-check optional"><input type="checkbox" id="profileAccurate" required> <span>I confirm that my profile is accurate and that I will keep it up to date.</span></label>
+          </section>
+          <div class="wizard-actions"><button type="button" id="previousStep" class="secondary-button" hidden>Back</button><button type="button" id="nextStep" class="primary-button">Continue <span>→</span></button><button type="submit" id="createAccount" class="primary-button" hidden>Create account <span>↗</span></button></div>
+          <p class="form-message" id="registerMessage"></p>
+        </form>
+      </section>
+    </section>
+  </main>
+  <script src="login-onboarding.js?v=20260921-registration-ux"></script>
+  <script src="usd-display.js?v=20260902a"></script>
+  <script src="scroll-to-top.js"></script>
+</body>
+</html>
+<script defer src="rebrand.js?v=20260902"></script>
+

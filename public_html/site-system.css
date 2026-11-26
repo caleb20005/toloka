@@ -1,0 +1,283 @@
+/* Toloka site system: high-contrast tokens and shared contributor navigation. */
+@import url("site-effects.css?v=20260901");
+:root {
+  --link-radius: 14px;
+  --link-accent: #7c6cff;
+  --link-accent-strong: #6857ed;
+  /* Safe default before the theme script initializes on legacy pages. */
+  --link-page: #050816;
+  --link-surface: #0b1020;
+  --link-surface-raised: #121a30;
+  --link-text: #f8f9ff;
+  --link-muted: #c1cae2;
+  --link-subtle: #91a0c4;
+  --link-border: rgba(194, 204, 240, .22);
+}
+
+html[data-theme="dark"], body[data-theme="dark"] {
+  --link-page: #050816;
+  --link-surface: #0b1020;
+  --link-surface-raised: #121a30;
+  --link-text: #f8f9ff;
+  --link-muted: #c1cae2;
+  --link-subtle: #91a0c4;
+  --link-border: rgba(194, 204, 240, .22);
+  color-scheme: dark;
+}
+
+html[data-theme="light"], body[data-theme="light"] {
+  --link-page: #f7f8fc;
+  --link-surface: #ffffff;
+  --link-surface-raised: #eef1fa;
+  --link-text: #10172b;
+  --link-muted: #303d59;
+  --link-subtle: #586781;
+  --link-border: rgba(32, 48, 82, .2);
+  color-scheme: light;
+}
+
+/* Readable baseline for every legacy contributor and Control Tower component. */
+html[data-theme] body { background: var(--link-page) !important; color: var(--link-text) !important; }
+html[data-theme] body :is(h1, h2, h3, h4, h5, h6, p, span, li, dt, dd, label, legend, small, strong, b, em, i, summary, th, td, caption, .icon, .card-icon, .section-icon) { color: inherit; }
+html[data-theme] body :is(p, small, .muted, .subtitle, .description, .helper-text, .payment-label, .proof-label, .footer-section a, .footer-section span) { color: var(--link-muted) !important; }
+html[data-theme] body :is(.card, .balance-card, .summary-card, .stat-card, .info-card, .form-card, .history-card, .withdrawal-card, .loan-card, .savings-card, .testimonial-card, .modal-content, .table-container, .data-section, .user-card, .panel) { background: var(--link-surface) !important; border-color: var(--link-border) !important; color: var(--link-text) !important; }
+html[data-theme] body :is(.table-header, thead, .card-header, .section-header, .page-header, .loan-header, .savings-header, .referral-header, .withdrawal-header, .topbar) { background: var(--link-surface-raised) !important; border-color: var(--link-border) !important; color: var(--link-text) !important; }
+html[data-theme] body :is(thead *, .table-header *, .card-header *, .section-header *, .page-header *, .loan-header *, .savings-header *, .referral-header *, .withdrawal-header *, .topbar *) { color: var(--link-text) !important; }
+html[data-theme] body :is(input, textarea, select) { border: 1px solid var(--link-border) !important; background: var(--link-surface) !important; color: var(--link-text) !important; caret-color: var(--link-text) !important; }
+html[data-theme] body :is(input, textarea, select) { -webkit-text-fill-color: var(--link-text) !important; opacity: 1 !important; }
+html[data-theme] body :is(input, textarea, select) { -webkit-text-fill-color: var(--link-text) !important; opacity: 1 !important; }
+html[data-theme] body :is(input::placeholder, textarea::placeholder) { color: var(--link-subtle) !important; opacity: 1; }
+html[data-theme] body option { background: var(--link-surface) !important; color: var(--link-text) !important; }
+html[data-theme] body :is(.btn, button:not(.menu-toggle):not(.theme-toggle):not(.dropdown-toggle), .button, .buy-btn, .hero-action.primary, .work-btn:not(.locked)) { background: var(--link-accent-strong) !important; border-color: var(--link-accent-strong) !important; color: #fff !important; }
+html[data-theme] body :is(.btn, button, .button, .buy-btn, .hero-action, .work-btn) :is(span, i, strong) { color: inherit !important; }
+html[data-theme] body :is(.btn-secondary, .secondary, button.cancel, .hero-action:not(.primary)) { background: transparent !important; border: 1px solid var(--link-border) !important; color: var(--link-text) !important; }
+html[data-theme] body :is(a:not(.btn):not(.button):not(.buy-btn):not(.hero-action)) { color: var(--link-text) !important; }
+html[data-theme] body :is(.badge, .status-badge, .tier-badge, .stats-badge, .domain-badge) { background: var(--link-surface-raised) !important; border-color: var(--link-border) !important; color: var(--link-text) !important; }
+html[data-theme] body :is(.badge *, .status-badge *, .tier-badge *, .stats-badge *, .domain-badge *) { color: inherit !important; }
+html[data-theme] body :is(.theme-toggle) { background: var(--link-surface-raised) !important; border: 1px solid var(--link-border) !important; color: var(--link-text) !important; }
+html[data-theme] body :is(.dropdown-menu, .dropdown-content, .nav-links.show) { background: var(--link-surface) !important; border-color: var(--link-border) !important; color: var(--link-text) !important; }
+html[data-theme] body :is(.dropdown-menu a, .dropdown-content a, .nav-links.show a) { color: var(--link-text) !important; }
+html[data-theme] body :is(.dropdown-menu a:hover, .dropdown-content a:hover, .nav-links.show a:hover) { background: var(--link-surface-raised) !important; color: var(--link-text) !important; }
+html[data-theme] body :is(.control-menu-shell .dropbtn, .tower-menu-toggle) { background: var(--link-surface-raised) !important; border-color: var(--link-border) !important; color: var(--link-text) !important; }
+
+/* Contributor navbar — exact same restrained structure as the marketplace home. */
+html[data-theme] body header:not(.topbar) {
+  width: 100% !important; height: 72px !important; min-height: 72px !important; position: sticky !important; inset: 0 auto auto 0 !important;
+  transform: none !important; display: flex !important; align-items: center !important; gap: 32px !important;
+  padding: 0 max(24px, calc((100vw - 1216px) / 2)) !important; border: 0 !important; border-bottom: 1px solid var(--link-border) !important;
+  border-radius: 0 !important; background: color-mix(in srgb, var(--link-page) 88%, transparent) !important; box-shadow: none !important; backdrop-filter: blur(18px) !important; z-index: 1000 !important;
+}
+html[data-theme] body header:not(.topbar) .logo { margin: 0 !important; color: var(--link-text) !important; font-size: 16px !important; font-weight: 800 !important; letter-spacing: -.045em !important; white-space: nowrap; }
+html[data-theme] body header:not(.topbar) .logo::before { content: ""; display: inline-block; width: 10px; height: 10px; margin: 0 8px 1px 0; border-radius: 50%; background: var(--link-accent); box-shadow: 12px 0 0 -3px #c8c0ff; }
+html[data-theme] body header:not(.topbar) nav { flex: 1 !important; margin: 0 !important; }
+html[data-theme] body header:not(.topbar) .nav-links { justify-content: flex-end !important; align-items: center !important; gap: 4px !important; }
+html[data-theme] body header:not(.topbar) .nav-links a,
+html[data-theme] body header:not(.topbar) .dropdown-toggle { padding: 9px 11px !important; border: 0 !important; border-radius: 8px !important; background: transparent !important; color: var(--link-muted) !important; font: 650 13px/1 Inter, ui-sans-serif, system-ui !important; }
+html[data-theme] body header:not(.topbar) .nav-links a:hover,
+html[data-theme] body header:not(.topbar) .nav-links a.active,
+html[data-theme] body header:not(.topbar) .dropdown-toggle:hover { background: var(--link-surface-raised) !important; color: var(--link-text) !important; }
+html[data-theme] body header:not(.topbar) .dropdown-menu { border: 1px solid var(--link-border) !important; border-radius: 12px !important; background: var(--link-surface) !important; box-shadow: 0 16px 40px rgba(0,0,0,.24) !important; }
+html[data-theme] body header:not(.topbar) .dropdown-menu a { color: var(--link-text) !important; }
+html[data-theme] body header:not(.topbar) .menu-toggle { color: var(--link-text) !important; }
+
+/* The currency selector is retired. Every money value is USD. */
+.currency-select, .money-with-currency .currency-select { display: none !important; }
+.money-with-currency { display: inline !important; }
+
+@media (max-width: 768px) {
+  html[data-theme] body header:not(.topbar) { height: 64px !important; min-height: 64px !important; padding: 0 20px !important; }
+  html[data-theme] body header:not(.topbar) nav { position: absolute !important; top: 100% !important; left: 0 !important; right: 0 !important; display: block !important; background: var(--link-surface) !important; border-bottom: 1px solid var(--link-border) !important; }
+  html[data-theme] body header:not(.topbar) .nav-links { display: none !important; padding: 8px 20px 18px !important; }
+  html[data-theme] body header:not(.topbar) .nav-links.show { display: block !important; }
+  html[data-theme] body header:not(.topbar) .nav-links li { border-bottom: 1px solid var(--link-border) !important; }
+  html[data-theme] body header:not(.topbar) .nav-links a, html[data-theme] body header:not(.topbar) .dropdown-toggle { width: 100%; padding: 15px 0 !important; text-align: left !important; }
+}
+
+/* Final legacy-page readability guard.
+   Page-local styles used hard-coded dark text on dark surfaces and the inverse
+   in light mode. This intentionally wins over those rules. */
+html[data-theme] body :is(main, section, article, aside, footer, .modal, .modal-content, .card, .calculator, .tier-card, .withdrawal-section, .testimonial, .testimonial-card, .table-container, .data-section, .user-card, .history-item, .transaction-item, .payment-box, .rules, .limits, .earnings-display, .feature-card, .demo-card, .step-card, .faq-list, .cta-band, .hero, .landing-section) :is(h1, h2, h3, h4, h5, h6, p, span, li, small, strong, b, em, i, label, legend, td, th, caption, summary, .icon, .card-icon, .section-icon, .amount, .stat-value, .reward, .loan-amount, .payment-value, .balance-amount) { color: var(--link-text) !important; }
+html[data-theme] body :is(main, section, article, aside, footer, .modal, .modal-content, .card, .calculator, .tier-card, .withdrawal-section, .testimonial, .testimonial-card, .table-container, .data-section, .user-card, .history-item, .transaction-item, .payment-box, .rules, .limits, .earnings-display, .feature-card, .demo-card, .step-card, .faq-list, .cta-band, .hero, .landing-section) :is(.subtitle, .description, .helper-text, .proof-label, .payment-label, .muted, .timer, .rate, .option-desc, .tier-range, .card-return, .category-description) { color: var(--link-muted) !important; }
+html[data-theme] body :is(table, .table-container, .history-table, .transactions-table, .requests-table) :is(th, td, caption, span, strong, small, i) { color: var(--link-text) !important; }
+html[data-theme] body :is(table, .table-container, .history-table, .transactions-table, .requests-table) :is(thead, tr, th, td) { border-color: var(--link-border) !important; }
+html[data-theme] body :is(table, .table-container, .history-table, .transactions-table, .requests-table) tbody tr { background: var(--link-surface) !important; }
+html[data-theme] body :is(.success, .approved, .completed, .income) :is(span, strong, b, i) { color: #0f8f5f !important; }
+html[data-theme="dark"] body :is(.success, .approved, .completed, .income) :is(span, strong, b, i) { color: #58e0a7 !important; }
+html[data-theme] body :is(.error, .rejected, .outflow) :is(span, strong, b, i) { color: #d8334b !important; }
+html[data-theme="dark"] body :is(.error, .rejected, .outflow) :is(span, strong, b, i) { color: #ff9aa7 !important; }
+
+/* Task AI cards stay dark poster cards in both modes so their artwork never
+   loses contrast when the surrounding page theme changes. */
+html[data-theme] body .card.task-category,
+html[data-theme] body .task-category { background: linear-gradient(155deg, #121a33, #0b1020 72%) !important; border-color: rgba(194, 204, 240, .2) !important; color: #f8f9ff !important; }
+html[data-theme] body .card.task-category :is(h1, h2, h3, h4, p, span, small, strong, b, i, .category-kicker, .category-description, .card-price, .card-return, .timer) { color: #f8f9ff !important; }
+html[data-theme] body .card.task-category :is(.category-description, .card-return, .timer) { color: #c1cae2 !important; }
+html[data-theme] body .card.task-category .category-kicker { color: #bdb4ff !important; }
+html[data-theme] body .card.task-category .buy-btn { background: var(--link-accent-strong) !important; color: #fff !important; }
+html[data-theme] body .hero-visual, html[data-theme] body .pathway { color: #f8f9ff !important; }
+html[data-theme] body .hero-visual :is(span, strong, small) { color: #f8f9ff !important; }
+html[data-theme] body .hero-visual small, html[data-theme] body .hero-visual-header { color: #c1cae2 !important; }
+
+/* Top-level headings were still inheriting page-local gradient/text-fill rules.
+   These selectors are deliberately narrow and absolute: every large heading on
+   the contributor workspace has one opaque, theme-aware foreground color. */
+body:has(.nav-links) :is(.hero, .page-header, .section-header, .landing-section-header, .loan-header, .savings-header, .referral-header, .withdrawal-header, .control-tower-main, .cta-band, .tracks-heading, .landing-section) :is(h1, h2, h3, .title, .heading) {
+  color: var(--link-text) !important;
+  -webkit-text-fill-color: currentColor !important;
+  background: none !important;
+  background-clip: border-box !important;
+  -webkit-background-clip: border-box !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+  mix-blend-mode: normal !important;
+}
+html[data-theme="light"] body:has(.nav-links) :is(.hero, .page-header, .section-header, .landing-section-header, .loan-header, .savings-header, .referral-header, .withdrawal-header, .control-tower-main, .cta-band, .tracks-heading, .landing-section) :is(h1, h2, h3, .title, .heading) { color: #10172b !important; }
+html[data-theme="dark"] body:has(.nav-links) :is(.hero, .page-header, .section-header, .landing-section-header, .loan-header, .savings-header, .referral-header, .withdrawal-header, .control-tower-main, .cta-band, .tracks-heading, .landing-section) :is(h1, h2, h3, .title, .heading) { color: #f8f9ff !important; }
+
+/* Last-resort contrast guard for the legacy contributor markup. It does not
+   depend on a theme script running first, so headings, track cards, totals,
+   footers, and referral tables cannot inherit transparent or same-colour text. */
+body.link-workspace { background: #f6f7fb !important; color: #121a2f !important; }
+body.link-workspace :is(.total-earned, .cta-band, .tracks-heading, footer, .footer-content, .footer-section, .referral-link-section, .referral-stats, .referral-table, .table-container) { color: #121a2f !important; }
+body.link-workspace :is(.total-earned, .cta-band, .tracks-heading, .referral-link-section, .referral-stats, .table-container) :is(h1,h2,h3,h4,p,span,a,small,strong,b,li,th,td) { color: #121a2f !important; -webkit-text-fill-color: #121a2f !important; opacity: 1 !important; }
+body.link-workspace .total-earned { background: #fff !important; border: 1px solid #d9deea !important; }
+body.link-workspace .total-earned #totalAmount { color: #148761 !important; -webkit-text-fill-color: #148761 !important; }
+body.link-workspace .cta-band { background: #fff !important; border: 1px solid #d9deea !important; }
+body.link-workspace .cta-band .section-kicker { color: #5648dc !important; -webkit-text-fill-color: #5648dc !important; }
+body.link-workspace .card.task-category { background: linear-gradient(155deg, #16213d, #0c1325) !important; color: #f8f9ff !important; }
+body.link-workspace .card.task-category :is(h1,h2,h3,h4,p,span,small,strong,b,i,button,a) { color: #f8f9ff !important; -webkit-text-fill-color: #f8f9ff !important; opacity: 1 !important; }
+body.link-workspace .card.task-category :is(.category-description,.card-return,.timer) { color: #cdd7ef !important; -webkit-text-fill-color: #cdd7ef !important; }
+body.link-workspace footer { background: #0c1325 !important; border-color: #263858 !important; }
+body.link-workspace footer :is(h1,h2,h3,h4,p,span,a,small,strong,b,li) { color: #f8f9ff !important; -webkit-text-fill-color: #f8f9ff !important; opacity: 1 !important; }
+body.link-workspace footer :is(.footer-section a,.footer-section span,.footer-bottom) { color: #cdd7ef !important; -webkit-text-fill-color: #cdd7ef !important; }
+body.link-workspace :is(input,textarea,select) { background: #fff !important; color: #121a2f !important; -webkit-text-fill-color: #121a2f !important; caret-color: #121a2f !important; opacity: 1 !important; }
+body.link-workspace :is(input,textarea,select)::placeholder { color: #56627a !important; -webkit-text-fill-color: #56627a !important; opacity: 1 !important; }
+body.link-workspace :is(option) { background: #fff !important; color: #121a2f !important; }
+body.link-workspace .wallet-return { display: inline-flex !important; align-items: center; gap: 8px; margin: 26px 0 0 !important; padding: 10px 14px !important; border: 1px solid #d9deea !important; border-radius: 999px !important; background: #fff !important; color: #121a2f !important; -webkit-text-fill-color: #121a2f !important; font-weight: 750 !important; text-decoration: none !important; box-shadow: 0 7px 18px rgba(25,37,65,.08) !important; }
+body.link-workspace .wallet-return:hover { transform: translateX(-2px); border-color: #a9a0ff !important; }
+body.link-workspace .withdrawal-status-link { display:flex !important; align-items:center; justify-content:center; min-height:44px; margin-top:14px; padding:12px 16px; border:1px solid #d9deea; border-radius:10px; background:#fff; color:#121a2f !important; -webkit-text-fill-color:#121a2f !important; font-weight:750; text-decoration:none; }
+body.link-workspace .withdrawal-status-link:hover { border-color:#6857ed; color:#5648dc !important; }
+
+/* Transaction History becomes a readable stacked list on narrow phones. */
+@media (max-width: 640px) {
+  body.link-workspace .history-container { margin-inline:0 !important; overflow:visible !important; }
+  body.link-workspace .history-container .table-container { overflow:visible !important; padding:0 !important; }
+  body.link-workspace .history-table { display:block !important; min-width:0 !important; width:100% !important; border:0 !important; border-radius:0 !important; }
+  body.link-workspace .history-table thead { display:none !important; }
+  body.link-workspace .history-table tbody { display:grid !important; gap:12px; padding:12px !important; }
+  body.link-workspace .history-table tr { display:grid !important; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:0 14px; padding:13px !important; border:1px solid var(--link-border) !important; border-radius:12px !important; background:var(--link-surface) !important; }
+  body.link-workspace .history-table td { display:block !important; min-width:0; padding:9px 0 !important; border:0 !important; overflow-wrap:anywhere; }
+  body.link-workspace .history-table td::before { content:attr(data-label); display:block; margin-bottom:4px; color:var(--link-muted) !important; font-size:10px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; }
+  body.link-workspace .history-table td[data-label="Details"] { grid-column:1 / -1; padding-top:11px !important; border-top:1px solid var(--link-border) !important; }
+  body.link-workspace .history-table code { display:inline-block; max-width:100%; overflow-wrap:anywhere; white-space:normal; }
+}
+
+/* Mobile usability guardrails for the legacy workspace pages. */
+@media (max-width: 760px) {
+  html[data-theme] body :is(.btn, .button, .buy-btn, .hero-action, .work-btn, button) {
+    min-height: 44px;
+  }
+
+  html[data-theme] body :is(.card, .balance-card, .summary-card, .stat-card, .info-card, .form-card, .history-card, .withdrawal-card, .loan-card, .savings-card, .testimonial-card, .modal-content, .table-container, .data-section, .user-card, .panel) {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  html[data-theme] body :is(.section-header, .page-header, .loan-header, .savings-header, .referral-header, .withdrawal-header, .card-header) {
+    gap: 12px;
+  }
+
+  html[data-theme] body :is(.section-header, .page-header, .loan-header, .savings-header, .referral-header, .withdrawal-header) :is(button, .btn, .button) {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  html[data-theme] body :is(input, textarea, select) {
+    max-width: 100%;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  html[data-theme] body header:not(.topbar) { padding-inline: 16px !important; }
+  html[data-theme] body main { max-width: 100%; }
+  html[data-theme] body :is(.btn, .button, .buy-btn, .hero-action, .work-btn) { width: 100%; }
+}
+
+@media (max-width: 600px) {
+  html[data-theme] body :is(table.data-table, .history-table, .transactions-table, .requests-table, .referral-table) {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  html[data-theme] body :is(table.data-table, .history-table, .transactions-table, .requests-table, .referral-table) {
+    min-width: 560px;
+  }
+
+  html[data-theme] body :is(.payment-row, .detail-row, .choice-stat-row) {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    row-gap: 8px;
+  }
+
+  html[data-theme] body :is(.payment-row, .detail-row, .choice-stat-row) > :is(span, strong, b, label, div) {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  html[data-theme] body :is(.earnings-display, .track-detail-footer) {
+    grid-template-columns: 1fr !important;
+  }
+
+  html[data-theme] body :is(.modal-content, .track-modal-content, .captcha-modal-content) {
+    width: min(100% - 24px, 760px) !important;
+    max-width: calc(100vw - 24px) !important;
+    padding: 20px !important;
+  }
+
+  html[data-theme] body :is(.modal-content, .track-modal-content, .captcha-modal-content) :is(input, textarea, select, button) {
+    max-width: 100%;
+  }
+}
+
+/* Workspace hero blocks receive their own surface, so direct legacy colors
+   cannot ever be paired with the wrong background. */
+.link-workspace :is(.hero, .page-header, .landing-section-header, .tracks-heading) {
+  position: relative !important;
+  isolation: isolate !important;
+  color: var(--link-text) !important;
+  background: var(--link-surface-raised) !important;
+  border: 1px solid var(--link-border) !important;
+  border-radius: 20px !important;
+}
+.link-workspace :is(.hero, .page-header, .landing-section-header, .tracks-heading) :is(h1, h2, h3, p, span, small, strong, b, i, a) {
+  position: relative !important;
+  z-index: 1 !important;
+  color: var(--link-text) !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+  mix-blend-mode: normal !important;
+}
+.link-workspace :is(.hero, .page-header, .landing-section-header, .tracks-heading) :is(p, small, .eyebrow, .section-kicker) { color: var(--link-muted) !important; }
+.link-workspace .hero-visual,
+.link-workspace .pathway { background: #0b1020 !important; border-color: rgba(194, 204, 240, .28) !important; color: #f8f9ff !important; }
+.link-workspace .hero-visual :is(span, strong, small),
+.link-workspace .pathway :is(span, strong, small) { color: #f8f9ff !important; -webkit-text-fill-color: #f8f9ff !important; opacity: 1 !important; }
+.link-workspace .hero-visual :is(small, .hero-visual-header),
+.link-workspace .pathway small { color: #c1cae2 !important; -webkit-text-fill-color: #c1cae2 !important; }
+.link-workspace .card.task-category {
+  background: #0b1020 !important;
+  border: 1px solid rgba(194, 204, 240, .3) !important;
+}
+.link-workspace .card.task-category :is(h1, h2, h3, h4, p, span, small, strong, b, i, button) {
+  color: #f8f9ff !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+.link-workspace .card.task-category :is(.category-description, .card-return, .timer) { color: #c1cae2 !important; -webkit-text-fill-color: #c1cae2 !important; }
+.link-workspace .card.task-category .category-kicker { color: #c7c0ff !important; -webkit-text-fill-color: #c7c0ff !important; }

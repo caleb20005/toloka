@@ -1,0 +1,2405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collector Page | Control Tower</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Mobile-first responsive styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f8fafc;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Topbar */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* FIX 1: Added position relative to dropdown */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropbtn {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(236, 72, 153, 0.2));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #f8fafc;
+      padding: 0.75rem 1.25rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s;
+    }
+
+    .dropbtn:hover {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(236, 72, 153, 0.3));
+      transform: translateY(-2px);
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      left: 0;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(20px);
+      min-width: 180px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      z-index: 1001;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content a {
+      color: #f8fafc;
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+      display: block;
+      transition: all 0.3s;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .dropdown-content a:hover {
+      background: rgba(255, 255, 255, 0.05);
+      padding-left: 1.25rem;
+    }
+
+    .dropdown-content a:last-child {
+      border-bottom: none;
+    }
+
+    .brand {
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6366f1, #ec4899, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Main Content */
+    .container {
+      padding: 1rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      text-align: center;
+      margin: 2rem 0;
+      padding: 1rem;
+    }
+
+    .page-header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #f8fafc, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-header p {
+      color: #94a3b8;
+      font-size: 1rem;
+    }
+
+    /* Admin Controls Section */
+    .admin-section {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .section-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(236, 72, 153, 0.2));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .section-title {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .section-title h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .section-title .subtitle {
+      color: #94a3b8;
+      font-size: 0.85rem;
+    }
+
+    /* Management Grid */
+    .management-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .management-card {
+      background: rgba(2, 6, 23, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .management-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .management-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #f8fafc;
+    }
+
+    .management-count {
+      background: rgba(99, 102, 241, 0.1);
+      color: #6366f1;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* List Styles */
+    .item-list {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    .item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .item-row:last-child {
+      border-bottom: none;
+    }
+
+    .item-name {
+      color: #f8fafc;
+      font-weight: 500;
+    }
+
+    .remove-btn {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.3s;
+    }
+
+    .remove-btn:hover {
+      background: rgba(239, 68, 68, 0.2);
+    }
+
+    /* Add Form */
+    .add-form {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .add-input {
+      flex: 1;
+      padding: 0.75rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: #f8fafc;
+      font-size: 0.9rem;
+    }
+
+    .add-input:focus {
+      outline: none;
+      border-color: #6366f1;
+    }
+
+    .add-btn {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .add-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* FIX 9: Loading state for buttons */
+    .btn.loading,
+    .add-btn.loading {
+      opacity: 0.7;
+      pointer-events: none;
+      position: relative;
+    }
+
+    .btn.loading::after,
+    .add-btn.loading::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border: 2px solid transparent;
+      border-top-color: currentColor;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Users List Section */
+    .users-section {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Users Grid */
+    .users-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+    .user-card {
+      background: rgba(2, 6, 23, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .user-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+
+    .user-card.active {
+      border-color: #6366f1;
+      background: rgba(99, 102, 241, 0.1);
+    }
+
+    .user-card.notification-mpesa {
+      animation: pulse-yellow 2s infinite;
+      border-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.1);
+    }
+
+    .user-card.notification-withdrawal {
+      animation: pulse-red 2s infinite;
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    /* FIX 3: Prevent both animations from applying simultaneously */
+    .user-card.notification-mpesa.notification-withdrawal {
+      animation: pulse-yellow 2s infinite;
+      border-color: #f59e0b;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(239, 68, 68, 0.1));
+    }
+
+    @keyframes pulse-yellow {
+      0% {
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+      }
+
+      70% {
+        box-shadow: 0 0 0 6px rgba(245, 158, 11, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+      }
+    }
+
+    @keyframes pulse-red {
+      0% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+      }
+
+      70% {
+        box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+      }
+    }
+
+    .user-phone {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #f8fafc;
+    }
+
+    .user-balance {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .user-submission-count {
+      margin-top: .55rem;
+      color: #cbd5e1;
+      font-size: .78rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* User Details Section */
+    .user-details-section {
+      display: none;
+    }
+
+    .user-details-section.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .user-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: rgba(2, 6, 23, 0.4);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .selected-user-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .selected-user-phone {
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6366f1, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .back-to-users {
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #6366f1;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+
+    .back-to-users:hover {
+      background: rgba(99, 102, 241, 0.2);
+    }
+
+    /* Data Sections */
+    .data-section {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-bar {
+      display: flex;
+      align-items: end;
+      gap: .65rem;
+      flex-wrap: wrap;
+      padding: .75rem;
+      margin: 0 0 1rem;
+      border: 1px solid rgba(148, 163, 184, .2);
+      border-radius: 12px;
+      background: rgba(15, 23, 42, .42);
+    }
+
+    .filter-bar label {
+      display: flex;
+      flex-direction: column;
+      gap: .3rem;
+      color: #cbd5e1;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .filter-bar input,
+    .filter-bar select {
+      min-height: 36px;
+      padding: .45rem .6rem;
+      border: 1px solid rgba(148, 163, 184, .35);
+      border-radius: 8px;
+      background: #0f172a;
+      color: #f8fafc;
+      font: inherit;
+      text-transform: none;
+    }
+
+    .filter-bar input:focus,
+    .filter-bar select:focus {
+      outline: 2px solid #818cf8;
+      outline-offset: 1px;
+    }
+
+    .btn-secondary {
+      background: rgba(100, 116, 139, .3);
+      color: #f8fafc;
+      border: 1px solid rgba(203, 213, 225, .3);
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.2);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+    }
+
+    .btn-success:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Output Areas */
+    .output-container {
+      background: rgba(2, 6, 23, 0.4);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      min-height: 200px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: #94a3b8;
+    }
+
+    .empty-state i {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    /* Table Styles */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .data-table th {
+      padding: 0.75rem;
+      text-align: left;
+      color: #94a3b8;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      position: sticky;
+      top: 0;
+    }
+
+    .data-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .data-table tr:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Timer Controls */
+    .timer-controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .timer-btn {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .pause-btn {
+      background: #f59e0b;
+      color: white;
+    }
+
+    .resume-btn {
+      background: #10b981;
+      color: white;
+    }
+
+    /* Loan Cards */
+    .loans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .loan-card {
+      background: rgba(2, 6, 23, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .loan-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .loan-number {
+      background: linear-gradient(135deg, #6366f1, #ec4899);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .loan-date {
+      color: #94a3b8;
+      font-size: 0.75rem;
+    }
+
+    .loan-info {
+      margin-bottom: 1rem;
+    }
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      color: #94a3b8;
+      font-size: 0.85rem;
+    }
+
+    .info-row i {
+      color: #6366f1;
+      width: 16px;
+    }
+
+    .info-row strong {
+      color: #f8fafc;
+      margin-left: auto;
+      font-weight: 600;
+    }
+
+    .id-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .id-image-container p {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      margin-bottom: 0.5rem;
+    }
+
+    .id-image-container img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+    }
+
+    .id-image-container img:hover {
+      transform: scale(1.05);
+      border-color: #6366f1;
+    }
+
+    /* FIX 4: Image error state */
+    .id-image-container img.error {
+      display: none;
+    }
+
+    .id-image-error {
+      width: 100%;
+      height: 100px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 2px dashed rgba(239, 68, 68, 0.3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ef4444;
+      font-size: 0.75rem;
+      text-align: center;
+      padding: 0.5rem;
+    }
+
+    /* Stats Badge */
+    .stats-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 0.5rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      color: #6366f1;
+      font-weight: 600;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transform: translateX(400px);
+      transition: transform 0.3s;
+      z-index: 1000;
+      max-width: 90%;
+    }
+
+    .toast.show {
+      transform: translateX(0);
+    }
+
+    .toast-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(16, 185, 129, 0.2);
+      color: #10b981;
+    }
+
+    .toast-content {
+      flex: 1;
+    }
+
+    .toast-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .toast-message {
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .management-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .users-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      }
+
+      .loans-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .id-images {
+        grid-template-columns: 1fr;
+      }
+
+      .controls {
+        justify-content: center;
+      }
+
+      .btn {
+        flex: 1;
+        min-width: 120px;
+        justify-content: center;
+      }
+
+      .add-form {
+        flex-direction: column;
+      }
+
+      .data-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      table.data-table {
+        min-width: 640px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-header h1 {
+        font-size: 1.5rem;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .user-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .selected-user-info {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .back-to-users {
+        width: 100%;
+        justify-content: center;
+      }
+
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #6366f1, #ec4899);
+      border-radius: 3px;
+    }
+  </style>
+  <link rel="stylesheet" href="outlier-ui.css?v=20260822">
+  <link rel="stylesheet" href="control-tower-nav.css?v=20260816">
+  <link rel="stylesheet" href="site-system.css?v=20260901d">
+  <link rel="stylesheet" href="edge-to-edge.css?v=20260909">
+</head>
+
+<body class='link-workspace'>
+  <div class="control-menu-shell">
+    <div class="dropdown">
+      <button id="controlMenuToggle" type="button" class="dropbtn tower-menu-toggle" aria-expanded="false"
+        aria-label="Open Control Tower menu"><span></span><span></span><span class="sr-only">Open
+          menu</span></button>
+      <div class="dropdown-content" aria-label="Control Tower navigation">
+        <a href="Home.html"><i class="fas fa-home"></i> Home</a>
+        <a href="collector.html" aria-current="page"><i class="fas fa-inbox"></i> Collector</a>
+        <a href="cashflow.html"><i class="fas fa-chart-line"></i> Cash flow</a>
+        <a href="collector.html#deposit-numbers"><i class="fas fa-phone"></i> Change deposit numbers</a>
+      </div>
+    </div>
+  </div>
+  <header class="topbar">
+    <div class="nav-right">
+      <a class="brand brand-light" href="Homepage.html" aria-label="Toloka home"><span class="brand-mark"><i></i><i></i></span><span>toloka</span></a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1><i class="fas fa-archive"></i> Collector Page</h1>
+        <p>All user submissions & requests</p>
+      </div>
+
+      <div id="controlAccessNotice" class="empty-state" style="display:none; margin-bottom:1rem;">
+        <i class="fas fa-lock"></i>
+        <p>Sign in to load registered users and incoming requests.</p>
+        <p style="margin-top:.75rem;"><a class="btn btn-primary" href="login.html?returnTo=collector.html">Sign in to
+            Control Tower</a></p>
+      </div>
+
+      <section class="data-section" id="incomingRequestsSection">
+        <div class="section-header">
+          <div class="section-icon" style="color: #2df8a8;"><i class="fas fa-bell"></i></div>
+          <div class="section-title">
+            <h2>Incoming requests</h2>
+            <span class="subtitle">Every AI purchase, deposit, withdrawal, and loan request in one feed</span>
+          </div>
+          <div class="stats-badge" id="incomingRequestsCount"><i class="fas fa-layer-group"></i> <span>0 items</span>
+          </div>
+        </div>
+        <div class="controls"><button class="btn btn-primary" type="button" onclick="loadIncomingRequests()"><i
+              class="fas fa-sync-alt"></i> Refresh feed</button></div>
+        <div class="filter-bar" aria-label="Filter incoming requests">
+          <label>From <input type="date" id="incomingFrom"></label>
+          <label>To <input type="date" id="incomingTo"></label>
+          <label>Status <select id="incomingStatus">
+              <option value="">All statuses</option>
+              <option value="pending">Pending</option>
+              <option value="completed">Completed</option>
+              <option value="processing">Processing</option>
+            </select></label>
+          <label>Type <select id="incomingType">
+              <option value="">All request types</option>
+              <option value="AI purchase">AI purchase</option>
+              <option value="Savings deposit">Savings deposit</option>
+              <option value="Earnings withdrawal">Earnings withdrawal</option>
+              <option value="Savings withdrawal">Savings withdrawal</option>
+              <option value="Loan application">Loan application</option>
+            </select></label>
+          <button class="btn btn-secondary" type="button"
+            onclick="resetSubmissionFilter('incoming', loadIncomingRequests)">Reset</button>
+        </div>
+        <div class="output-container" id="incomingRequestsContainer">
+          <div class="empty-state"><i class="fas fa-inbox"></i>
+            <p>Loading incoming requests…</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ADMIN MANAGEMENT SECTION -->
+      <div class="admin-section" id="adminSection" style="display: none;">
+        <div class="section-header">
+          <div class="section-icon" style="color: #f59e0b;">
+            <i class="fas fa-cog"></i>
+          </div>
+          <div class="section-title">
+            <h2 id="adminTitle">Admin Management</h2>
+            <span class="subtitle" id="adminSubtitle">Manage system settings</span>
+          </div>
+          <button class="back-to-users" onclick="showMainView()">
+            <i class="fas fa-arrow-left"></i> Back to Main
+          </button>
+        </div>
+
+        <div class="management-grid">
+          <!-- Recipient Names Management -->
+          <div class="management-card" id="recipientNamesCard">
+            <div class="management-header">
+              <div class="management-title">M-PESA Recipient Names</div>
+              <div class="management-count" id="recipientNamesCount">0</div>
+            </div>
+
+            <div class="item-list" id="recipientNamesList">
+              <div class="empty-state">
+                <i class="fas fa-user-tag"></i>
+                <p>No recipient names found</p>
+              </div>
+            </div>
+
+            <div class="add-form">
+              <input type="text" id="newRecipientName" class="add-input" placeholder="Enter new recipient name">
+              <button class="add-btn" onclick="addRecipientName()">
+                <i class="fas fa-plus"></i> Add
+              </button>
+            </div>
+          </div>
+
+          <!-- Deposit Numbers Management -->
+          <div class="management-card" id="depositNumbersCard">
+            <div class="management-header">
+              <div class="management-title">Deposit Phone Numbers</div>
+              <div class="management-count" id="depositNumbersCount">0</div>
+            </div>
+
+            <div class="item-list" id="depositNumbersList">
+              <div class="empty-state">
+                <i class="fas fa-phone"></i>
+                <p>No deposit numbers found</p>
+              </div>
+            </div>
+
+            <div class="add-form">
+              <input type="text" id="newDepositNumber" class="add-input" placeholder="Enter new deposit number">
+              <button class="add-btn" onclick="addDepositNumber()">
+                <i class="fas fa-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- USERS LIST SECTION -->
+      <div class="users-section" id="usersSection">
+        <div class="section-header">
+          <div class="section-icon" style="color: #6366f1;">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="section-title">
+            <h2>Registered Users</h2>
+            <span class="subtitle">Click any phone number to view submissions</span>
+          </div>
+          <div class="stats-badge" id="usersCount">
+            <i class="fas fa-layer-group"></i> <span>0 users</span>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button class="btn btn-primary" onclick="loadUsers()">
+            <i class="fas fa-sync-alt"></i> Refresh Users
+          </button>
+        </div>
+
+        <div class="users-grid" id="usersContainer">
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <i class="fas fa-users"></i>
+            <p>No users found in database.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- USER DETAILS SECTION -->
+      <div class="user-details-section" id="userDetailsSection">
+        <div class="user-header">
+          <div class="selected-user-info">
+            <i class="fas fa-user-circle" style="font-size: 1.5rem; color: #6366f1;"></i>
+            <span class="selected-user-phone" id="selectedUserPhone">+254712345678</span>
+            <span class="stats-badge" id="selectedUserBadge">
+              <i class="fas fa-coins"></i> Loading...
+            </span>
+          </div>
+          <button class="back-to-users" onclick="showUsersList()">
+            <i class="fas fa-arrow-left"></i> Back to Users
+          </button>
+        </div>
+
+        <!-- MPESA SUBMISSIONS -->
+        <div class="data-section" id="mpesaSection">
+          <div class="section-header">
+            <div class="section-icon" style="color: #10b981;">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <div class="section-title">
+              <h2>M-PESA Investment Submissions</h2>
+              <span class="subtitle">Mobile payment investment records</span>
+            </div>
+            <div class="stats-badge" id="mpesaCount">
+              <i class="fas fa-layer-group"></i> <span>0 items</span>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button class="btn btn-primary" onclick="loadMpesa()">
+              <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+            <button class="btn btn-danger" onclick="clearMpesa()">
+              <i class="fas fa-trash-alt"></i> Clear All
+            </button>
+          </div>
+          <div class="filter-bar" aria-label="Filter M-PESA submissions">
+            <label>From <input type="date" id="mpesaFrom"></label>
+            <label>To <input type="date" id="mpesaTo"></label>
+            <label>Status <select id="mpesaStatus">
+                <option value="">All statuses</option>
+                <option value="completed">Completed</option>
+                <option value="pending">Pending</option>
+                <option value="processing">Processing</option>
+              </select></label>
+            <label>Task AI <select id="mpesaTask">
+                <option value="">All Task AIs</option>
+                <option value="1">Task AI 1</option>
+                <option value="2">Task AI 2</option>
+                <option value="3">Task AI 3</option>
+                <option value="4">Task AI 4</option>
+                <option value="5">Task AI 5</option>
+                <option value="6">Task AI 6</option>
+              </select></label>
+            <button class="btn btn-secondary" type="button"
+              onclick="resetSubmissionFilter('mpesa', loadMpesa)">Reset</button>
+          </div>
+
+          <div class="output-container" id="mpesaContainer">
+            <div class="empty-state">
+              <i class="fas fa-inbox"></i>
+              <p>No M-PESA submissions collected yet.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- WITHDRAWAL REQUESTS -->
+        <div class="data-section" id="withdrawalSection">
+          <div class="section-header">
+            <div class="section-icon" style="color: #f59e0b;">
+              <i class="fas fa-money-bill-wave"></i>
+            </div>
+            <div class="section-title">
+              <h2>Withdrawal Requests</h2>
+              <span class="subtitle">Pending withdrawal applications</span>
+            </div>
+            <div class="stats-badge" id="withdrawalCount">
+              <i class="fas fa-layer-group"></i> <span>0 items</span>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button class="btn btn-primary" onclick="loadWithdrawals()">
+              <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+            <button class="btn btn-danger" onclick="clearWithdrawals()">
+              <i class="fas fa-trash-alt"></i> Clear All
+            </button>
+            <button class="btn btn-success" onclick="startProcessing()">
+              <i class="fas fa-play"></i> Start Processing
+            </button>
+          </div>
+          <div class="filter-bar" aria-label="Filter withdrawal requests">
+            <label>From <input type="date" id="withdrawalFrom"></label>
+            <label>To <input type="date" id="withdrawalTo"></label>
+            <label>Status <select id="withdrawalStatus">
+                <option value="">All statuses</option>
+                <option value="pending">Pending</option>
+                <option value="processing">Processing</option>
+                <option value="completed">Completed</option>
+              </select></label>
+            <button class="btn btn-secondary" type="button"
+              onclick="resetSubmissionFilter('withdrawal', loadWithdrawals)">Reset</button>
+          </div>
+
+          <div class="output-container" id="withdrawalContainer">
+            <div class="empty-state">
+              <i class="fas fa-inbox"></i>
+              <p>No withdrawal requests collected yet.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- LOAN APPLICATIONS -->
+        <div class="data-section" id="loanSection">
+          <div class="section-header">
+            <div class="section-icon" style="color: #ec4899;">
+              <i class="fas fa-university"></i>
+            </div>
+            <div class="section-title">
+              <h2>Loan Applications</h2>
+              <span class="subtitle">ID-verified loan requests</span>
+            </div>
+            <div class="stats-badge" id="loanCount">
+              <i class="fas fa-layer-group"></i> <span>0 items</span>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button class="btn btn-primary" onclick="loadLoans()">
+              <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+            <button class="btn btn-danger" onclick="clearLoans()">
+              <i class="fas fa-trash-alt"></i> Clear All
+            </button>
+          </div>
+          <div class="filter-bar" aria-label="Filter loan applications">
+            <label>From <input type="date" id="loanFrom"></label>
+            <label>To <input type="date" id="loanTo"></label>
+            <label>Status <select id="loanStatus">
+                <option value="">All statuses</option>
+                <option value="pending">Pending</option>
+                <option value="processing">Processing</option>
+                <option value="approved">Approved</option>
+                <option value="rejected">Rejected</option>
+              </select></label>
+            <button class="btn btn-secondary" type="button"
+              onclick="resetSubmissionFilter('loan', loadLoans)">Reset</button>
+          </div>
+
+          <div class="loans-grid" id="loanOutput">
+            <div class="empty-state" style="grid-column: 1 / -1;">
+              <i class="fas fa-inbox"></i>
+              <p>No loan applications collected yet.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SAVINGS WITHDRAWAL REQUESTS -->
+        <div class="data-section" id="savingsSection">
+          <div class="section-header">
+            <div class="section-icon" style="color: #06b6d4;">
+              <i class="fas fa-piggy-bank"></i>
+            </div>
+            <div class="section-title">
+              <h2>Savings Withdrawal Requests</h2>
+              <span class="subtitle">Savings withdrawal applications</span>
+            </div>
+            <div class="stats-badge" id="savingsCount">
+              <i class="fas fa-layer-group"></i> <span>0 items</span>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button class="btn btn-primary" onclick="loadSavingsWithdrawals()">
+              <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+            <button class="btn btn-danger" onclick="clearSavingsWithdrawals()">
+              <i class="fas fa-trash-alt"></i> Clear All
+            </button>
+          </div>
+          <div class="filter-bar" aria-label="Filter savings withdrawals">
+            <label>From <input type="date" id="savingsFrom"></label>
+            <label>To <input type="date" id="savingsTo"></label>
+            <label>Status <select id="savingsStatus">
+                <option value="">All statuses</option>
+                <option value="pending">Pending</option>
+                <option value="processing">Processing</option>
+                <option value="completed">Completed</option>
+              </select></label>
+            <button class="btn btn-secondary" type="button"
+              onclick="resetSubmissionFilter('savings', loadSavingsWithdrawals)">Reset</button>
+          </div>
+
+          <div class="output-container" id="savingsContainer">
+            <div class="empty-state">
+              <i class="fas fa-inbox"></i>
+              <p>No savings withdrawal requests collected yet.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
+    <div class="toast-icon">
+      <i class="fas fa-check"></i>
+    </div>
+    <div class="toast-content">
+      <div class="toast-title"></div>
+      <div class="toast-message"></div>
+    </div>
+  </div>
+
+  <script>
+    // Global variables
+    let currentUser = null;
+    let currentUserId = null;
+    let users = [];
+    let notificationUsers = new Set();
+    let currentManagementView = '';
+
+    // Mark local Control Tower requests so the API can allow cross-user
+    // inspection without weakening normal contributor authentication.
+    function controlTowerFetch(url, options = {}) {
+      const headers = new Headers(options.headers || {});
+      headers.set('X-Control-Tower-Request', '1');
+      return fetch(url, { ...options, headers });
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function () {
+      loadIncomingRequests();
+      if (window.location.hash === '#deposit-numbers') {
+        manageDepositNumbers();
+      } else if (window.location.hash === '#recipient-names') {
+        manageRecipientNames();
+      } else {
+        loadUsers();
+      }
+      const filterLoaders = {
+        incoming: loadIncomingRequests,
+        mpesa: loadMpesa,
+        withdrawal: loadWithdrawals,
+        loan: loadLoans,
+        savings: loadSavingsWithdrawals
+      };
+      Object.entries(filterLoaders).forEach(([prefix, loader]) => {
+        document.querySelectorAll(`#${prefix}From, #${prefix}To, #${prefix}Status, #${prefix}Type, #${prefix}Task`).forEach(input => input.addEventListener('change', loader));
+      });
+      // Check for new submissions every 10 seconds
+      setInterval(checkForNewSubmissions, 10000);
+    });
+
+    // Toast notification
+    function showToast(title, message, type = 'success') {
+      const toast = document.getElementById('toast');
+      const icon = toast.querySelector('.toast-icon');
+      const titleEl = toast.querySelector('.toast-title');
+      const messageEl = toast.querySelector('.toast-message');
+
+      titleEl.textContent = title;
+      messageEl.textContent = message;
+
+      if (type === 'success') {
+        icon.style.background = 'rgba(16, 185, 129, 0.2)';
+        icon.style.color = '#10b981';
+        icon.innerHTML = '<i class="fas fa-check"></i>';
+      } else if (type === 'error') {
+        icon.style.background = 'rgba(239, 68, 68, 0.2)';
+        icon.style.color = '#ef4444';
+        icon.innerHTML = '<i class="fas fa-exclamation"></i>';
+      } else if (type === 'warning') {
+        icon.style.background = 'rgba(245, 158, 11, 0.2)';
+        icon.style.color = '#f59e0b';
+        icon.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+      }
+
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // View switching functions
+    function showMainView() {
+      document.getElementById('adminSection').style.display = 'none';
+      document.getElementById('usersSection').style.display = 'block';
+      document.getElementById('userDetailsSection').classList.remove('active');
+      currentUser = null;
+      currentUserId = null;
+      currentManagementView = '';
+      loadUsers();
+    }
+
+    function showUsersList() {
+      document.getElementById('adminSection').style.display = 'none';
+      document.getElementById('usersSection').style.display = 'block';
+      document.getElementById('userDetailsSection').classList.remove('active');
+      currentUser = null;
+      currentUserId = null;
+      currentManagementView = '';
+      loadUsers();
+    }
+
+    function showUserDetails(phone, userId) {
+      currentUser = phone;
+      currentUserId = userId;
+      document.getElementById('adminSection').style.display = 'none';
+      document.getElementById('usersSection').style.display = 'none';
+      document.getElementById('userDetailsSection').classList.add('active');
+      document.getElementById('selectedUserPhone').textContent = phone;
+
+      // Remove notification from this user
+      notificationUsers.delete(phone);
+      updateUserCard(phone);
+
+      // Load user's data
+      loadUserDetails();
+      loadMpesa();
+      loadWithdrawals();
+      loadLoans();
+      loadSavingsWithdrawals();
+    }
+
+    // Management views
+    function manageRecipientNames() {
+      currentManagementView = 'recipientNames';
+      document.getElementById('usersSection').style.display = 'none';
+      document.getElementById('userDetailsSection').classList.remove('active');
+      document.getElementById('adminSection').style.display = 'block';
+      document.getElementById('adminTitle').textContent = 'Manage M-PESA Recipient Names';
+      document.getElementById('adminSubtitle').textContent = 'Add or remove names that can receive payments';
+      loadRecipientNames();
+    }
+
+    function manageDepositNumbers() {
+      currentManagementView = 'depositNumbers';
+      document.getElementById('usersSection').style.display = 'none';
+      document.getElementById('userDetailsSection').classList.remove('active');
+      document.getElementById('adminSection').style.display = 'block';
+      document.getElementById('adminTitle').textContent = 'Manage Deposit Phone Numbers';
+      document.getElementById('adminSubtitle').textContent = 'Add or remove numbers for user deposits';
+      loadDepositNumbers();
+    }
+
+    // Load recipient names
+    async function loadRecipientNames() {
+      try {
+        const response = await fetch('/api/admin/recipient-names');
+        if (!response.ok) throw new Error('Failed to fetch recipient names');
+
+        const names = await response.json();
+        const list = document.getElementById('recipientNamesList');
+        const count = document.getElementById('recipientNamesCount');
+
+        count.textContent = names.length;
+
+        if (!names.length) {
+          list.innerHTML = `
+            <div class="empty-state">
+              <i class="fas fa-user-tag"></i>
+              <p>No recipient names found</p>
+            </div>
+          `;
+          return;
+        }
+
+        list.innerHTML = names.map(name => `
+          <div class="item-row">
+            <span class="item-name">${name.name}</span>
+            <button class="remove-btn" onclick="removeRecipientName('${name.id}')">
+              <i class="fas fa-trash"></i> Remove
+            </button>
+          </div>
+        `).join('');
+
+      } catch (error) {
+        console.error('Error loading recipient names:', error);
+        showToast('Error', 'Failed to load recipient names', 'error');
+      }
+    }
+
+    // Add recipient name
+    async function addRecipientName() {
+      const nameInput = document.getElementById('newRecipientName');
+      const name = nameInput.value.trim().toUpperCase();
+
+      if (!name) {
+        showToast('Error', 'Please enter a recipient name', 'error');
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/admin/recipient-names', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name })
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          showToast('Error', data.message || 'Failed to add recipient name', 'error');
+          return;
+        }
+
+        showToast('Success', 'Recipient name added successfully');
+        nameInput.value = '';
+        loadRecipientNames();
+
+      } catch (error) {
+        console.error('Error adding recipient name:', error);
+        showToast('Error', 'Failed to add recipient name', 'error');
+      }
+    }
+
+    // Remove recipient name
+    async function removeRecipientName(id) {
+      if (!confirm('Are you sure you want to remove this recipient name?')) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/admin/recipient-names/${id}`, {
+          method: 'DELETE'
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          showToast('Error', data.message || 'Failed to remove recipient name', 'error');
+          return;
+        }
+
+        showToast('Success', 'Recipient name removed successfully');
+        loadRecipientNames();
+
+      } catch (error) {
+        console.error('Error removing recipient name:', error);
+        showToast('Error', 'Failed to remove recipient name', 'error');
+      }
+    }
+
+    // Load deposit numbers
+    async function loadDepositNumbers() {
+      try {
+        const response = await fetch('/api/admin/deposit-numbers');
+        if (!response.ok) throw new Error('Failed to fetch deposit numbers');
+
+        const numbers = await response.json();
+        const list = document.getElementById('depositNumbersList');
+        const count = document.getElementById('depositNumbersCount');
+
+        count.textContent = numbers.length;
+
+        if (!numbers.length) {
+          list.innerHTML = `
+            <div class="empty-state">
+              <i class="fas fa-phone"></i>
+              <p>No deposit numbers found</p>
+            </div>
+          `;
+          return;
+        }
+
+        list.innerHTML = numbers.map(number => `
+          <div class="item-row">
+            <span class="item-name">${number.phone_number}</span>
+            <button class="remove-btn" onclick="removeDepositNumber('${number.id}')">
+              <i class="fas fa-trash"></i> Remove
+            </button>
+          </div>
+        `).join('');
+
+      } catch (error) {
+        console.error('Error loading deposit numbers:', error);
+        showToast('Error', 'Failed to load deposit numbers', 'error');
+      }
+    }
+
+    // Add deposit number
+    async function addDepositNumber() {
+      const numberInput = document.getElementById('newDepositNumber');
+      const phoneNumber = numberInput.value.trim();
+
+      if (!phoneNumber) {
+        showToast('Error', 'Please enter a phone number', 'error');
+        return;
+      }
+
+      // Validate phone number format
+      const phoneRegex = /^(\+254|0)[17]\d{8}$/;
+      if (!phoneRegex.test(phoneNumber)) {
+        showToast('Error', 'Please enter a valid Kenyan phone number', 'error');
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/admin/deposit-numbers', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phoneNumber })
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          showToast('Error', data.message || 'Failed to add deposit number', 'error');
+          return;
+        }
+
+        showToast('Success', 'Deposit number added successfully');
+        numberInput.value = '';
+        loadDepositNumbers();
+
+      } catch (error) {
+        console.error('Error adding deposit number:', error);
+        showToast('Error', 'Failed to add deposit number', 'error');
+      }
+    }
+
+    // Remove deposit number
+    async function removeDepositNumber(id) {
+      if (!confirm('Are you sure you want to remove this deposit number?')) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/admin/deposit-numbers/${id}`, {
+          method: 'DELETE'
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          showToast('Error', data.message || 'Failed to remove deposit number', 'error');
+          return;
+        }
+
+        showToast('Success', 'Deposit number removed successfully');
+        loadDepositNumbers();
+
+      } catch (error) {
+        console.error('Error removing deposit number:', error);
+        showToast('Error', 'Failed to remove deposit number', 'error');
+      }
+    }
+
+    // Load user details
+    async function loadUserDetails() {
+      try {
+        const response = await controlTowerFetch(`/api/user/${currentUserId}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success) {
+            const badge = document.getElementById('selectedUserBadge');
+            badge.innerHTML = `<i class="fas fa-coins"></i> KES ${data.totalEarned || 0}<br>
+                              <i class="fas fa-percentage"></i> Expected: KES ${data.expectedEarning || 0}`;
+          }
+        }
+      } catch (error) {
+        console.error('Error loading user details:', error);
+      }
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
+    }
+
+    function filterSubmissionRows(rows, prefix, dateFields = ['created_at']) {
+      const value = id => document.getElementById(id)?.value || '';
+      const from = value(`${prefix}From`);
+      const to = value(`${prefix}To`);
+      const status = value(`${prefix}Status`).toLowerCase();
+      const type = value(`${prefix}Type`).toLowerCase();
+      const task = value(`${prefix}Task`);
+      const fromTime = from ? new Date(`${from}T00:00:00`).getTime() : -Infinity;
+      const toTime = to ? new Date(`${to}T23:59:59.999`).getTime() : Infinity;
+      return rows.filter(row => {
+        if (status && String(row.status || 'pending').toLowerCase() !== status) return false;
+        if (type && String(row.request_type || '').toLowerCase() !== type) return false;
+        if (task && String(row.task_ai_number || '').replace(/\D/g, '') !== task) return false;
+        const rawDate = dateFields.map(field => row[field]).find(Boolean);
+        if (!rawDate) return true;
+        const timestamp = new Date(rawDate).getTime();
+        return Number.isNaN(timestamp) || (timestamp >= fromTime && timestamp <= toTime);
+      });
+    }
+
+    function resetSubmissionFilter(prefix, reload) {
+      document.querySelectorAll(`#${prefix}From, #${prefix}To, #${prefix}Status, #${prefix}Type, #${prefix}Task`).forEach(input => { input.value = ''; });
+      reload();
+    }
+
+    // -------- UNIFIED INCOMING REQUESTS --------
+    async function loadIncomingRequests() {
+      const container = document.getElementById('incomingRequestsContainer');
+      const countBadge = document.getElementById('incomingRequestsCount');
+      try {
+        const response = await fetch('/api/control-tower/requests');
+        const data = await response.json();
+        if (response.status === 401) {
+          document.getElementById('controlAccessNotice').style.display = 'block';
+          countBadge.innerHTML = '<i class="fas fa-lock"></i> <span>Sign in required</span>';
+          container.innerHTML = '<div class="empty-state"><i class="fas fa-lock"></i><p>Your session has ended. Sign in to view incoming requests.</p></div>';
+          return;
+        }
+        if (!response.ok) throw new Error(data.message || 'Failed to fetch requests');
+        const allRequests = data.requests || [];
+        const requests = filterSubmissionRows(allRequests, 'incoming', ['submitted_at', 'created_at']);
+        countBadge.innerHTML = `<i class="fas fa-layer-group"></i> <span>${requests.length}${requests.length !== allRequests.length ? ` of ${allRequests.length}` : ''} items</span>`;
+        if (!requests.length) {
+          container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>No requests have arrived yet.</p></div>';
+          return;
+        }
+        container.innerHTML = `
+          <table class="data-table"><caption class="sr-only">Incoming requests</caption><thead><tr><th scope="col">Request</th><th scope="col">User</th><th scope="col">Amount</th><th scope="col">Status</th><th scope="col">Paid</th><th scope="col">Submitted</th></tr></thead>
+          <tbody>${requests.map(request => {
+          const amount = Number(request.amount || 0);
+          const requestType = escapeHtml(request.request_type);
+          const phone = escapeHtml(request.phone);
+          const status = escapeHtml(request.status || 'pending');
+          const submitted = request.submitted_at ? new Date(request.submitted_at).toLocaleString() : '—';
+          const isWithdrawal = request.request_type === 'Earnings withdrawal';
+          const isPaid = request.status === 'paid';
+          return `<tr class="request-row" data-user-id="${Number(request.user_id)}" data-phone="${phone}">
+              <td><strong>${requestType}</strong><br><small>${escapeHtml(request.detail || '')}</small></td>
+              <td>${phone}</td><td style="color:${amount ? '#2df8a8' : '#94a3b8'}">${amount ? `KES ${amount.toLocaleString()}` : '—'}</td>
+              <td><span class="stats-badge" style="${isPaid ? 'background:#795548;color:#fff;' : ''}">${status}</span></td>
+              <td>${isWithdrawal ? `<label style="display:inline-flex;align-items:center;gap:.35rem;cursor:${isPaid ? 'default' : 'pointer'}" onclick="event.stopPropagation()"><input type="checkbox" aria-label="Mark withdrawal as paid" onchange="markWithdrawalPaid(${Number(request.id)}, this)" ${isPaid ? 'checked disabled' : ''}> Paid</label>` : '—'}</td><td>${submitted}</td>
+            </tr>`;
+        }).join('')}</tbody></table>`;
+        container.querySelectorAll('.request-row').forEach(row => row.addEventListener('click', () => {
+          showUserDetails(row.dataset.phone, Number(row.dataset.userId));
+        }));
+      } catch (error) {
+        console.error('Error loading incoming requests:', error);
+        container.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>${escapeHtml(error.message || 'Could not load incoming requests.')}</p></div>`;
+      }
+    }
+
+    async function markWithdrawalPaid(withdrawalId, checkbox) {
+      if (!checkbox.checked) { checkbox.checked = false; return; }
+      checkbox.disabled = true;
+      try {
+        const response = await controlTowerFetch(`/api/control-tower/withdrawals/${withdrawalId}/paid`, { method: 'POST' });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data.success) throw new Error(data.message || 'Unable to update withdrawal.');
+        showToast('Withdrawal paid', 'The withdrawal status is now paid.', 'success');
+        loadIncomingRequests();
+        if (currentUserId) loadWithdrawals();
+      } catch (error) {
+        checkbox.checked = false;
+        checkbox.disabled = false;
+        showToast('Error', error.message || 'Unable to mark withdrawal as paid.', 'error');
+      }
+    }
+
+    // -------- USERS LIST --------
+    async function loadUsers() {
+      try {
+        const response = await fetch('/api/users');
+        if (response.status === 401) {
+          document.getElementById('controlAccessNotice').style.display = 'block';
+          document.getElementById('usersCount').innerHTML = '<i class="fas fa-lock"></i> <span>Sign in required</span>';
+          document.getElementById('usersContainer').innerHTML = '<div class="empty-state" style="grid-column:1/-1"><i class="fas fa-lock"></i><p>Your session has ended. Sign in to load registered users.</p></div>';
+          return;
+        }
+        if (!response.ok) throw new Error('Failed to fetch users');
+
+        users = await response.json();
+        const container = document.getElementById('usersContainer');
+        const countBadge = document.getElementById('usersCount');
+
+        countBadge.innerHTML = `<i class="fas fa-layer-group"></i> <span>${users.length} users</span>`;
+
+        if (!users.length) {
+          container.innerHTML = `
+            <div class="empty-state" style="grid-column: 1 / -1;">
+              <i class="fas fa-users"></i>
+              <p>No users found in database.</p>
+            </div>
+          `;
+          return;
+        }
+
+        // Check for notifications
+        await checkForNotifications();
+
+        container.innerHTML = users.map(user => {
+          let notificationClass = '';
+          if (notificationUsers.has(user.phone)) {
+            if (notificationUsers.has(`${user.phone}-mpesa`)) {
+              notificationClass = 'notification-mpesa';
+            } else if (notificationUsers.has(`${user.phone}-withdrawal`)) {
+              notificationClass = 'notification-withdrawal';
+            }
+          }
+
+          return `
+            <div class="user-card ${notificationClass} ${currentUser === user.phone ? 'active' : ''}" 
+                 onclick="showUserDetails('${user.phone}', ${user.id})">
+              <div class="user-phone">${user.phone}</div>
+            <div class="user-balance">
+                <i class="fas fa-coins"></i>
+                <span>KES ${user.totalEarned || 0}</span>
+            </div>
+            <div class="user-submission-count"><i class="fas fa-mobile-alt"></i> ${Number(user.mpesa_count || 0)} M-PESA submission${Number(user.mpesa_count || 0) === 1 ? '' : 's'}</div>
+          </div>
+          `;
+        }).join('');
+      } catch (error) {
+        console.error('Error loading users:', error);
+        showToast('Error', 'Failed to load users from database', 'error');
+      }
+    }
+
+    // Check for notifications
+    async function checkForNotifications() {
+      try {
+        const response = await fetch('/api/recent-submissions');
+        if (!response.ok) return;
+
+        const recentSubs = await response.json();
+
+        recentSubs.forEach(sub => {
+          const user = users.find(u => u.id === sub.user_id);
+          if (user) {
+            if (sub.type === 'mpesa') {
+              notificationUsers.add(user.phone);
+              notificationUsers.add(`${user.phone}-mpesa`);
+            } else if (sub.type === 'withdrawal') {
+              notificationUsers.add(user.phone);
+              notificationUsers.add(`${user.phone}-withdrawal`);
+            }
+          }
+        });
+      } catch (error) {
+        console.log('Notification check failed');
+      }
+    }
+
+    function updateUserCard(phone) {
+      const cards = document.querySelectorAll('.user-card');
+      cards.forEach(card => {
+        const cardPhone = card.querySelector('.user-phone').textContent;
+        if (cardPhone === phone) {
+          card.classList.remove('notification-mpesa', 'notification-withdrawal');
+        }
+      });
+    }
+
+    // -------- MPESA SUBMISSIONS --------
+    async function loadMpesa() {
+      if (!currentUserId) {
+        const container = document.getElementById('mpesaContainer');
+        const countBadge = document.getElementById('mpesaCount');
+
+        countBadge.innerHTML = `<i class="fas fa-layer-group"></i> <span>0 items</span>`;
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-user"></i>
+            <p>Select a user to view their M-PESA submissions</p>
+          </div>
+        `;
+        return;
+      }
+
+      try {
+        const response = await controlTowerFetch(`/api/user/${currentUserId}/mpesa-submissions`);
+        if (!response.ok) throw new Error('Failed to fetch M-PESA submissions');
+
+        const allMpesa = await response.json();
+        const userMpesa = filterSubmissionRows(allMpesa, 'mpesa', ['transaction_time', 'created_at']);
+        const container = document.getElementById('mpesaContainer');
+        const countBadge = document.getElementById('mpesaCount');
+        const subtitle = document.querySelector('#mpesaSection .subtitle');
+
+        countBadge.innerHTML = `<i class="fas fa-layer-group"></i> <span>${userMpesa.length}${userMpesa.length !== allMpesa.length ? ` of ${allMpesa.length}` : ''} items</span>`;
+        if (subtitle) subtitle.textContent = `${allMpesa.length} payment record${allMpesa.length === 1 ? '' : 's'} linked to ${currentUser || 'this user'}`;
+
+        if (!userMpesa.length) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <i class="fas fa-inbox"></i>
+              <p>No M-PESA submissions for this user.</p>
+            </div>
+          `;
+          return;
+        }
+
+        const html = `
+          <table class="data-table">
+            <caption class="sr-only">M-PESA investment submissions</caption>
+            <thead>
+              <tr>
+                <th scope="col">Task AI</th>
+                <th scope="col">Amount</th>
+                <th scope="col">M-PESA Code</th>
+                <th scope="col">Recipient</th>
+                <th scope="col">Date</th>
+                <th scope="col">Paid</th>
+                <th scope="col">Verification</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${userMpesa.map((sub, index) => {
+          const taskAi = sub.ai_task || sub.ai_task_bought || 'N/A';
+          const amount = sub.amount || 0;
+          const mpesaCode = sub.mpesa_code || 'N/A';
+          const recipient = sub.recipient_name || 'N/A';
+          const date = new Date(sub.created_at || sub.transaction_date).toLocaleString();
+          const phoneVerified = sub.verified_by_sms_forwarder;
+
+          return `
+                  <tr>
+                    <td><strong>${taskAi}</strong></td>
+                    <td style="color: #10b981;">KES ${amount}</td>
+                    <td><code>${mpesaCode}</code></td>
+                    <td>${recipient}</td>
+                    <td style="color: #94a3b8; font-size: 0.8rem;">${date}</td>
+                    <td>
+                      <span class="status-badge ${phoneVerified ? 'completed' : 'pending'}">${phoneVerified ? 'Phone verified' : 'Awaiting phone SMS'}</span>
+                    </td>
+                  </tr>
+                `;
+        }).join('')}
+            </tbody>
+          </table>
+        `;
+
+        container.innerHTML = html;
+
+      } catch (error) {
+        console.error('Error loading M-PESA:', error);
+        const container = document.getElementById('mpesaContainer');
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>Error loading M-PESA submissions</p>
+          </div>
+        `;
+        showToast('Error', 'Failed to load M-PESA submissions', 'error');
+      }
+    }
+
+    // Clear M-PESA data
+    async function clearMpesa() {
+      if (!currentUserId) return;
+
+      if (confirm(`Are you sure you want to clear all M-PESA submissions for ${currentUser}?`)) {
+        try {
+          const response = await controlTowerFetch(`/api/user/${currentUserId}/clear/mpesa`, {
+            method: 'DELETE'
+          });
+
+          if (!response.ok) throw new Error('Failed to clear M-PESA');
+
+          const result = await response.json();
+          loadMpesa();
+          showToast('Cleared', result.message || `M-PESA submissions cleared for ${currentUser}`);
+        } catch (error) {
+          console.error('Error clearing M-PESA:', error);
+          showToast('Error', 'Failed to clear M-PESA submissions', 'error');
+        }
+      }
+    }
+
+    // -------- WITHDRAWAL REQUESTS --------
+    async function loadWithdrawals() {
+      if (!currentUserId) {
+        const container = document.getElementById('withdrawalContainer');
+        const countBadge = document.getElementById('withdrawalCount');
+
+        countBadge.innerHTML = `<i class="fas fa-layer-group"></i> <span>0 items</span>`;
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-user"></i>
+            <p>Select a user to view their withdrawal requests</p>
+          </div>
+        `;
+        return;
+      }
+
+      try {
+        const response = await controlTowerFetch(`/api/user/${currentUserId}/withdrawals`);
+        if (!response.ok) throw new Error('Failed to fetch withdrawals');
+
+        const allWithdrawals = await response.json();
+        const withdrawals = filterSubmissionRows(allWithdrawals, 'withdrawal', ['submitted_at', 'created_at']);
+        const container = document.getElementById('withdrawalContainer');
+        const countBadge = document.getElementById('withdrawalCount');
+
+        countBadge.innerHTML = `<i class="fas fa-layer-group"></i> <span>${withdrawals.length}${withdrawals.length !== allWithdrawals.length ? ` of ${allWithdrawals.length}` : ''} items</span>`;
+
+        if (!withdrawals.length) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <i class="fas fa-inbox"></i>
+              <p>No withdrawal requests for this user.</p>
+            </div>
+          `;
+          return;
+        }
+
+        const html = `
+          <table class="data-table">
+            <caption class="sr-only">Withdrawal requests</caption>
+            <thead>
+              <tr>
+                <th scope="col">Amount</th>
+                <th scope="col">Expected Earning</th>
+                <th scope="col">Receiving Number</th>
+                <th scope="col">Status</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${withdrawals.map((withdrawal, index) => {
+          const amount = withdrawal.amount || 0;
+          const expected = withdrawal.expected_earning || 0;
+          const phone = withdrawal.receiving_number || 'N/A';
+          const status = withdrawal.status || 'pending';
+          const date = new Date(withdrawal.submitted_at).toLocaleString();
+
+          return `
+                  <tr>
+                    <td style="color: #ef4444;">KES ${amount}</td>
+                    <td style="color: #f59e0b;">KES ${expected}</td>
+                    <td>${phone}</td>
+                    <td>
+                      <span style="
+                        padding: 0.25rem 0.5rem;
+                        border-radius: 0.25rem;
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        background: ${status === 'paid' ? '#795548' : status === 'completed' ? 'rgba(16, 185, 129, 0.1)' :
+              status === 'processing' ? 'rgba(245, 158, 11, 0.1)' :
+                'rgba(239, 68, 68, 0.1)'};
+                        color: ${status === 'paid' ? '#fff' : status === 'completed' ? '#10b981' :
+              status === 'processing' ? '#f59e0b' :
+                '#ef4444'};
+                      ">
+                        ${status}
+                      </span>
+                    </td>
+                    <td style="color: #94a3b8; font-size: 0.8rem;">${date}</td>
+                    <td><label style="display:inline-flex;align-items:center;gap:.35rem;cursor:${status === 'paid' ? 'default' : 'pointer'}"><input type="checkbox" aria-label="Mark withdrawal as paid" onchange="markWithdrawalPaid(${Number(withdrawal.id)}, this)" ${status === 'paid' ? 'checked disabled' : ''}> Paid</label></td>
+                  </tr>
+                `;
+        }).join('')}
+            </tbody>
+          </table>
+        `;
+
+        container.innerHTML = html;
+
+      } catch (error) {
+        console.error('Error loading withdrawals:', error);
+        const container = document.getElementById('withdrawalContainer');
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>Error loading withdrawal requests</p>
+          </div>
+        `;
+        showToast('Error', 'Failed to load withdrawal requests', 'error');
+      }
+    }
+
+    // Clear withdrawals
+    async function clearWithdrawals() {
+      if (!currentUserId) return;
+
+      if (confirm(`Are you sure you want to clear all withdrawal requests for ${currentUser}?`)) {
+        try {
+          const response = await controlTowerFetch(`/api/user/${currentUserId}/clear/withdrawals`, {
+            method: 'DELETE'
+          });
+
+          if (!response.ok) throw new Error('Failed to clear withdrawals');
+
+          const result = await response.json();
+          loadWithdrawals();
+          showToast('Cleared', result.message || `Withdrawal requests cleared for ${currentUser}`);
+        } catch (error) {
+          console.error('Error clearing withdrawals:', error);
+          showToast('Error', 'Failed to clear withdrawal requests', 'error');
+        }
+      }
+    }
+
+    // -------- LOAN APPLICATIONS --------
+    async function loadLoans() {
+      if (!currentUserId) {
+        const container = document.getElementById("loanOutput");
+        const countBadge = document.getElementById('loanCount');
+
+        countBadge.innerHTML = `<i class="fas fa-layer-group"></i> <span>0 items</span>`;
+        container.innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <i class="fas fa-user"></i>
+            <p>Select a user to view their loan applications</p>
+          </div>
+        `;
+        return;
+      }
+
+      try {
+        const response = await controlTowerFetch(`/api/user/${currentUserId}/loans`);
+        if (!response.ok) throw new Error('Failed to fetch loan applications');
+
+        const allLoans = await response.json();
+        const userLoans = filterSubmissionRows(allLoans, 'loan', ['submitted_at', 'created_at']);
+        const container = document.getElementById("loanOutput");
+        const countBadge = document.getElementById('loanCount');
+
+        countBadge.innerHTML = `<i class="fas fa-layer-group"></i> <span>${userLoans.length}${userLoans.length !== allLoans.length ? ` of ${allLoans.length}` : ''} items</span>`;
+
+        if (!userLoans.length) {
+          container.innerHTML = `
+            <div class="empty-state" style="grid-column: 1 / -1;">
+              <i class="fas fa-inbox"></i>
+              <p>No loan applications for this user.</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = userLoans.map((loan, index) => `
+          <div class="loan-card">
+            <div class="loan-header">
+              <span class="loan-number">Application #${loan.id}</span>
+              <span class="loan-date">${new Date(loan.submitted_at).toLocaleDateString()}</span>
+            </div>
+            
+            <div class="loan-info">
+              <div class="info-row">
+                <i class="fas fa-phone"></i>
+                <span>Phone Number</span>
+                <strong>${loan.phone}</strong>
+              </div>
+              <div class="info-row">
+                <i class="fas fa-calendar"></i>
+                <span>Submitted</span>
+                <strong>${new Date(loan.submitted_at).toLocaleDateString()}</strong>
+              </div>
+              <div class="info-row">
+                <i class="fas fa-info-circle"></i>
+                <span>Status</span>
+                <strong>${loan.status || 'pending'}</strong>
+              </div>
+            </div>
+
+            <div class="id-images">
+              <div class="id-image-container">
+                <p><i class="fas fa-id-card"></i> ID Front</p>
+                <a href="${loan.id_front}" target="_blank" rel="noopener" aria-label="Open ID front image in a new tab"><img src="${loan.id_front}" alt="ID Front"></a>
+              </div>
+              <div class="id-image-container">
+                <p><i class="fas fa-id-card"></i> ID Back</p>
+                <a href="${loan.id_back}" target="_blank" rel="noopener" aria-label="Open ID back image in a new tab"><img src="${loan.id_back}" alt="ID Back"></a>
+              </div>
+            </div>
+          </div>
+        `).join("");
+      } catch (error) {
+        console.error('Error loading loans:', error);
+        const container = document.getElementById("loanOutput");
+        container.innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>Error loading loan applications</p>
+          </div>
+        `;
+        showToast('Error', 'Failed to load loan applications', 'error');
+      }
+    }
+
+    // Clear loans
+    async function clearLoans() {
+      if (!currentUserId) return;
+
+      if (confirm(`Are you sure you want to clear all loan applications for ${currentUser}?`)) {
+        try {
+          const response = await controlTowerFetch(`/api/user/${currentUserId}/clear/loans`, {
+            method: 'DELETE'
+          });
+
+          if (!response.ok) throw new Error('Failed to clear loans');
+
+          const result = await response.json();
+          loadLoans();
+          showToast('Cleared', result.message || `Loan applications cleared for ${currentUser}`);
+        } catch (error) {
+          console.error('Error clearing loans:', error);
+          showToast('Error', 'Failed to clear loan applications', 'error');
+        }
+      }
+    }
+
+    // -------- SAVINGS WITHDRAWAL REQUESTS --------
+    async function loadSavingsWithdrawals() {
+      if (!currentUserId) {
+        const container = document.getElementById('savingsContainer');
+        const countBadge = document.getElementById('savingsCount');
+
+        countBadge.innerHTML = `<i class="fas fa-layer-group"></i> <span>0 items</span>`;
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-user"></i>
+            <p>Select a user to view their savings withdrawal requests</p>
+          </div>
+        `;
+        return;
+      }
+
+      try {
+        const response = await controlTowerFetch(`/api/user/${currentUserId}/savings-withdrawals`);
+        if (!response.ok) throw new Error('Failed to fetch savings withdrawals');
+
+        const allWithdrawals = await response.json();
+        const withdrawals = filterSubmissionRows(allWithdrawals, 'savings', ['submitted_at', 'created_at']);
+        const container = document.getElementById('savingsContainer');
+        const countBadge = document.getElementById('savingsCount');
+
+        countBadge.innerHTML = `<i class="fas fa-layer-group"></i> <span>${withdrawals.length}${withdrawals.length !== allWithdrawals.length ? ` of ${allWithdrawals.length}` : ''} items</span>`;
+
+        if (!withdrawals.length) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <i class="fas fa-inbox"></i>
+              <p>No savings withdrawal requests for this user.</p>
+            </div>
+          `;
+          return;
+        }
+
+        const html = `
+          <table class="data-table">
+            <caption class="sr-only">Savings withdrawal requests</caption>
+            <thead>
+              <tr>
+                <th scope="col">Amount</th>
+                <th scope="col">Status</th>
+                <th scope="col">Message</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${withdrawals.map((withdrawal, index) => {
+          const amount = withdrawal.amount || 0;
+          const status = withdrawal.status || 'pending';
+          const message = withdrawal.message || 'Processing';
+          const date = new Date(withdrawal.submitted_at).toLocaleString();
+
+          return `
+                  <tr>
+                    <td style="color: #06b6d4;">KES ${amount}</td>
+                    <td>
+                      <span style="
+                        padding: 0.25rem 0.5rem;
+                        border-radius: 0.25rem;
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        background: ${status === 'completed' ? 'rgba(16, 185, 129, 0.1)' :
+              status === 'processing' ? 'rgba(245, 158, 11, 0.1)' :
+                'rgba(239, 68, 68, 0.1)'};
+                        color: ${status === 'completed' ? '#10b981' :
+              status === 'processing' ? '#f59e0b' :
+                '#ef4444'};
+                      ">
+                        ${status}
+                      </span>
+                    </td>
+                    <td style="font-size: 0.8rem;">${message}</td>
+                    <td style="color: #94a3b8; font-size: 0.8rem;">${date}</td>
+                  </tr>
+                `;
+        }).join('')}
+            </tbody>
+          </table>
+        `;
+
+        container.innerHTML = html;
+
+      } catch (error) {
+        console.error('Error loading savings withdrawals:', error);
+        const container = document.getElementById('savingsContainer');
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>Error loading savings withdrawal requests</p>
+          </div>
+        `;
+        showToast('Error', 'Failed to load savings withdrawal requests', 'error');
+      }
+    }
+
+    // Clear savings withdrawals
+    async function clearSavingsWithdrawals() {
+      if (!currentUserId) return;
+
+      if (confirm(`Are you sure you want to clear all savings withdrawal requests for ${currentUser}?`)) {
+        try {
+          const response = await controlTowerFetch(`/api/user/${currentUserId}/clear/savings`, {
+            method: 'DELETE'
+          });
+
+          if (!response.ok) throw new Error('Failed to clear savings withdrawals');
+
+          const result = await response.json();
+          loadSavingsWithdrawals();
+          showToast('Cleared', result.message || `Savings withdrawal requests cleared for ${currentUser}`);
+        } catch (error) {
+          console.error('Error clearing savings withdrawals:', error);
+          showToast('Error', 'Failed to clear savings withdrawal requests', 'error');
+        }
+      }
+    }
+
+    // -------- START PROCESSING --------
+    async function startProcessing() {
+      if (!currentUserId) return;
+
+      try {
+        const response = await fetch('/api/start-processing', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: currentUserId })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          showToast('Processing Started', 'Withdrawal processing has started. Status page updated.', 'success');
+          loadWithdrawals(); // Refresh the withdrawals list
+        } else {
+          showToast('Error', data.message || 'Failed to start processing', 'error');
+        }
+      } catch (error) {
+        console.error('Error starting processing:', error);
+        showToast('Error', 'Failed to start processing', 'error');
+      }
+    }
+
+    // -------- CHECK FOR NEW SUBMISSIONS --------
+    async function checkForNewSubmissions() {
+      try {
+        const response = await fetch('/api/recent-submissions');
+        if (!response.ok) return;
+
+        const recentSubs = await response.json();
+
+        // Check if any of the recent submissions are for our users
+        recentSubs.forEach(sub => {
+          const user = users.find(u => u.id === sub.user_id);
+          if (user) {
+            if (sub.type === 'mpesa' && !notificationUsers.has(`${user.phone}-mpesa`)) {
+              notificationUsers.add(user.phone);
+              notificationUsers.add(`${user.phone}-mpesa`);
+              showToast('New M-PESA', `New M-PESA submission from ${user.phone}`, 'success');
+            } else if (sub.type === 'withdrawal' && !notificationUsers.has(`${user.phone}-withdrawal`)) {
+              notificationUsers.add(user.phone);
+              notificationUsers.add(`${user.phone}-withdrawal`);
+              showToast('New Withdrawal', `New withdrawal request from ${user.phone}`, 'success');
+            }
+          }
+        });
+
+        // Update UI if we have new notifications
+        if (recentSubs.length > 0 && currentUser === null) {
+          loadUsers();
+        }
+      } catch (error) {
+        console.log('Notification check failed');
+      } finally {
+        // Includes savings deposits and savings withdrawals, which are not part of the legacy notification query.
+        loadIncomingRequests();
+      }
+    }
+  </script>
+  <script src="auth-fetch.js"></script>
+  <script src="nav-behavior.js?v=20260816"></script>
+  <script src="usd-display.js?v=20260901"></script>
+</body>
+
+</html>

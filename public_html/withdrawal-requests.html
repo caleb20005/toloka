@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Withdrawal requests · Control Tower</title>
+    <link rel="stylesheet" href="control-tower-reports.css" />  <link rel="stylesheet" href="landing-workspace.css?v=20261013">
+</head>
+  <body>
+    <header class="top">
+      <a class="brand" href="collector.html">toloka</a>
+      <nav class="menu">
+        <a href="collector.html">Collector</a
+        ><a href="registrations.html">Registrations</a
+        ><a href="referral-program.html">Referral Program</a>
+      </nav>
+    </header>
+    <main class="shell">
+      <p class="eyebrow">CONTROL TOWER / PAYOUTS</p>
+      <h1 class="headline">Withdrawal requests</h1>
+      <p class="sub">
+        Live overview of every earnings withdrawal and the current total
+        contributor-wallet balance.
+      </p>
+      <section class="summary">
+        <article class="metric">
+          <span>Total in all wallets</span><strong id="wallet">—</strong>
+        </article>
+        <article class="metric">
+          <span>Contributor accounts</span><strong id="users">—</strong>
+        </article>
+        <article class="metric">
+          <span>Last refreshed</span><strong id="updated">—</strong>
+        </article>
+      </section>
+      <div class="filters">
+        <input
+          id="min"
+          type="number"
+          min="0"
+          placeholder="Minimum amount"
+        /><input
+          id="max"
+          type="number"
+          min="0"
+          placeholder="Maximum amount"
+        /><input id="from" type="datetime-local" /><input
+          id="to"
+          type="datetime-local"
+        /><button id="filter">Apply filter</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Contributor</th>
+              <th>Amount</th>
+              <th>Receiving number</th>
+              <th>Status</th>
+              <th>Paid</th>
+              <th>Actions</th>
+              <th>Time (12-hour)</th>
+            </tr>
+          </thead>
+          <tbody id="rows">
+            <tr>
+              <td colspan="7">Loading…</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <script>
+      const money = (v) =>
+        `$${(Number(v || 0) / 130).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      const escape = (v) =>
+        String(v ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      async function load() {
+        const q = new URLSearchParams();
+        [
+          ["minAmount", min.value],
+          ["maxAmount", max.value],
+          ["from", from.value],
+          ["to", to.value],
+        ].forEach(([k, v]) => v && q.set(k, v));
+        const r = await fetch("/api/control-tower/withdrawals?" + q);
+        const d = await r.json().catch(() => ({}));
+        if (!r.ok) {
+          rows.innerHTML = `<tr><td colspan="7">${escape(d.message || "Unable to load report.")}</td></tr>`;
+          return;
+        }
+        wallet.textContent = money(d.totalWalletBalance);
+        users.textContent = d.userCount;
+        updated.textContent = new Date(d.refreshedAt).toLocaleTimeString([], {
+          hour: "numeric",
+          minute: "2-digit",
+        });
+        rows.innerHTML = d.withdrawals.length
+          ? d.withdrawals.map(renderWithdrawalRow).join("")
+          : '<tr><td colspan="7">No withdrawal requests match this filter.</td></tr>';
+      }
+      function renderWithdrawalRow(x) {
+        const status = String(x.status || 'pending').toLowerCase();
+        const id = Number(x.id);
+        const actions = status === 'pending'
+          ? `<div class="withdrawal-actions"><button class="delete-withdrawal" type="button" onclick="deleteWithdrawal(${id}, this)">Delete</button><button class="refund-withdrawal" type="button" onclick="refundWithdrawal(${id}, this)">Refund</button></div>`
+          : '—';
+        const paidDisabled = status === 'paid' || status === 'refunded';
+        return `<tr><td>${escape([x.first_name, x.last_name].filter(Boolean).join(" ") || x.phone)}<br><small>${escape(x.phone)}</small></td><td class="positive">${money(x.amount)}</td><td>${escape(x.receiving_number)}</td><td><span class="badge ${status === 'paid' ? 'badge-paid' : status === 'refunded' ? 'badge-refunded' : ''}">${escape(status)}</span></td><td><label class="paid-check"><input type="checkbox" aria-label="Mark withdrawal as paid" onchange="markPaid(${id}, this)" ${status === 'paid' ? 'checked' : ''} ${paidDisabled ? 'disabled' : ''}><span>Paid</span></label></td><td>${actions}</td><td>${new Date(x.submitted_at).toLocaleString([], { hour: "numeric", minute: "2-digit", hour12: true, month: "short", day: "numeric", year: "numeric" })}</td></tr>`;
+      }
+      async function markPaid(id, checkbox) {
+        if (!checkbox.checked) { checkbox.checked = false; return; }
+        checkbox.disabled = true;
+        try {
+          const response = await fetch(`/api/control-tower/withdrawals/${id}/paid`, { method: 'POST' });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok || !data.success) throw new Error(data.message || 'Unable to update withdrawal.');
+          load();
+        } catch (error) {
+          checkbox.checked = false;
+          checkbox.disabled = false;
+          alert(error.message || 'Unable to mark this withdrawal as paid.');
+        }
+      }
+      async function deleteWithdrawal(id, button) {
+        if (!window.confirm('Delete this pending withdrawal request? It will disappear from the contributor’s history. No money will be credited back to their wallet.')) return;
+        button.disabled = true;
+        try {
+          const response = await fetch(`/api/control-tower/withdrawals/${id}/delete`, { method: 'POST' });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok || !data.success) throw new Error(data.message || 'Unable to delete withdrawal.');
+          await load();
+        } catch (error) {
+          button.disabled = false;
+          alert(error.message || 'Unable to delete this pending withdrawal.');
+        }
+      }
+      async function refundWithdrawal(id, button) {
+        if (!window.confirm('Refund this pending withdrawal request? The amount will be credited to the contributor’s wallet, and the request will remain in history as refunded.')) return;
+        button.disabled = true;
+        try {
+          const response = await fetch(`/api/control-tower/withdrawals/${id}/refund`, { method: 'POST' });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok || !data.success) throw new Error(data.message || 'Unable to refund withdrawal.');
+          await load();
+        } catch (error) {
+          button.disabled = false;
+          alert(error.message || 'Unable to refund this pending withdrawal.');
+        }
+      }
+      filter.onclick = load;
+      load();
+      setInterval(load, 10000);
+    </script>
+  </body>
+</html>

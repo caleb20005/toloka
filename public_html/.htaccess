@@ -1,0 +1,39 @@
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
+PassengerAppRoot "/home2/tolokaco/backend"
+PassengerBaseURI "/"
+PassengerNodejs "/home2/tolokaco/nodevenv/backend/22/bin/node"
+PassengerAppType node
+PassengerStartupFile server.js
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
+# DO NOT REMOVE OR MODIFY. CLOUDLINUX ENV VARS CONFIGURATION BEGIN
+<IfModule Litespeed>
+SetEnv AUTH_SECRET nQH/InCgy5wjljW8zeH73aGsIoFSyy5GuoqxSQGTI3o=
+SetEnv CONTROL_TOWER_ADMIN_PHONES 018052738
+SetEnv CONTROL_TOWER_BOOTSTRAP_PHONE 018052738
+SetEnv DB_CLIENT mysql
+SetEnv HTTP_HEADERS_TIMEOUT_MS 66001
+SetEnv HTTP_KEEP_ALIVE_TIMEOUT_MS 65000
+SetEnv MPESA_MAX_MESSAGE_AGE_MS 86400000
+SetEnv MPESA_MESSAGE_SIMILARITY 0.9
+SetEnv MPESA_MESSAGE_TIME_TOLERANCE_MS 120000
+SetEnv MYSQL_DATABASE tolokaco_link_ai
+SetEnv MYSQL_HOST titan.ncc254.com
+SetEnv MYSQL_KEEPALIVE_DELAY_MS 10000
+SetEnv MYSQL_PASSWORD BANITOFLAKES602#
+SetEnv MYSQL_POOL_MAX 20
+SetEnv MYSQL_PORT 3306
+SetEnv MYSQL_SSL false
+SetEnv MYSQL_USER tolokaco_JAMES602
+SetEnv NODE_ENV production
+SetEnv TRUST_PROXY true
+SetEnv SMS_FORWARDER_ENABLED true
+SetEnv SMS_FORWARDER_WEBHOOK_TOKEN SZyip62HT89b5lLB_JF6zqd2ta4UKRfSRC9cEH97FXs
+</IfModule>
+# DO NOT REMOVE OR MODIFY. CLOUDLINUX ENV VARS CONFIGURATION END
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “alt-php81” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-alt-php81 .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

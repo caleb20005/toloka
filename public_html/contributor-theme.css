@@ -1,0 +1,26 @@
+/*
+ * Legacy compatibility tokens only.
+ *
+ * Component styling now lives in workspace-core.css, loaded last by
+ * nav-behavior.js. Keeping this small variable map lets older page-local CSS
+ * continue to resolve its palette without competing to style every element.
+ */
+:root {
+  --ink: #172036;
+  --paper: #f7f9fd;
+  --acid: #7467f5;
+  --line: #d7deea;
+  --muted: #5e6b82;
+  --blue: #4c8dff;
+  --pink: #d879c5;
+}
+
+html[data-theme="dark"] {
+  --ink: #f5f7fb;
+  --paper: #0d1321;
+  --acid: #9b90ff;
+  --line: #27334a;
+  --muted: #b7c1d3;
+  --blue: #83adff;
+  --pink: #eea9db;
+}

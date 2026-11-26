@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap");
+:root{--ink:#171717;--paper:#f5f4ef;--acid:#dfff44;--line:#c9c9c4;--muted:#62625e;--blue:#61b2ff;--pink:#fd9bcf;--ws-page:var(--paper);--ws-surface:#fff;--ws-surface-raised:#fff;--ws-surface-muted:#eeede8;--ws-text:var(--ink);--ws-muted:var(--muted);--ws-subtle:#777772;--ws-border:var(--line);--ws-accent:var(--acid);--ws-accent-strong:var(--ink);--ws-success:#067647;--ws-warning:#ad6900;--ws-danger:#b42318;--ws-radius:0px;--ws-shadow:none;--ws-shadow-raised:0 12px 32px rgba(23,23,23,.08);--font-body:Manrope,Arial,sans-serif}
+html[data-theme="dark"],body[data-theme="dark"]{--ink:#171717;--paper:#f5f4ef;--acid:#dfff44;--line:#c9c9c4;--muted:#62625e;--blue:#61b2ff;--pink:#fd9bcf;--ws-page:var(--paper);--ws-surface:#fff;--ws-surface-raised:#fff;--ws-surface-muted:#eeede8;--ws-text:var(--ink);--ws-muted:var(--muted);--ws-subtle:#777772;--ws-border:var(--line);--ws-accent:var(--acid);--ws-accent-strong:var(--ink);--ws-success:#067647;--ws-warning:#ad6900;--ws-danger:#b42318}
+body.link-workspace{font-family:Manrope,Arial,sans-serif!important;background:var(--paper)!important;color:var(--ink)!important}
+.link-workspace :where(h1,h2,h3,h4,h5,h6){font-family:Manrope,Arial,sans-serif!important;letter-spacing:-.055em!important;color:var(--ink)!important}
+.link-workspace :where(p,.subtitle,.description,.muted,.secondary-text,.meta,.date,.timestamp){color:var(--muted)!important}
+.link-workspace header:not(.topbar){background:rgba(245,244,239,.92)!important;border-bottom:1px solid var(--line)!important;box-shadow:none!important;backdrop-filter:blur(13px)!important}
+.link-workspace .nav-links a.active,.link-workspace .nav-links a:hover,.link-workspace .dropdown-toggle:hover{background:#ecebe6!important;color:var(--ink)!important}
+.link-workspace :where(.card,.balance-card,.summary-card,.stat-card,.info-card,.form-card,.history-card,.withdrawal-card,.loan-card,.savings-card,.testimonial-card,.modal-content,.table-container,.data-section,.user-card,.panel,.calculator,.tier-card,.payment-box){background:#fff!important;border:1px solid var(--line)!important;border-radius:0!important;box-shadow:none!important;color:var(--ink)!important}
+.link-workspace :where(input,textarea,select){border:1px solid #aaa!important;border-radius:0!important;background:#fff!important;color:var(--ink)!important}
+.link-workspace :where(.btn,button:not(.menu-toggle):not(.theme-toggle):not(.dropdown-toggle),.button,.buy-btn,.hero-action.primary,.work-btn:not(.locked),.submit-btn,.withdraw-btn,.loan-btn,.savings-btn){border-radius:0!important;background:var(--ink)!important;border-color:var(--ink)!important;color:#fff!important}
+.link-workspace :where(.btn-secondary,.secondary,button.cancel,.hero-action:not(.primary)){border-radius:0!important;background:#fff!important;border-color:var(--line)!important;color:var(--ink)!important}
+.link-workspace :where(table,.table-container,.history-table,.transactions-table,.requests-table){background:#fff!important;border-color:var(--line)!important}
+.link-workspace :where(thead,.table-header,.card-header){background:#eeede8!important}
+.link-workspace :where(th,td){border-color:#e2e1dc!important}
+.link-workspace .nav-links{background:rgba(245,244,239,.98)!important;border:1px solid var(--line)!important;border-radius:0!important;box-shadow:0 14px 32px rgba(23,23,23,.12)!important}
+.link-workspace .nav-links li{border-color:#deddd7!important}
+.link-workspace .nav-links a,.link-workspace .dropdown-toggle,.link-workspace .dropdown-menu a{color:var(--ink)!important;-webkit-text-fill-color:var(--ink)!important}
+.link-workspace .dropdown-menu{background:#fff!important;border-color:var(--line)!important}
+.link-workspace .task-slide,.link-workspace .slide,.link-workspace .carousel-card{background:#fff!important;border-color:var(--line)!important;color:var(--ink)!important}
+.link-workspace .task-slide :where(h1,h2,h3,h4,p,span,small,strong,b,a,button),.link-workspace .slide :where(h1,h2,h3,h4,p,span,small,strong,b,a,button),.link-workspace .carousel-card :where(h1,h2,h3,h4,p,span,small,strong,b,a,button){color:var(--ink)!important}
+.link-workspace :where(button,a,input,select,textarea):focus-visible{outline:2px solid #171717!important;outline-offset:3px}
+.link-workspace :where(.table-wrap,.table-container){max-width:100%;overflow-x:auto}
+@media(prefers-reduced-motion:reduce){.link-workspace *,body.link-workspace *::before,body.link-workspace *::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+/* Control Tower report pages share the same palette and compact rules. */
+body:has(>.report-header),body:has(>.top),body:has(>.card){background:var(--paper)!important;color:var(--ink)!important;font-family:Manrope,Arial,sans-serif!important}
+.top,.report-header{background:rgba(245,244,239,.94)!important;border-color:var(--line)!important;box-shadow:none!important}
+.top .brand,.report-header .brand,.report-header .report-brand{color:var(--ink)!important;font-family:Manrope,Arial,sans-serif!important}
+.top .brand::before{background-color:var(--ink)!important}
+.tower-menu{border:1px solid var(--line)!important;border-radius:0!important;background:rgba(245,244,239,.98)!important;box-shadow:0 14px 32px rgba(23,23,23,.12)!important}
+.tower-menu a{color:var(--ink)!important;border-color:#deddd7!important}
+.report-main,.shell{max-width:1400px;margin-inline:auto}
+.report-card,.metric,.table-wrap{background:#fff!important;border:1px solid var(--line)!important;border-radius:0!important;box-shadow:none!important}
+.filters :where(input,button),.card input,.card button,.card select{font:inherit;border-radius:0!important}
+.filters button,.remove-number,.submit{background:var(--ink)!important;border:1px solid var(--ink)!important;border-radius:0!important;color:#fff!important}
+th{background:#eeede8!important;color:var(--muted)!important}
+td{border-color:#e4e3dd!important}
+.report-card:hover{border-color:var(--ink)!important;transform:translateY(-2px)}
+@media(max-width:760px){.report-header,.top{padding-inline:20px!important}.menu{display:none!important}.report-main,.shell{padding:30px 20px 64px!important}.report-cards,.summary{grid-template-columns:1fr!important}}

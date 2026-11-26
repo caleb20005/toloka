@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Savings | Toloka</title>
+  <link rel="stylesheet" href="contributor-theme.css">
+  <style>
+    /* Mobile-first responsive styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 1rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #4f46e5;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links a {
+      color: #4b5563;
+      text-decoration: none;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+      display: block;
+    }
+
+    .nav-links a.active,
+    .nav-links a:hover {
+      background: #4f46e5;
+      color: white;
+    }
+
+    /* Dropdown */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 0.5rem;
+      min-width: 150px;
+      z-index: 1001;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-menu li {
+      width: 100%;
+    }
+
+    .dropdown-menu a {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 3rem 1rem 2rem;
+      text-align: center;
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      opacity: 0.9;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Savings Balance */
+    .savings-balance {
+      background: white;
+      margin: 1rem;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .savings-balance h3 {
+      color: #6b7280;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    #savingsAmount {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #10b981;
+    }
+
+    /* Section Header */
+    .section-header {
+      text-align: center;
+      color: white;
+      margin: 2rem 1rem 1rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Tiers Grid */
+    .tiers {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .tiers {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Tier Cards */
+    .tier-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s;
+      position: relative;
+    }
+
+    .tier-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .tier-card.basic {
+      border-top: 4px solid #10b981;
+    }
+
+    .tier-card.premium {
+      border-top: 4px solid #4f46e5;
+    }
+
+    .tier-card.elite {
+      border-top: 4px solid #f59e0b;
+    }
+
+    .tier-badge {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0.25rem 1rem;
+      border-radius: 1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .tier-badge.basic {
+      background: #10b981;
+      color: white;
+    }
+
+    .tier-badge.premium {
+      background: #4f46e5;
+      color: white;
+    }
+
+    .tier-badge.elite {
+      background: #f59e0b;
+      color: white;
+    }
+
+    .tier-icon {
+      font-size: 3rem;
+      margin: 1rem 0;
+    }
+
+    .tier-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: #1f2937;
+    }
+
+    .tier-range {
+      color: #6b7280;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .tier-rate {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #10b981;
+      margin-bottom: 1rem;
+    }
+
+    .tier-rate span {
+      font-size: 1rem;
+      color: #6b7280;
+    }
+
+    .tier-features {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+      text-align: left;
+    }
+
+    .tier-features li {
+      padding: 0.5rem 0;
+      color: #6b7280;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tier-features li:before {
+      content: "?";
+      color: #10b981;
+      font-weight: bold;
+    }
+
+    .start-btn {
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .basic .start-btn {
+      background: #10b981;
+      color: white;
+    }
+
+    .premium .start-btn {
+      background: #4f46e5;
+      color: white;
+    }
+
+    .elite .start-btn {
+      background: #f59e0b;
+      color: white;
+    }
+
+    .start-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Calculator */
+    .calculator {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      margin: 2rem auto;
+    }
+
+    .calculator h3 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #1f2937;
+    }
+
+    .calc-input {
+      margin-bottom: 1.5rem;
+    }
+
+    .calc-input label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #374151;
+      font-weight: 500;
+    }
+
+    .calc-input input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .calc-input input:focus {
+      outline: none;
+      border-color: #4f46e5;
+    }
+
+    .calc-result {
+      background: #f9fafb;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .calc-result .label {
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .calc-result .amount {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #10b981;
+      margin-bottom: 0.5rem;
+    }
+
+    .calc-result .rate {
+      color: #6b7280;
+      font-size: 0.9rem;
+    }
+
+    /* Deposit Options */
+    .deposit-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 480px) {
+      .deposit-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .deposit-option {
+      padding: 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .deposit-option.selected {
+      border-color: #4f46e5;
+      background: #f0f9ff;
+    }
+
+    .deposit-option input[type="radio"] {
+      display: none;
+    }
+
+    .option-label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .option-desc {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    /* Direct Deposit Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      max-width: 400px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-icon {
+      font-size: 3rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .modal-content h3 {
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-content>p {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 1.5rem;
+    }
+
+    .payment-box {
+      background: #f9fafb;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .payment-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    @media (max-width: 480px) {
+      .payment-row {
+        flex-wrap: wrap;
+      }
+
+      .payment-value {
+        overflow-wrap: anywhere;
+        text-align: left;
+      }
+    }
+
+    .payment-row:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .payment-label {
+      color: #6b7280;
+    }
+
+    .payment-value {
+      font-weight: 600;
+    }
+
+    .deposit-number-box {
+      background: #f3f4f6;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      text-align: center;
+      margin: 1rem 0;
+      font-family: monospace;
+      font-weight: 600;
+      color: #1f2937;
+      border: 2px solid #e5e7eb;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #374151;
+      font-weight: 500;
+    }
+
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      resize: vertical;
+      min-height: 100px;
+      font-family: monospace;
+      cursor: text !important;
+      user-select: text !important;
+      -webkit-user-select: text !important;
+      pointer-events: auto !important;
+    }
+
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #4f46e5;
+      caret-color: #4f46e5 !important;
+      cursor: text !important;
+    }
+
+    .form-group textarea::selection {
+      background: rgba(79, 70, 229, 0.2);
+      color: inherit;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .modal-buttons button {
+      flex: 1;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .btn-primary {
+      background: #4f46e5;
+      color: white;
+    }
+
+    /* Savings Button */
+    .savings-btn {
+      width: 100%;
+      padding: 1rem;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .savings-btn:hover:not(:disabled) {
+      background: #4338ca;
+    }
+
+    .savings-btn:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+  </style>
+  <link rel="stylesheet" href="outlier-ui.css?v=20260816">
+  <link rel="stylesheet" href="site-system.css?v=20260901d">
+  <link rel="stylesheet" href="workspace-core.css?v=20260909">
+  <link rel="stylesheet" href="workspace-polish.css?v=20260909">
+  <link rel="stylesheet" href="experience-quality.css?v=20260909">
+  <link rel="stylesheet" href="workspace-interactions.css?v=20260915-nav">
+  <link rel="stylesheet" href="edge-to-edge.css?v=20260915-nav">
+</head>
+
+<body class='link-workspace'>
+  <!-- Header -->
+  <header>
+    <a class="brand" href="Homepage.html" aria-label="Toloka home"><span class="brand-mark"><i></i><i></i></span><span>toloka</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+      <span></span><span></span>
+    </button>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="Homepage.html">Home</a></li>
+        <li><a href="savings.html" class="active">Savings</a></li>
+        <li><a href="Loans.html">Loans</a></li>
+        <li><a href="Testimonials.html">Feedback &amp; Insights</a></li>
+        <li><a href="physical-ai.html">Physical AI</a></li>
+        <li><a href="withdrawal.html">Withdrawal</a></li>
+        <li><a href="Referals.html">Referral Program</a></li>
+        <li class="dropdown">
+          <button type="button" class="dropdown-toggle" id="accountDropdown" aria-expanded="false"
+            aria-controls="accountMenu">Account</button>
+          <ul class="dropdown-menu" id="accountMenu">
+            <li><a href="wallet.html">Wallet</a></li>
+            <li><a href="status.html">Status</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="login.html" id="logoutBtn">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <a class="wallet-return" href="wallet.html" aria-label="Return to Wallet">← Back to Wallet</a>
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Grow Your Savings</h1>
+        <p>AI-powered savings plans with competitive interest rates tailored to your investment level.</p>
+      </div>
+    </div>
+
+    <!-- Savings Balance -->
+    <div class="savings-balance">
+      <h2>Your Savings Account Balance</h2>
+      <p id="savingsAmount" data-money-value="0">Ksh. 0.00</p>
+    </div>
+
+    <!-- Section Header -->
+    <div class="section-header">
+      <h2>Choose Your Savings Tier</h2>
+      <p>Higher savings unlock better returns. Start small and grow big.</p>
+    </div>
+
+    <!-- Savings Tiers -->
+    <section>
+      <div class="tiers">
+        <!-- Basic Tier: 300-4999 KES -->
+        <div class="tier-card basic">
+          <div class="tier-badge basic">Starter</div>
+          <div class="tier-icon">&#127793;</div>
+          <h3>Basic Savings</h3>
+          <div class="tier-range">Ksh. 300 - Ksh. 4,999</div>
+          <div class="tier-rate">5% <span>per annum</span></div>
+          <ul class="tier-features">
+            <li>Minimum deposit: Ksh. 300</li>
+            <li>Instant withdrawals</li>
+            <li>Monthly statements</li>
+            <li>Mobile app access</li>
+          </ul>
+          <button class="start-btn" onclick="selectTier('basic')">Start Saving</button>
+        </div>
+
+        <!-- Premium Tier: 5000-49999 KES -->
+        <div class="tier-card premium">
+          <div class="tier-badge premium">Popular</div>
+          <div class="tier-icon">&#128640;</div>
+          <h3>Premium Savings</h3>
+          <div class="tier-range">Ksh. 5,000 - Ksh. 49,999</div>
+          <div class="tier-rate">8% <span>per annum</span></div>
+          <ul class="tier-features">
+            <li>Minimum deposit: Ksh. 5,000</li>
+            <li>Priority withdrawals (24h)</li>
+            <li>Weekly AI insights</li>
+            <li>Dedicated support</li>
+            <li>Bonus interest monthly</li>
+          </ul>
+          <button class="start-btn" onclick="selectTier('premium')">Start Saving</button>
+        </div>
+
+        <!-- Elite Tier: 50000+ KES -->
+        <div class="tier-card elite">
+          <div class="tier-badge elite">Elite</div>
+          <div class="tier-icon">&#128142;</div>
+          <h3>Elite Savings</h3>
+          <div class="tier-range">Ksh. 50,000+</div>
+          <div class="tier-rate">12% <span>per annum</span></div>
+          <ul class="tier-features">
+            <li>Minimum deposit: Ksh. 50,000</li>
+            <li>Instant priority withdrawals</li>
+            <li>Daily AI portfolio insights</li>
+            <li>Personal account manager</li>
+            <li>Quarterly bonuses</li>
+            <li>Exclusive investment opportunities</li>
+          </ul>
+          <button class="start-btn" onclick="selectTier('elite')">Start Saving</button>
+        </div>
+      </div>
+
+      <!-- Calculator -->
+      <div class="calculator" id="calculator">
+        <h3>Calculate Your Returns</h3>
+
+        <div class="calc-input">
+          <label for="savingsInput">Enter Savings Amount (Ksh)</label>
+          <input type="number" id="savingsInput" placeholder="e.g., 5000" min="300" oninput="calculateReturns()">
+        </div>
+
+        <div class="calc-result">
+          <div class="label">Estimated Annual Return</div>
+          <div class="amount" id="returnAmount">Ksh. 0</div>
+          <div class="rate" id="appliedRate">Select amount to see rate</div>
+        </div>
+
+        <!-- Deposit Options -->
+        <div class="deposit-options">
+          <label class="deposit-option" id="optionDeduct">
+            <input type="radio" name="depositMethod" value="deduct" checked onchange="toggleDepositMethod()">
+            <span class="option-label">Deduct from Total Earned</span>
+            <span class="option-desc">Instant deduction from your earnings</span>
+          </label>
+
+          <label class="deposit-option" id="optionDirect">
+            <input type="radio" name="depositMethod" value="direct" onchange="toggleDepositMethod()">
+            <span class="option-label">Direct Deposit</span>
+            <span class="option-desc">Deposit via M-PESA to our number</span>
+          </label>
+        </div>
+
+        <button class="savings-btn" onclick="processSavings()" id="saveBtn">
+          Start Saving
+        </button>
+
+        <div id="savingsMessage" class="message"></div>
+      </div>
+
+      <!-- Withdrawal Section -->
+      <div class="withdrawal-section">
+        <h3>Withdraw from Savings</h3>
+
+        <div class="calc-input">
+          <label for="withdrawAmount">Withdrawal Amount (Ksh)</label>
+          <input type="number" id="withdrawAmount" placeholder="e.g., 1000" min="100">
+        </div>
+
+        <button class="savings-btn" onclick="withdrawSavings()" id="withdrawBtn">
+          Withdraw Funds
+        </button>
+
+        <div id="withdrawMessage" class="message"></div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+  </main>
+  <footer>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Toloka. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Direct Deposit Modal -->
+  <div class="modal" id="directDepositModal" role="dialog" aria-modal="true" aria-labelledby="directDepositModalTitle"
+    tabindex="-1">
+    <div class="modal-content">
+      <div class="modal-icon">&#128179;</div>
+      <h3 id="directDepositModalTitle">Direct Deposit via M-PESA</h3>
+      <p>Deposit your savings amount securely</p>
+
+      <div class="payment-box">
+        <div class="payment-row">
+          <span class="payment-label">Savings Tier</span>
+          <span class="payment-value" id="modalSavingsTier">-</span>
+        </div>
+        <div class="payment-row">
+          <span class="payment-label">Amount</span>
+          <span class="payment-value" id="modalSavingsAmount">-</span>
+        </div>
+        <div class="deposit-number-box">
+          Deposit to: <strong id="modalSavingsDepositNumber">Loading...</strong>
+        </div>
+        <div style="text-align: center; color: #6b7280; font-size: 0.9rem; margin-top: 0.5rem;">
+          Copy this exact number for M-PESA deposit
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="savingsMpesaMessage">Paste M-PESA Message</label>
+        <textarea id="savingsMpesaMessage" placeholder="Paste the complete M-PESA message here..." autocomplete="off"
+          autocorrect="off" autocapitalize="off" spellcheck="false"
+          style="cursor: text !important; user-select: text !important; -webkit-user-select: text !important; pointer-events: auto !important;"></textarea>
+      </div>
+
+      <div class="modal-buttons">
+        <button class="btn btn-secondary" type="button" data-modal-close
+          onclick="closeDirectDepositModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="submitDirectDeposit()">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
+    <span id="toastMessage"></span>
+  </div>
+
+  <script>
+    let userId = '';
+    let selectedTier = '';
+    let totalEarned = 0;
+    let savingsBalance = 0;
+    let depositMethod = 'deduct';
+    let currentSavingsAmount = 0;
+    let depositNumbers = [];
+    let currentDepositNumber = '';
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', async function () {
+      // Check authentication
+      const token = localStorage.getItem('token');
+      if (!token) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      // Extract userId from token
+      const match = token.match(/user-(\d+)/) || token.match(/^(\d+)\.[a-f0-9]+$/i) || (localStorage.getItem('userId') && /^\d+$/.test(localStorage.getItem('userId')) ? [null, localStorage.getItem('userId')] : null);
+      if (match) {
+        userId = match[1];
+        localStorage.setItem('userId', userId);
+      } else {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      // Load user data
+      await loadUserData();
+
+      // Load deposit numbers
+      await loadDepositNumbers();
+
+      // Update savings balance periodically
+      setInterval(updateSavingsInterest, 60000);
+
+      // Setup logout
+      setupLogout();
+
+      // Setup dropdown
+      setupDropdown();
+    });
+
+    // Load user data
+    async function loadUserData() {
+      try {
+        const response = await fetch(`/api/user/${userId}`);
+        if (!response.ok) throw new Error('Failed to load user data');
+
+        const data = await response.json();
+        if (data.success) {
+          totalEarned = data.totalEarned || 0;
+          savingsBalance = data.savingsBalance || 0;
+          updateSavingsDisplay();
+        }
+      } catch (error) {
+        console.error('Error loading user data:', error);
+        showMessage('Error loading account data', 'error', 'savingsMessage');
+      }
+    }
+
+    // Load deposit numbers
+    async function loadDepositNumbers() {
+      try {
+        const response = await fetch('/api/deposit-numbers');
+        if (response.ok) {
+          const data = await response.json();
+          depositNumbers = data.numbers || [];
+          updateDepositNumber();
+        }
+      } catch (error) {
+        console.error('Error loading deposit numbers:', error);
+        depositNumbers = ['0716235987'];
+        updateDepositNumber();
+      }
+    }
+
+    // Update deposit number
+    function updateDepositNumber() {
+      if (depositNumbers.length === 0) return;
+
+      const now = Date.now();
+      const hours = Math.floor(now / (1000 * 60 * 60 * 3)); // Every 3 hours
+      const index = hours % depositNumbers.length;
+      currentDepositNumber = depositNumbers[index];
+
+      if (document.getElementById('modalSavingsDepositNumber')) {
+        document.getElementById('modalSavingsDepositNumber').textContent = currentDepositNumber;
+      }
+    }
+
+    // Update savings display
+    function updateSavingsDisplay() {
+      const formatCurrency = (amount) => {
+        return amount.toLocaleString('en-KE', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+      };
+
+      const savingsAmountEl = document.getElementById('savingsAmount');
+      savingsAmountEl.dataset.moneyValue = String(savingsBalance || 0);
+      if (window.LinkCurrency) {
+        window.LinkCurrency.renderElement(savingsAmountEl);
+      } else {
+        savingsAmountEl.textContent = `Ksh. ${formatCurrency(savingsBalance)}`;
+      }
+    }
+
+    // Select tier
+    function selectTier(tier) {
+      selectedTier = tier;
+
+      // Scroll to calculator
+      document.getElementById('calculator').scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+
+      // Set minimum amount based on tier
+      const input = document.getElementById('savingsInput');
+      switch (tier) {
+        case 'basic':
+          input.value = 300;
+          input.min = 300;
+          input.max = 4999;
+          break;
+        case 'premium':
+          input.value = 5000;
+          input.min = 5000;
+          input.max = 49999;
+          break;
+        case 'elite':
+          input.value = 50000;
+          input.min = 50000;
+          break;
+      }
+
+      calculateReturns();
+    }
+
+    // Calculate returns
+    function calculateReturns() {
+      const amount = parseFloat(document.getElementById('savingsInput').value) || 0;
+      let rate = 0;
+      let tier = '';
+
+      if (amount >= 300 && amount < 5000) {
+        rate = 0.05;
+        tier = 'Basic Tier (5% p.a.)';
+        selectedTier = 'basic';
+      } else if (amount >= 5000 && amount < 50000) {
+        rate = 0.08;
+        tier = 'Premium Tier (8% p.a.)';
+        selectedTier = 'premium';
+      } else if (amount >= 50000) {
+        rate = 0.12;
+        tier = 'Elite Tier (12% p.a.)';
+        selectedTier = 'elite';
+      } else {
+        tier = 'Minimum Ksh. 300 required';
+        selectedTier = '';
+      }
+
+      const returns = amount * rate;
+      const dailyReturns = returns / 365;
+
+      document.getElementById('returnAmount').textContent =
+        `Ksh. ${returns.toLocaleString('en-KE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+      document.getElementById('appliedRate').textContent =
+        `${tier} - Daily: Ksh. ${dailyReturns.toFixed(2)}`;
+    }
+
+    // Toggle deposit method
+    function toggleDepositMethod() {
+      const deductOption = document.getElementById('optionDeduct');
+      const directOption = document.getElementById('optionDirect');
+
+      if (directOption.querySelector('input').checked) {
+        depositMethod = 'direct';
+        directOption.classList.add('selected');
+        deductOption.classList.remove('selected');
+      } else {
+        depositMethod = 'deduct';
+        deductOption.classList.add('selected');
+        directOption.classList.remove('selected');
+      }
+    }
+
+    // Parse M-PESA message (same as homepage)
+    function parseMpesaMessage(message) {
+      const patterns = [
+        /(?:(?:Confirmed\.|Received\.)\s*)?Ksh(?:\s*)?([\d,]+\.?\d*)(?:\s*)?(?:received|sent) from (?:(?:\d+\s*)?([A-Z\s]+[A-Z]))(?:\s*)?(\d+)(?:\s*)?on (\d+\/\d+\/\d+)(?:\s*)?at (\d+:\d+\s*[AP]M)/i,
+        /(?:(?:Confirmed\.|Received\.)\s*)?You have received Ksh(?:\s*)?([\d,]+\.?\d*)(?:\s*)?from (?:(?:\d+\s*)?([A-Z\s]+[A-Z]))(?:\s*)?(\d+)(?:\s*)?on (\d+\/\d+\/\d+)(?:\s*)?at (\d+:\d+\s*[AP]M)/i,
+        /([\d,]+\.?\d*)(?:\s*)?sent to you by (?:(?:\d+\s*)?([A-Z\s]+[A-Z]))(?:\s*)?(\d+)(?:\s*)?on (\d+\/\d+\/\d+)(?:\s*)?(\d+:\d+\s*[AP]M)/i,
+        /Amount: ([\d,]+\.?\d*).*?From: (?:(?:\d+\s*)?([A-Z\s]+[A-Z]))(?:\s*)?(\d+).*?Date: (\d+\/\d+\/\d+).*?Time: (\d+:\d+\s*[AP]M)/i
+      ];
+
+      for (const pattern of patterns) {
+        const match = message.match(pattern);
+        if (match) {
+          const amount = parseFloat(match[1].replace(/,/g, ''));
+          const recipientName = match[2].trim();
+          const mpesaCode = match[3];
+          const date = match[4];
+          const time = match[5];
+
+          const transactionTime = new Date(`${date} ${time}`);
+
+          return {
+            success: true,
+            amount,
+            recipientName,
+            mpesaCode,
+            transactionTime
+          };
+        }
+      }
+
+      return {
+        success: false,
+        error: 'Invalid M-PESA message format'
+      };
+    }
+
+    // Open direct deposit modal
+    function openDirectDepositModal() {
+      currentSavingsAmount = parseFloat(document.getElementById('savingsInput').value) || 0;
+
+      if (!currentSavingsAmount || currentSavingsAmount < 300) {
+        showMessage('Minimum savings amount is Ksh. 300', 'error', 'savingsMessage');
+        return;
+      }
+
+      if (!selectedTier) {
+        showMessage('Please enter a valid amount within a tier range', 'error', 'savingsMessage');
+        return;
+      }
+
+      document.getElementById('modalSavingsTier').textContent = selectedTier.charAt(0).toUpperCase() + selectedTier.slice(1);
+      document.getElementById('modalSavingsAmount').textContent = `Ksh. ${currentSavingsAmount.toLocaleString()}`;
+      updateDepositNumber();
+      document.getElementById('directDepositModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close direct deposit modal
+    function closeDirectDepositModal() {
+      document.getElementById('directDepositModal').classList.remove('active');
+      document.body.style.overflow = '';
+      document.getElementById('savingsMpesaMessage').value = '';
+    }
+
+    // Process savings
+    async function processSavings() {
+      if (depositMethod === 'direct') {
+        openDirectDepositModal();
+        return;
+      }
+
+      // Deduct from total earned method
+      const amount = parseFloat(document.getElementById('savingsInput').value) || 0;
+      const saveBtn = document.getElementById('saveBtn');
+      const messageEl = document.getElementById('savingsMessage');
+
+      // Validation
+      if (!amount || amount < 300) {
+        showMessage('Minimum savings amount is Ksh. 300', 'error', 'savingsMessage');
+        return;
+      }
+
+      if (!selectedTier) {
+        showMessage('Please enter a valid amount within a tier range', 'error', 'savingsMessage');
+        return;
+      }
+
+      // Check amount range for selected tier
+      const tierRanges = {
+        'basic': { min: 300, max: 4999 },
+        'premium': { min: 5000, max: 49999 },
+        'elite': { min: 50000, max: Infinity }
+      };
+
+      const range = tierRanges[selectedTier];
+      if (amount < range.min || amount > range.max) {
+        showMessage(`Amount must be between Ksh. ${range.min.toLocaleString()} and Ksh. ${range.max === Infinity ? 'unlimited' : range.max.toLocaleString()} for ${selectedTier} tier`, 'error', 'savingsMessage');
+        return;
+      }
+
+      // Check balance for deduct method
+      if (amount > totalEarned) {
+        showMessage('Insufficient balance in total earned', 'error', 'savingsMessage');
+        return;
+      }
+
+      // Disable button and show loading
+      const originalText = saveBtn.textContent;
+      saveBtn.textContent = 'Processing...';
+      saveBtn.disabled = true;
+
+      try {
+        const response = await fetch('/api/user/savings-deposit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userId,
+            amount,
+            tier: selectedTier,
+            depositMethod: 'deduct'
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          showMessage(data.message || 'Savings deposit failed', 'error', 'savingsMessage');
+          saveBtn.textContent = originalText;
+          saveBtn.disabled = false;
+          return;
+        }
+
+        // Success
+        showToast('Savings deposited successfully!');
+        showMessage(`Deducted Ksh. ${amount.toLocaleString()} from your total earned and added to savings`, 'success', 'savingsMessage');
+
+        // Update savings balance
+        savingsBalance = data.savingsBalance || 0;
+        totalEarned -= amount;
+        updateSavingsDisplay();
+
+        // Clear input
+        document.getElementById('savingsInput').value = '';
+
+      } catch (error) {
+        console.error('Savings error:', error);
+        showMessage('Failed to process savings. Please try again.', 'error', 'savingsMessage');
+      } finally {
+        saveBtn.textContent = originalText;
+        saveBtn.disabled = false;
+      }
+    }
+
+    // Submit direct deposit
+    async function submitDirectDeposit() {
+      const mpesaMessage = document.getElementById('savingsMpesaMessage').value.trim();
+
+      if (!mpesaMessage) {
+        showToast('Please paste M-PESA message', 'error');
+        return;
+      }
+
+      // Parse M-PESA message
+      const parsed = parseMpesaMessage(mpesaMessage);
+      if (!parsed.success) {
+        showToast('Invalid M-PESA message format', 'error');
+        return;
+      }
+
+      // Validate amount matches savings amount
+      if (Math.abs(parsed.amount - currentSavingsAmount) > 1) {
+        showToast(`Amount must be exactly Ksh. ${currentSavingsAmount.toLocaleString()}`, 'error');
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/user/savings-direct-deposit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userId,
+            amount: currentSavingsAmount,
+            tier: selectedTier,
+            mpesaMessage: mpesaMessage,
+            parsedData: parsed,
+            depositNumber: currentDepositNumber
+          })
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          showToast(data.message || 'Direct deposit failed', 'error');
+          return;
+        }
+
+        // Success
+        showToast('Direct deposit submitted successfully!');
+        showMessage(`Savings recorded. Your deposit of Ksh. ${currentSavingsAmount.toLocaleString()} is being processed.`, 'success', 'savingsMessage');
+
+        // Update savings balance
+        savingsBalance = data.savingsBalance || 0;
+        updateSavingsDisplay();
+
+        // Close modal and clear input
+        closeDirectDepositModal();
+        document.getElementById('savingsInput').value = '';
+
+      } catch (error) {
+        console.error('Direct deposit error:', error);
+        showToast('Failed to process direct deposit', 'error');
+      }
+    }
+
+    // Withdraw savings
+    async function withdrawSavings() {
+      const amount = parseFloat(document.getElementById('withdrawAmount').value) || 0;
+      const withdrawBtn = document.getElementById('withdrawBtn');
+      const messageEl = document.getElementById('withdrawMessage');
+
+      // Validation
+      if (!amount || amount < 100) {
+        showMessage('Minimum withdrawal amount is Ksh. 100', 'error', 'withdrawMessage');
+        return;
+      }
+
+      if (amount > savingsBalance) {
+        showMessage('Insufficient savings balance', 'error', 'withdrawMessage');
+        return;
+      }
+
+      // Disable button and show loading
+      const originalText = withdrawBtn.textContent;
+      withdrawBtn.textContent = 'Processing...';
+      withdrawBtn.disabled = true;
+
+      try {
+        const response = await fetch('/api/user/savings-withdraw', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userId,
+            amount
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          showMessage(data.message || 'Withdrawal failed', 'error', 'withdrawMessage');
+          withdrawBtn.textContent = originalText;
+          withdrawBtn.disabled = false;
+          return;
+        }
+
+        // Success
+        showToast('Withdrawal request submitted!');
+        showMessage('Withdrawn amount to be accredited to login phone number. System processing withdrawal, expect funds within 48hrs', 'success', 'withdrawMessage');
+
+        // Update savings balance
+        savingsBalance = data.savingsBalance || 0;
+        updateSavingsDisplay();
+
+        // Clear input
+        document.getElementById('withdrawAmount').value = '';
+
+      } catch (error) {
+        console.error('Withdrawal error:', error);
+        showMessage('Failed to process withdrawal. Please try again.', 'error', 'withdrawMessage');
+      } finally {
+        withdrawBtn.textContent = originalText;
+        withdrawBtn.disabled = false;
+      }
+    }
+
+    // Update savings interest
+    async function updateSavingsInterest() {
+      try {
+        const response = await fetch('/api/user/update-savings-interest', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success && data.interestAdded > 0) {
+            savingsBalance = data.savingsBalance || 0;
+            updateSavingsDisplay();
+          }
+        }
+      } catch (error) {
+        console.error('Error updating interest:', error);
+      }
+    }
+
+    // Show message
+    function showMessage(text, type = 'info', elementId = 'message') {
+      const messageEl = document.getElementById(elementId);
+      messageEl.textContent = text;
+      messageEl.className = `message ${type}`;
+
+      // Auto-hide success messages after 5 seconds
+      if (type === 'success') {
+        setTimeout(() => {
+          messageEl.textContent = '';
+          messageEl.className = 'message';
+        }, 5000);
+      }
+    }
+
+    // Show toast
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const messageEl = document.getElementById('toastMessage');
+
+      messageEl.textContent = message;
+      toast.classList.add('show');
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Setup logout
+    function setupLogout() {
+      const logoutBtn = document.getElementById('logoutBtn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          localStorage.removeItem('token');
+          localStorage.removeItem('userId');
+          localStorage.removeItem('userPhone');
+          window.location.href = 'login.html';
+        });
+      }
+    }
+
+    // Setup dropdown
+    function setupDropdown() {
+      const dropdownToggle = document.querySelector('.dropdown-toggle');
+      const dropdownMenu = document.querySelector('.dropdown-menu');
+
+      if (dropdownToggle && dropdownMenu) {
+        dropdownToggle.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function () {
+          dropdownMenu.style.display = 'none';
+        });
+
+        // Prevent dropdown from closing when clicking inside
+        dropdownMenu.addEventListener('click', function (e) {
+          e.stopPropagation();
+        });
+      }
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('directDepositModal').addEventListener('click', function (event) {
+      if (event.target === this) {
+        closeDirectDepositModal();
+      }
+    });
+
+    // Handle Enter key in M-PESA message input
+    const savingsMpesaTextarea = document.getElementById('savingsMpesaMessage');
+    savingsMpesaTextarea.addEventListener('keypress', function (e) {
+      if (e.ctrlKey && e.key === 'Enter') {
+        submitDirectDeposit();
+      }
+    });
+
+    // Add paste event support for better UX
+    savingsMpesaTextarea.addEventListener('paste', function (e) {
+      // Allow paste to work naturally
+      e.stopPropagation();
+    });
+
+    // Ensure focus and cursor visibility
+    savingsMpesaTextarea.addEventListener('focus', function () {
+      this.style.cursor = 'text';
+      this.style.caretColor = '#4f46e5';
+    });
+
+    // Allow text selection
+    savingsMpesaTextarea.addEventListener('mousedown', function (e) {
+      e.stopPropagation();
+    });
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    const accountDropdown = document.getElementById('accountDropdown');
+    const accountMenu = document.getElementById('accountMenu');
+
+    // Toggle mobile menu
+    menuToggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      navLinks.classList.toggle('show');
+      this.setAttribute('aria-expanded', navLinks.classList.contains('show'));
+    });
+
+    // Toggle account dropdown on mobile
+    accountDropdown.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      // On mobile, toggle the dropdown
+      if (window.innerWidth <= 768) {
+        const dropdown = this.parentElement;
+        dropdown.classList.toggle('active');
+      }
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function (e) {
+      if (window.innerWidth <= 768) {
+        // Close mobile menu
+        if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+          navLinks.classList.remove('show');
+          menuToggle.setAttribute('aria-expanded', 'false');
+
+          // Close any open dropdowns
+          document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+          });
+        }
+      }
+    });
+
+    // Close dropdowns when clicking a link (on mobile)
+    navLinks.addEventListener('click', function (e) {
+      if (window.innerWidth <= 768 && e.target.tagName === 'A') {
+        // Close menu if not a dropdown toggle
+        if (!e.target.classList.contains('dropdown-toggle')) {
+          navLinks.classList.remove('show');
+          menuToggle.setAttribute('aria-expanded', 'false');
+        }
+      }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function () {
+      // Reset menu on desktop
+      if (window.innerWidth > 768) {
+        navLinks.classList.remove('show');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+          dropdown.classList.remove('active');
+        });
+      }
+    });
+  </script>
+  <script src="currency-converter.js"></script>
+  <script src="nav-behavior.js?v=20260921-safe-nav"></script>
+  <script src="usd-display.js?v=20260901"></script>
+</body>
+
+</html>

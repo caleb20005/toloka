@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Control Tower · Toloka</title>
+  <link rel="stylesheet" href="site-system.css">
+  <link rel="stylesheet" href="control-tower-reports.css">
+  <link rel="stylesheet" href="edge-to-edge.css?v=20260909">
+</head>
+<body>
+  <header class="report-header"><a class="brand" href="Homepage.html" aria-label="Toloka home"><span class="brand-mark"><i></i><i></i></span><span>toloka</span></a><button class="menu-button" id="menuButton" aria-label="Open Control Tower menu" aria-expanded="false"><i></i><i></i></button></header>
+  <nav class="tower-menu" id="towerMenu" hidden>
+    <a href="collector.html">Collector</a><a href="cashflow.html">Cash flow</a><a href="deposit-numbers.html">Change deposit number</a><a href="withdrawal-requests.html">Withdrawal requests</a><a href="registrations.html">Registrations</a><a href="referral-program.html">Referral program</a>
+  </nav>
+  <main class="report-main">
+    <p class="report-kicker">OPERATIONS</p><h1>Control Tower</h1>
+    <p class="report-intro">Monitor independent payment verification, withdrawals, registrations, and referral performance from one secure workspace.</p>
+    <section class="report-cards">
+      <a class="report-card" href="collector.html"><span>01</span><h2>Collector</h2><p>Review M-PESA receipts, submissions, and payment-phone verification status.</p></a>
+      <a class="report-card" href="cashflow.html"><span>02</span><h2>Cash flow</h2><p>Track platform inflows, outflows, and daily movement.</p></a>
+      <a class="report-card" href="deposit-numbers.html"><span>03</span><h2>Change deposit number</h2><p>Add or remove the active M-PESA numbers used for Task AI payments.</p></a>
+      <a class="report-card" href="withdrawal-requests.html"><span>04</span><h2>Withdrawal requests</h2><p>Filter requests and see the current combined wallet balance.</p></a>
+      <a class="report-card" href="registrations.html"><span>05</span><h2>Registrations</h2><p>Compare each member's paid access and withdrawn amounts.</p></a>
+      <a class="report-card" href="referral-program.html"><span>06</span><h2>Referral program</h2><p>Identify referral activity and accounts needing attention.</p></a>
+    </section>
+  </main>
+  <script>
+    const menuButton = document.querySelector('#menuButton'); const towerMenu = document.querySelector('#towerMenu');
+    menuButton.addEventListener('click', () => { const opening = towerMenu.hidden; towerMenu.hidden = !opening; menuButton.setAttribute('aria-expanded', String(opening)); });
+  </script>
+  <script src="scroll-to-top.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+/* Shared Toloka header mark: matches the contributor Home brand exactly. */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  white-space: nowrap;
+}
+
+.brand-mark {
+  position: relative;
+  display: inline-block;
+  width: 21px;
+  height: 21px;
+  flex: 0 0 21px;
+}
+
+.brand-mark i {
+  position: absolute;
+  display: block;
+  width: 10px;
+  height: 21px;
+  border-radius: 9px 2px 2px 9px;
+  background: currentColor;
+  transform: skewY(-29deg);
+}
+
+.brand-mark i + i {
+  right: 0;
+  border-radius: 2px 9px 9px 2px;
+  transform: skewY(29deg);
+}
+
+@media (max-width: 767px) {
+  .brand { gap: 7px; }
+  .brand-mark { width: 17px; height: 17px; flex-basis: 17px; }
+  .brand-mark i { width: 8px; height: 17px; }
+}

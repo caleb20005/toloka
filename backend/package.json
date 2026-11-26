@@ -1,0 +1,27 @@
+{
+  "name": "my-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "migrate:mysql:dry": "node scripts/migrate-postgres-to-mysql.js --dry-run",
+    "migrate:mysql": "node scripts/migrate-postgres-to-mysql.js",
+    "verify:mysql": "node scripts/verify-mysql.js",
+    "seed:control-tower": "node scripts/seed-control-tower-admin.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "mysql2": "^3.24.3",
+    "pg": "^8.18.0",
+    "sqlite3": "^5.0.2"
+  }
+}

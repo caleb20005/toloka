@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Deposit numbers · Control Tower</title>
+  <link rel="stylesheet" href="control-tower-reports.css?v=20260911">
+  <link rel="stylesheet" href="shared-brand.css?v=20260921">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="Home.html" aria-label="Toloka home"><span class="brand-mark"><i></i><i></i></span><span>toloka</span></a>
+    <nav class="menu" aria-label="Control Tower navigation">
+      <a href="Home.html">Home</a><a href="collector.html">Collector</a><a href="cashflow.html">Cash flow</a>
+      <a href="withdrawal-requests.html">Withdrawals</a><a href="registrations.html">Registrations</a>
+    </nav>
+  </header>
+  <main class="shell">
+    <p class="eyebrow">CONTROL TOWER / PAYMENTS</p>
+    <h1 class="headline">Change deposit number</h1>
+    <p class="sub">Manage the active M-PESA mobile numbers contributors use when purchasing a Task AI package.</p>
+    <section class="summary" aria-live="polite">
+      <article class="metric"><span>Active deposit numbers</span><strong id="numberCount">—</strong></article>
+      <article class="metric"><span>Last refreshed</span><strong id="updated">—</strong></article>
+    </section>
+    <form class="filters" id="addDepositForm" novalidate>
+      <input id="phoneNumber" type="tel" inputmode="tel" autocomplete="tel" placeholder="e.g. 0181 046 863 or +254 181 046 863" aria-label="New deposit number" required>
+      <button type="submit">Add deposit number</button>
+    </form>
+    <p class="sub" id="message" role="status" aria-live="polite"></p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Deposit number</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody id="rows"><tr><td colspan="3">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </main>
+  <script src="auth-fetch.js?v=20260911"></script>
+  <script>
+    const rows = document.querySelector('#rows');
+    const message = document.querySelector('#message');
+    const numberCount = document.querySelector('#numberCount');
+    const updated = document.querySelector('#updated');
+    const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
+    const showMessage = (text, type = '') => { message.textContent = text; message.className = `sub ${type}`; };
+
+    async function request(url, options) {
+      const response = await fetch(url, options);
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.message || 'The request could not be completed.');
+      return data;
+    }
+
+    async function loadNumbers() {
+      rows.innerHTML = '<tr><td colspan="3">Loading…</td></tr>';
+      try {
+        const numbers = await request('/api/admin/deposit-numbers');
+        numberCount.textContent = numbers.filter(number => number.active !== false).length;
+        updated.textContent = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+        rows.innerHTML = numbers.length ? numbers.map(number => `<tr>
+          <td><strong>${escapeHtml(number.phone_number)}</strong></td>
+          <td><span class="badge">${number.active === false ? 'Inactive' : 'Active'}</span></td>
+          <td><button type="button" class="remove-number" data-id="${Number(number.id)}">Remove</button></td>
+        </tr>`).join('') : '<tr><td colspan="3">No deposit numbers have been added.</td></tr>';
+      } catch (error) {
+        rows.innerHTML = `<tr><td colspan="3">${escapeHtml(error.message)}</td></tr>`;
+        showMessage(error.message, 'warning');
+      }
+    }
+
+    document.querySelector('#addDepositForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      const field = document.querySelector('#phoneNumber');
+      const phoneNumber = field.value.trim();
+      if (!phoneNumber) return showMessage('Enter a deposit number first.', 'warning');
+      try {
+        await request('/api/admin/deposit-numbers', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ phoneNumber }) });
+        field.value = '';
+        showMessage('Deposit number added.', 'positive');
+        loadNumbers();
+      } catch (error) { showMessage(error.message, 'warning'); }
+    });
+
+    rows.addEventListener('click', async event => {
+      const button = event.target.closest('.remove-number');
+      if (!button || !confirm('Remove this deposit number?')) return;
+      try {
+        await request(`/api/admin/deposit-numbers/${button.dataset.id}`, { method: 'DELETE' });
+        showMessage('Deposit number removed.', 'positive');
+        loadNumbers();
+      } catch (error) { showMessage(error.message, 'warning'); }
+    });
+    loadNumbers();
+  </script>
+</body>
+</html>

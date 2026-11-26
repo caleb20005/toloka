@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Registrations · Control Tower</title>
+    <link rel="stylesheet" href="control-tower-reports.css" />  <link rel="stylesheet" href="landing-workspace.css?v=20261013">
+</head>
+  <body>
+    <header class="top">
+      <a class="brand" href="collector.html">toloka</a>
+      <nav class="menu">
+        <a href="collector.html">Collector</a
+        ><a href="withdrawal-requests.html">Withdrawals</a
+        ><a href="referral-program.html">Referral Program</a>
+      </nav>
+    </header>
+    <main class="shell">
+      <p class="eyebrow">CONTROL TOWER / CONTRIBUTORS</p>
+      <h1 class="headline">Registrations</h1>
+      <p class="sub">
+        All contributor accounts, Task AI levels purchased, total paid
+        registration fees, and withdrawals to date. Pending and processing
+        withdrawals count toward NET because they already reduced the contributor
+        wallet. Delete removes a pending request
+        without crediting the wallet; Refund credits the wallet and records the
+        request as refunded, which is excluded from NET.
+      </p>
+      <section class="summary">
+        <article class="metric">
+          <span>All registration fees</span
+          ><strong class="positive" id="paid">—</strong>
+        </article>
+        <article class="metric">
+          <span>All withdrawals</span><strong id="withdrawn">—</strong>
+        </article>
+        <article class="metric">
+          <span>Net fees retained</span><strong id="net">—</strong>
+        </article>
+      </section>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Contributor</th>
+              <th>Created</th>
+              <th>Task AI levels</th>
+              <th>Paid fees</th>
+              <th>Withdrawn</th>
+              <th>Net</th>
+            </tr>
+          </thead>
+          <tbody id="rows">
+            <tr>
+              <td colspan="6">Loading…</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <script>
+      const money = (v) =>
+        `$${(Number(v || 0) / 130).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      const esc = (v) =>
+        String(v ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      async function load() {
+        const r = await fetch("/api/control-tower/registrations");
+        const d = await r.json();
+        if (!r.ok) {
+          rows.innerHTML = `<tr><td colspan="6">${esc(d.message || "Unable to load report.")}</td></tr>`;
+          return;
+        }
+        paid.textContent = money(d.totals.paid);
+        withdrawn.textContent = money(d.totals.withdrawn);
+        net.textContent = money(d.totals.net);
+        rows.innerHTML =
+          d.registrations
+            .map(
+              (x) =>
+                `<tr><td>${esc([x.first_name, x.last_name].filter(Boolean).join(" ") || x.phone)}<br><small>${esc(x.phone)}</small></td><td>${new Date(x.created_at).toLocaleDateString()}</td><td>${x.levels.length ? x.levels.map((v) => `AI ${esc(v)}`).join(", ") : "—"}</td><td class="positive">+${money(x.paid)}</td><td class="${x.withdrawalExceedsFees ? "warning" : ""}">${money(x.withdrawn)}</td><td class="${x.net < 0 ? "warning" : "positive"}">${money(x.net)}</td></tr>`,
+            )
+            .join("") || '<tr><td colspan="6">No registrations yet.</td></tr>';
+      }
+      load();
+      setInterval(load, 10000);
+    </script>
+  </body>
+</html>

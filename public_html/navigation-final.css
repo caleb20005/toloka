@@ -1,0 +1,30 @@
+/* Final responsive navigation layer for public marketing pages. */
+@media (max-width: 1100px) {
+  .shared-marketing-mobile.open, .shared-marketing-menu.open, .mobile-menu.open,
+  #mobileMenu.open, .marketing-nav-links.show, .marketing-nav .nav-links.show {
+    box-sizing: border-box !important; display: flex !important; flex-direction: column !important;
+    align-items: stretch !important; position: fixed !important; z-index: 5000 !important;
+    top: 64px !important; right: max(12px, env(safe-area-inset-right)) !important; left: auto !important;
+    width: min(350px, calc(100vw - 24px)) !important; max-height: calc(100dvh - 80px) !important;
+    margin: 0 !important; padding: 12px !important; overflow: auto !important; list-style: none !important;
+    border: 1px solid rgba(255, 255, 255, .38) !important; border-radius: 16px !important;
+    background: rgba(15, 23, 42, .88) !important; box-shadow: 0 20px 46px rgba(15, 23, 42, .28) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(140%) !important; backdrop-filter: blur(20px) saturate(140%) !important;
+  }
+  .shared-marketing-mobile.open a, .shared-marketing-menu.open a, .mobile-menu.open a,
+  #mobileMenu.open a, .marketing-nav-links.show a, .marketing-nav .nav-links.show a {
+    box-sizing: border-box !important; display: flex !important; align-items: center !important;
+    min-height: 42px !important; padding: 10px 12px !important; border-radius: 10px !important;
+    background: transparent !important; color: #fff !important; -webkit-text-fill-color: #fff !important;
+    font-size: .95rem !important; font-weight: 700 !important; line-height: 1.25 !important;
+    text-decoration: none !important;
+  }
+  .shared-marketing-mobile.open a:hover, .shared-marketing-mobile.open a:focus-visible,
+  .shared-marketing-menu.open a:hover, .shared-marketing-menu.open a:focus-visible,
+  .mobile-menu.open a:hover, .mobile-menu.open a:focus-visible, #mobileMenu.open a:hover,
+  #mobileMenu.open a:focus-visible, .marketing-nav-links.show a:hover,
+  .marketing-nav-links.show a:focus-visible, .marketing-nav .nav-links.show a:hover,
+  .marketing-nav .nav-links.show a:focus-visible {
+    outline: none !important; background: rgba(255, 255, 255, .14) !important; color: #fff !important;
+  }
+}

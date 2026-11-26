@@ -1,0 +1,161 @@
+=== Home.html ===
+  HEADER: <header class="report-header"><a class="report-brand" href="Homepage.html">toloka</a><button class="menu-button" id="menuButton" aria-label="Open Control Tower menu" aria-expanded="false"><i></i><i></
+  BTN: <button class="menu-button" id="menuButton" aria-label="Open Control Tower menu" aria-expanded="false"><i></i><i></i></button>
+
+=== Homepage.html ===
+  HEADER: <header>
+    <div class="logo">Toloka</div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+      Menu
+    </button>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+    
+  BTN: <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+      Menu
+    </button>
+  BTN: <button type="button" class="dropdown-toggle" id="accountDropdown" aria-expanded="false"
+            aria-controls="accountMenu">Account</bu
+
+=== Loans.html ===
+  HEADER: <header>
+    <a class="brand" href="Homepage.html" aria-label="Toloka home"><span class="brand-mark"><i></i><i></i></span><span>toloka</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-l
+  BTN: <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+      <span></span><span></span>
+    </button>
+  BTN: <button type="button" class="dropdown-toggle" id="accountDropdown" aria-expanded="false" aria-controls="accountMenu">Account</button>
+
+=== Referals.html ===
+  HEADER: <header>
+    <a class="brand" href="Homepage.html" aria-label="Toloka home"><span class="brand-mark"><i></i><i></i></span><span>toloka</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-l
+  BTN: <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+      <span></span><span></span>
+    </button>
+  BTN: <button type="button" class="dropdown-toggle" id="accountDropdown" aria-expanded="false" aria-controls="accountMenu">Account</button>
+
+=== Testimonials.html ===
+  HEADER: <header>
+    <a class="brand" href="Homepage.html" aria-label="Toloka home"><span class="brand-mark"><i></i><i></i></span><span>toloka</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-l
+  BTN: <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+      <span></span><span></span>
+    </button>
+  BTN: <button type="button" class="dropdown-toggle" id="accountDropdown" aria-expanded="false" aria-controls="accountMenu">Account</button>
+
+=== arena.html ===
+  HEADER: <header class="arena-nav shared-marketing-nav" data-marketing-nav>
+    <a class="brand" href="landing.html" aria-label="Toloka home"><span class="brand-mark"><i></i><i></i></span><span>toloka</span></
+  BTN: <button class="arena-menu" aria-label="Open navigation" aria-expanded="false"><i></i><i></i></button>
+  BTN: <button class="arena-button dark" type="submit">Talk to an expert ↗</button>
+
+=== cashflow.html ===
+  HEADER: <header class="topbar">
+    <div class="nav-right"><a class="brand brand-light" href="Homepage.html" aria-label="Toloka home"><span class="brand-mark"><i></i><i></i></span><span>toloka</span></a></div
+  BTN: <button id="controlMenuToggle" type="button" class="dropbtn tower-menu-toggle" aria-expanded="false" aria-label="Open Control Tower menu"><s
+
+=== collector.html ===
+  HEADER: <header class="topbar">
+    <div class="nav-right">
+      <span class="brand"><i class="fas fa-tower-control"></i> Control Tower</span>
+    </div>
+  </header>
+  BTN: <button id="controlMenuToggle" type="button" class="dropbtn tower-menu-toggle" aria-expanded="false"
+        aria-label="Open Control Tower 
+
+=== control-tower-login.html ===
+
+=== enterprise.html ===
+  HEADER: <header class="site-header"><a class="brand" href="landing.html"><span class="brand-mark"><i></i><i></i></span><span>toloka</span></a><nav class="desktop-nav"><a href="landing.html#solutions">Data Sol
+  BTN: <button class="menu-toggle" aria-label="Open navigation"><span></span><span></span></button>
+
+=== history.html ===
+  HEADER: <header>
+  <a class="brand" href="Homepage.html" aria-label="Toloka home"><span class="brand-mark"><i></i><i></i></span><span>toloka</span></a>
+  <button class="menu-toggle" id="menuToggle" aria-label
+  BTN: <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+    <span></span><span></span>
+  </button>
+  BTN: <button type="button" class="dropdown-toggle" id="accountDropdown" aria-expanded="false" aria-controls="accountMenu">Account</button>
+
+=== index.html ===
+
+=== landing.html ===
+  HEADER: <header class="site-header shared-marketing-nav" id="siteHeader" data-marketing-nav>
+    <a class="brand" href="landing.html" aria-label="Toloka home"><span class="brand-mark"><i></i><i></i></span><sp
+  BTN: <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
+
+=== login.html ===
+  HEADER: <header class="auth-header">
+    <a class="brand" href="landing.html" aria-label="Toloka home"><span class="brand-mark" aria-hidden="true"><i></i><i></i></span><span>toloka</span></a>
+    <a class="ba
+  BTN: <button class="primary-button" type="submit">Log in <span>↗</span></button>
+  BTN: <button type="button" id="previousStep" class="secondary-button" hidden>Back</button>
+  BTN: <button type="button" id="nextStep" class="primary-button">Continue <span>→</span></button>
+  BTN: <button type="submit" id="createAccount" class="primary-button" hidden>Create account <span>↗</span></button>
+
+=== physical-ai.html ===
+  HEADER: <header class="physical-nav shared-marketing-nav" data-marketing-nav><a class="brand brand-light" href="landing.html" aria-label="Toloka home"><span class="brand-mark"><i></i><i></i></span><span>tolok
+
+=== referral-program.html ===
+  HEADER: <header class="top"><a class="brand" href="collector.html">toloka</a><nav class="menu"><a href="collector.html">Collector</a><a href="withdrawal-requests.html">Withdrawals</a><a href="registrations.ht
+
+=== registrations.html ===
+  HEADER: <header class="top"><a class="brand" href="collector.html">toloka</a><nav class="menu"><a href="collector.html">Collector</a><a href="withdrawal-requests.html">Withdrawals</a><a href="referral-program
+
+=== savings.html ===
+  HEADER: <header>
+    <div class="logo">Toloka</div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+      ?
+    </button>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+       
+  BTN: <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+      ?
+    </button>
+  BTN: <button type="button" class="dropdown-toggle" id="accountDropdown" aria-expanded="false"
+            aria-controls="accountMenu">Account</bu
+
+=== status.html ===
+  HEADER: <header>
+    <div class="logo">Toloka</div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+      Menu
+    </button>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+    
+  BTN: <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+      Menu
+    </button>
+  BTN: <button type="button" class="dropdown-toggle active" id="accountDropdown" aria-expanded="false"
+            aria-controls="accountMenu">Acco
+
+=== wallet.html ===
+  HEADER: <header>
+    <div class="logo">Toloka</div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+    <nav aria-label="Contributor navigati
+  BTN: <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+
+=== withdrawal-requests.html ===
+  HEADER: <header class="top"><a class="brand" href="collector.html">toloka</a><nav class="menu"><a href="collector.html">Collector</a><a href="registrations.html">Registrations</a><a href="referral-program.htm
+
+=== withdrawal.html ===
+  HEADER: <header>
+    <div class="logo">Toloka</div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+      Menu
+    </button>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+    
+  BTN: <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+      Menu
+    </button>
+  BTN: <button type="button" class="dropdown-toggle" id="accountDropdown" aria-expanded="false"
+            aria-controls="accountMenu">Account</bu
+

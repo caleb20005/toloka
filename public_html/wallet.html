@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Manage your Toloka earnings, savings, loans, and payouts in one place.">
+  <title>Wallet · Toloka</title>
+  <link rel="stylesheet" href="outlier-ui.css?v=20260901">
+  <link rel="stylesheet" href="contributor-theme.css?v=20260901">
+  <link rel="stylesheet" href="site-system.css?v=20260901">
+  <link rel="stylesheet" href="edge-to-edge.css?v=20260915-nav">
+  <link rel="stylesheet" href="wallet.css?v=20260901">
+  <link rel="stylesheet" href="wallet-redesign.css?v=20260907">
+  <link rel="stylesheet" href="workspace-core.css?v=20260909">
+  <link rel="stylesheet" href="workspace-polish.css?v=20260909">
+  <link rel="stylesheet" href="experience-quality.css?v=20260909">
+  <link rel="stylesheet" href="workspace-interactions.css?v=20260915-nav">
+  <link rel="stylesheet" href="landing-workspace.css?v=20261013">
+</head>
+
+<body class="link-workspace wallet-page">
+  <header>
+    <a class="brand" href="Homepage.html" aria-label="Toloka home"><span class="brand-mark"><i></i><i></i></span><span>toloka</span></a>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span></button>
+    <nav aria-label="Contributor navigation">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="Homepage.html">Home</a></li>
+        <li><a href="wallet.html" class="active">Wallet</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="wallet-shell">
+    <section class="wallet-hero">
+      <div>
+        <p class="wallet-kicker">CONTRIBUTOR WALLET</p>
+        <h1>Your money,<br>in one place.</h1>
+        <p>See earnings, grow savings, apply for credit, and request payouts without moving between separate dashboards.
+        </p>
+      </div>
+      <div class="wallet-total" aria-live="polite">
+        <span>Available earnings</span>
+        <strong id="availableEarnings">$0.00</strong>
+        <small id="walletStatus">Loading your wallet…</small>
+      </div>
+    </section>
+
+    <section class="wallet-summary" aria-label="Wallet balances">
+      <article><span>Lifetime earnings</span><strong id="lifetimeEarnings">$0.00</strong><small>From completed
+          contributor work</small></article>
+      <article><span>Savings balance</span><strong id="savingsBalance">$0.00</strong><small>Includes recorded daily
+          interest</small></article>
+      <article><span>Open requests</span><strong id="openRequests">0</strong><small>Loans and payout requests in
+          review</small></article>
+    </section>
+
+    <section class="wallet-actions" aria-labelledby="wallet-actions-title">
+      <div class="wallet-section-heading">
+        <div>
+          <p class="wallet-kicker">MONEY TOOLS</p>
+          <h2 id="wallet-actions-title">Choose what you need.</h2>
+        </div>
+        <p>Each area keeps its full detail page, while Wallet gives you the simple next step.</p>
+      </div>
+      <div class="wallet-action-grid">
+        <article class="wallet-action earnings">
+          <div class="wallet-number">01</div>
+          <h3>Withdraw earnings</h3>
+          <p>Request a payout when your contributor earnings are ready.</p><a href="withdrawal.html">Open withdrawals
+            <span>↗</span></a>
+        </article>
+        <article class="wallet-action savings">
+          <div class="wallet-number">02</div>
+          <h3>Save for your goals</h3>
+          <p>Deposit, track interest, and request a savings withdrawal.</p><a href="savings.html">Open savings
+            <span>↗</span></a>
+        </article>
+        <article class="wallet-action credit">
+          <div class="wallet-number">03</div>
+          <h3>Explore a loan</h3>
+          <p>Review your contributor-based loan options and submit an application.</p><a href="Loans.html">Open loans
+            <span>↗</span></a>
+        </article>
+      </div>
+    </section>
+
+    <section class="wallet-activity" aria-labelledby="wallet-activity-title">
+      <div class="wallet-section-heading">
+        <div>
+          <p class="wallet-kicker">RECENT ACTIVITY</p>
+          <h2 id="wallet-activity-title">What is happening now.</h2>
+        </div><a class="wallet-history-link" href="history.html">View all history ↗</a>
+      </div>
+      <div class="wallet-activity-list" id="walletActivity" aria-live="polite">
+        <p class="wallet-empty">Loading recent requests…</p>
+      </div>
+    </section>
+  </main>
+  <script src="currency-converter.js?v=20260901"></script>
+  <script src="wallet.js?v=20260915-currency"></script>
+  <script src="nav-behavior.js?v=20260921-safe-nav"></script>
+  <script src="usd-display.js?v=20260901"></script>
+</body>
+
+</html>
+<script defer src="rebrand.js?v=20260902"></script>
